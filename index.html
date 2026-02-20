@@ -12,6 +12,12 @@
   <meta name="twitter:title" content="Speech to Sign">
   <meta name="twitter:description" content="Convert speech and text to sign visuals instantly.">
   <meta name="twitter:image" content="marketing seo image.png">
+  <meta name="theme-color" content="#0f7f88">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Speech to Sign">
+  <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/png" href="Gemini_Generated_Image_x0oe4fx0oe4fx0oe.png">
   <link rel="apple-touch-icon" href="Gemini_Generated_Image_x0oe4fx0oe4fx0oe.png">
   <title>Speech to Sign</title>
@@ -20,7 +26,7 @@
     *{box-sizing:border-box}html,body{margin:0}
     html{-webkit-text-size-adjust:100%}
     body{font-family:Segoe UI,Tahoma,sans-serif;color:var(--ink);background:linear-gradient(160deg,#f5efe6,#d8e6f6);overflow-x:hidden}
-    .splash{position:fixed;inset:0;z-index:3000;background:#fff;display:grid;place-items:center;padding:20px;opacity:1;visibility:visible;transition:opacity .32s ease,visibility .32s ease}
+    .splash{position:fixed;inset:0;z-index:3000;background:#fff;display:grid;place-items:center;padding:20px;opacity:1;visibility:visible;transition:opacity .3s ease,visibility .3s ease}
     .splash img{width:min(980px,92vw);max-height:88vh;object-fit:contain}
     .splash.hide{opacity:0;visibility:hidden}
     .page{min-height:100vh;padding:clamp(8px,2.5vw,20px);display:flex;align-items:center;justify-content:center}
@@ -120,6 +126,67 @@
       "meet":["meet","la kulan","encuentro","rencontrer","treffen"],"happy":["happy","faraxsan","feliz","heureux","mutlu"],
       "dont understand":["dont understand","don't understand","do not understand","ma fahmin","no entiendo","je ne comprends pas"]
     };
+    const SO = {
+      "hello":"salaan",
+      "i love you":"waan ku jeclahay",
+      "yes":"haa",
+      "time":"waqti",
+      "name":"magac",
+      "more":"inbadan",
+      "meet":"la kulan",
+      "happy":"faraxsan",
+      "dont understand":"ma fahmin"
+    };
+    const TEXT = {
+      en: {
+        idle: "Idle",
+        listening: "Listening...",
+        processing: "Processing...",
+        showing: "Showing",
+        defaultTranscript: "Click the microphone and start speaking.",
+        defaultPlaceholder: "Signs will appear here one by one.",
+        noMap: "No mappable signs found for the input.",
+        emptyInput: "Please speak or type a sentence first.",
+        waitingInput: "Waiting for valid text input.",
+        noSpeech: "No speech detected. Please try again.",
+        unsupported: "Speech recognition not supported in this browser. Please use Google Chrome.",
+        micDenied: "Microphone permission denied. Please allow mic access in your browser.",
+        micDeniedHelp: "Microphone permission is required.",
+        noMic: "No microphone was detected. Connect a mic and try again.",
+        noMicHelp: "No microphone available.",
+        speechErr: "Speech recognition error",
+        speechErrHelp: "Could not process speech input.",
+        micBlocked: "Microphone blocked",
+        micMissing: "No microphone",
+        error: "Error",
+        micStartFail: "Could not start microphone. Please allow mic access and try again.",
+        micStartFailHelp: "Microphone start failed."
+      },
+      so: {
+        idle: "Sug",
+        listening: "Dhageysanaya...",
+        processing: "Habaynaya...",
+        showing: "Muujinaya",
+        defaultTranscript: "Riix makarafoonka kadib hadal.",
+        defaultPlaceholder: "Calaamadaha ayaa halkan ku soo muuqanaya mid mid.",
+        noMap: "Ma helin calaamad ku habboon qoraalka.",
+        emptyInput: "Fadlan hadal ama qor jumlad marka hore.",
+        waitingInput: "Waxaan sugayaa qoraal sax ah.",
+        noSpeech: "Hadal lama maqal. Fadlan mar kale isku day.",
+        unsupported: "Aqoonsiga codka browser-kan ma taageero. Fadlan isticmaal Chrome.",
+        micDenied: "Ogolaanshaha makarafoonka waa la diiday. Fadlan ogolow makarafoonka.",
+        micDeniedHelp: "Makarafoon ogolaansho ayaa loo baahan yahay.",
+        noMic: "Makarafoon lama helin. Ku xidh makarafoon kadib isku day mar kale.",
+        noMicHelp: "Makarafoon lama heli karo.",
+        speechErr: "Khalad aqoonsiga codka",
+        speechErrHelp: "Gelinta codka lama farsameyn karin.",
+        micBlocked: "Makarafoon xiran",
+        micMissing: "Makarafoon ma jiro",
+        error: "Khalad",
+        micStartFail: "Makarafoonka lama bilaabi karin. Fadlan ogolow makarafoonka kadibna isku day mar kale.",
+        micStartFailHelp: "Bilowga makarafoonka wuu fashilmay."
+      }
+    };
 
     const phraseMap = {}, wordMap = {}, aliasMap = {};
     Object.entries(SIGN).forEach(([k,v]) => { const src=`assets/signs/${encodeURIComponent(v)}`; phraseMap[k]={src,token:k}; k.split(" ").forEach(w=>wordMap[w]??=src); });
@@ -132,10 +199,13 @@
 
     function setupSplash(){
       if(!splash) return;
+      const totalMs = 2000;
+      const fadeMs = 300;
+      const holdMs = totalMs - fadeMs;
       setTimeout(() => {
         splash.classList.add("hide");
-        setTimeout(() => splash.remove(), 360);
-      }, 2000);
+        setTimeout(() => splash.remove(), fadeMs + 10);
+      }, holdMs);
     }
 
     const setStatus = (kind,txt) => { el.status.className = `status ${kind}`.trim(); el.status.textContent = txt; };
@@ -143,70 +213,81 @@
     const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
     const aliasNorm = t => { let n=norm(t).replace(/\bgoing to\b/g,"go").replace(/\bi am\b/g,"i");
       Object.keys(aliasMap).sort((a,b)=>b.length-a.length).forEach(a=>{ n=n.replace(new RegExp(`\\b${esc(a)}\\b`,"g"),aliasMap[a]); }); return n; };
+    const isSomali = () => (el.langSel?.value || "").toLowerCase().startsWith("so");
+    const t = (key) => (isSomali() ? TEXT.so[key] : TEXT.en[key]);
+    const displayToken = (token) => (isSomali() && SO[token] ? SO[token] : token);
+    const localizeText = (text) => {
+      if (!isSomali() || !text) return text;
+      let out = text;
+      Object.keys(SO).sort((a,b)=>b.length-a.length).forEach((k)=>{
+        out = out.replace(new RegExp(`\\b${esc(k)}\\b`, "g"), SO[k]);
+      });
+      return out;
+    };
 
-    const clearShow = (m="Signs will appear here one by one.") => { el.show.innerHTML=`<p class="ph">${m}</p>`; el.tok.textContent=""; };
+    const clearShow = (m=t("defaultPlaceholder")) => { el.show.innerHTML=`<p class="ph">${m}</p>`; el.tok.textContent=""; };
     const tokenCard = (token,title="Text") => { el.show.innerHTML=`<div class="tcard fade"><div><b>${title}</b><span>${token}</span></div></div>`; };
 
     const queueFor = (words, forceAlpha) => {
       const q=[]; const max=3;
       for(let i=0;i<words.length;i++){
         const w=words[i];
-        if(forceAlpha){ [...w].filter(c=>c>="a"&&c<="z").forEach(c=>q.push({src:`assets/alphabet/${c}.gif`,token:c})); continue; }
+        if(forceAlpha){ [...w].filter(c=>c>="a"&&c<="z").forEach(c=>q.push({src:`assets/alphabet/${c}.gif`,token:c,display:c})); continue; }
         let found=null, size=0;
         for(let s=max;s>=2;s--){ if(i+s>words.length) continue; const p=words.slice(i,i+s).join(" "); if(phraseMap[p]){found=p;size=s;break;} }
-        if(found){ q.push(phraseMap[found]); i+=size-1; continue; }
-        if(wordMap[w]) { q.push({src:wordMap[w],token:w}); continue; }
-        q.push({src:"",token:w,fallback:true,title:"Text"});
+        if(found){ q.push({...phraseMap[found], display:displayToken(found)}); i+=size-1; continue; }
+        if(wordMap[w]) { q.push({src:wordMap[w],token:w,display:displayToken(w)}); continue; }
+        q.push({src:"",token:w,display:w,fallback:true,title:isSomali()?"Qoraal":"Text"});
       }
       return q;
     };
 
     const render = item => new Promise(res=>{
-      if(output==="text"){ tokenCard(item.token,"Text"); res(); return; }
-      if(item.fallback || !item.src){ tokenCard(item.token,item.title||"Text"); res(); return; }
+      if(output==="text"){ tokenCard(item.display || item.token,isSomali()?"Qoraal":"Text"); res(); return; }
+      if(item.fallback || !item.src){ tokenCard(item.display || item.token,item.title || (isSomali()?"Qoraal":"Text")); res(); return; }
       const img=new Image(); let done=false; const fin=()=>{if(done)return;done=true;res();};
       img.className="fade"; img.alt=`Sign animation for ${item.token}`; img.src=item.src;
       img.onload=()=>{el.show.innerHTML=""; el.show.appendChild(img); fin();};
-      img.onerror=()=>{tokenCard(item.token,"Text"); fin();};
-      setTimeout(()=>{ if(!done){tokenCard(item.token,"Text"); fin();}},450);
+      img.onerror=()=>{tokenCard(item.display || item.token,isSomali()?"Qoraal":"Text"); fin();};
+      setTimeout(()=>{ if(!done){tokenCard(item.display || item.token,isSomali()?"Qoraal":"Text"); fin();}},450);
     });
 
     async function play(words, forceAlpha=false){
       run++; const id=run; const q=queueFor(words, forceAlpha);
-      if(!q.length){ clearShow("No mappable signs found for the input."); setStatus("","Idle"); return; }
-      for(const item of q){ if(id!==run) return; el.tok.textContent=`Showing: ${item.token}`; await render(item); await wait(1200); }
-      if(id===run) setStatus("","Idle");
+      if(!q.length){ clearShow(t("noMap")); setStatus("",t("idle")); return; }
+      for(const item of q){ if(id!==run) return; el.tok.textContent=`${t("showing")}: ${item.display || item.token}`; await render(item); await wait(1200); }
+      if(id===run) setStatus("",t("idle"));
     }
 
     function translate(raw){
       const normalized = aliasNorm(raw);
-      if(!normalized){ el.trans.textContent="Please speak or type a sentence first."; clearShow("Waiting for valid text input."); setStatus("","Idle"); return; }
+      if(!normalized){ el.trans.textContent=t("emptyInput"); clearShow(t("waitingInput")); setStatus("",t("idle")); return; }
       const req=/\b(spell|alphabet|letter|letters)\b/g; const askAlpha=req.test(normalized);
       const clean=normalized.replace(req," ").replace(/\s+/g," ").trim(); const final=clean || normalized;
       const words=final.split(" ").filter(Boolean).filter(w=>!new Set(["am","is","are","the","a","an"]).has(w));
-      last=final; el.trans.textContent=final; setStatus("processing","Processing..."); play(words, fallback==="alphabet" || askAlpha);
+      last=final; el.trans.textContent=localizeText(final); setStatus("processing",t("processing")); play(words, fallback==="alphabet" || askAlpha);
     }
 
-    function reset(){ run++; el.trans.textContent="Click the microphone and start speaking."; el.input.value=""; clearShow(); el.mic.classList.remove("listening"); el.mic.setAttribute("aria-label","Start speech recognition"); listening=false; hadResult=false; manualStop=false; last=""; setStatus("","Idle"); }
+    function reset(){ run++; el.trans.textContent=t("defaultTranscript"); el.input.value=""; clearShow(); el.mic.classList.remove("listening"); el.mic.setAttribute("aria-label","Start speech recognition"); listening=false; hadResult=false; manualStop=false; last=""; setStatus("",t("idle")); }
     const replay=()=>{ if(last) translate(last); };
     const tog=(on,off)=>{on.classList.add("on");off.classList.remove("on");on.setAttribute("aria-pressed","true");off.setAttribute("aria-pressed","false");};
 
     function setupMic(){
-      if(!SR){ el.trans.textContent="Speech recognition not supported in this browser. Please use Google Chrome."; el.mic.disabled=true; setStatus("","Idle"); return; }
+      if(!SR){ el.trans.textContent=t("unsupported"); el.mic.disabled=true; setStatus("",t("idle")); return; }
       rec = new SR(); rec.lang=el.langSel?.value || "en-US"; rec.continuous=false; rec.interimResults=false; rec.maxAlternatives=1;
-      rec.onstart=()=>{listening=true;hadResult=false;manualStop=false;el.mic.classList.add("listening");el.mic.setAttribute("aria-label","Stop speech recognition");setStatus("listening","Listening...");};
-      rec.onresult=(e)=>{hadResult=true; const t=(e.results?.[0]?.[0]?.transcript||"").trim(); if(!t){el.trans.textContent="No speech detected. Please try again."; clearShow("No speech detected. Please try again."); setStatus("","Idle"); return;} translate(t);};
-      rec.onend=()=>{listening=false;el.mic.classList.remove("listening");el.mic.setAttribute("aria-label","Start speech recognition"); if(!hadResult && !manualStop){el.trans.textContent="No speech detected. Please try again."; clearShow("No speech detected. Please try again."); setStatus("","Idle");} manualStop=false;};
+      rec.onstart=()=>{listening=true;hadResult=false;manualStop=false;el.mic.classList.add("listening");el.mic.setAttribute("aria-label","Stop speech recognition");setStatus("listening",t("listening"));};
+      rec.onresult=(e)=>{hadResult=true; const heard=(e.results?.[0]?.[0]?.transcript||"").trim(); if(!heard){el.trans.textContent=t("noSpeech"); clearShow(t("noSpeech")); setStatus("",t("idle")); return;} translate(heard);};
+      rec.onend=()=>{listening=false;el.mic.classList.remove("listening");el.mic.setAttribute("aria-label","Start speech recognition"); if(!hadResult && !manualStop){el.trans.textContent=t("noSpeech"); clearShow(t("noSpeech")); setStatus("",t("idle"));} manualStop=false;};
       rec.onerror=(e)=>{const err=e.error||"unknown-error";
-        if(err==="not-allowed"||err==="service-not-allowed"){el.trans.textContent="Microphone permission denied. Please allow mic access in your browser."; clearShow("Microphone permission is required."); setStatus("error","Microphone blocked");}
-        else if(err==="audio-capture"){el.trans.textContent="No microphone was detected. Connect a mic and try again."; clearShow("No microphone available."); setStatus("error","No microphone");}
-        else if(err==="no-speech"){el.trans.textContent="No speech detected. Please try again."; clearShow("No speech detected. Please try again."); setStatus("","Idle");}
-        else{el.trans.textContent=`Speech recognition error: ${err}`; clearShow("Could not process speech input."); setStatus("error","Error");}
+        if(err==="not-allowed"||err==="service-not-allowed"){el.trans.textContent=t("micDenied"); clearShow(t("micDeniedHelp")); setStatus("error",t("micBlocked"));}
+        else if(err==="audio-capture"){el.trans.textContent=t("noMic"); clearShow(t("noMicHelp")); setStatus("error",t("micMissing"));}
+        else if(err==="no-speech"){el.trans.textContent=t("noSpeech"); clearShow(t("noSpeech")); setStatus("",t("idle"));}
+        else{el.trans.textContent=`${t("speechErr")}: ${err}`; clearShow(t("speechErrHelp")); setStatus("error",t("error"));}
         listening=false;hadResult=false;manualStop=false;el.mic.classList.remove("listening");el.mic.setAttribute("aria-label","Start speech recognition");
       };
     }
 
-    el.mic.addEventListener("click",()=>{ if(!rec) return; if(listening){manualStop=true;rec.stop();return;} try{rec.start();}catch{el.trans.textContent="Could not start microphone. Please allow mic access and try again.";clearShow("Microphone start failed.");setStatus("","Idle");}});
+    el.mic.addEventListener("click",()=>{ if(!rec) return; if(listening){manualStop=true;rec.stop();return;} try{rec.start();}catch{el.trans.textContent=t("micStartFail");clearShow(t("micStartFailHelp"));setStatus("",t("idle"));}});
     el.translate.addEventListener("click",()=>translate(el.input.value));
     el.input.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();translate(el.input.value);}});
     el.clear.addEventListener("click",()=>{ if(rec&&listening) rec.stop(); reset(); });
@@ -217,6 +298,13 @@
     el.langSel?.addEventListener("change",()=>{
       if(!rec) return;
       rec.lang = el.langSel.value;
+      if(!last){
+        el.trans.textContent = t("defaultTranscript");
+        clearShow();
+        setStatus("", t("idle"));
+      } else {
+        replay();
+      }
       if(listening){
         manualStop = true;
         rec.stop();
@@ -224,7 +312,14 @@
       }
     });
 
-    clearShow(); setStatus("","Idle"); setupSplash(); setupMic();
+    el.trans.textContent = t("defaultTranscript");
+    clearShow(); setStatus("",t("idle")); setupSplash(); setupMic();
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
+      });
+    }
   })();
   </script>
 </body>
