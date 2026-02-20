@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Speech to Sign converts spoken or typed words into sign-language visuals with GIF playback and smart fallback modes.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Speech to Sign">
+  <meta property="og:description" content="Convert speech and text to sign visuals instantly.">
+  <meta property="og:image" content="marketing seo image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Speech to Sign">
+  <meta name="twitter:description" content="Convert speech and text to sign visuals instantly.">
+  <meta name="twitter:image" content="marketing seo image.png">
+  <link rel="icon" type="image/png" href="Gemini_Generated_Image_x0oe4fx0oe4fx0oe.png">
+  <link rel="apple-touch-icon" href="Gemini_Generated_Image_x0oe4fx0oe4fx0oe.png">
+  <title>Speech to Sign</title>
+  <style>
+    :root{--bg:#eef4fb;--card:#fff;--line:#d8e3ef;--ink:#122334;--muted:#506173;--a:#0f7f88;--a2:#0a656c}
+    *{box-sizing:border-box}html,body{margin:0}
+    html{-webkit-text-size-adjust:100%}
+    body{font-family:Segoe UI,Tahoma,sans-serif;color:var(--ink);background:linear-gradient(160deg,#f5efe6,#d8e6f6);overflow-x:hidden}
+    .splash{position:fixed;inset:0;z-index:3000;background:#fff;display:grid;place-items:center;padding:20px;opacity:1;visibility:visible;transition:opacity .32s ease,visibility .32s ease}
+    .splash img{width:min(980px,92vw);max-height:88vh;object-fit:contain}
+    .splash.hide{opacity:0;visibility:hidden}
+    .page{min-height:100vh;padding:clamp(8px,2.5vw,20px);display:flex;align-items:center;justify-content:center}
+    .card{width:min(1020px,100%);background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 40px rgba(18,35,52,.14);padding:clamp(12px,2.2vw,22px)}
+    .head{text-align:center;margin-bottom:12px}.head h1{margin:0 0 4px;font-size:clamp(1.35rem,4.8vw,2rem)}.head p{margin:0;color:var(--muted)}
+    .logo{width:clamp(64px,12vw,90px);height:auto;display:block;margin:0 auto 8px}
+    .controls{display:grid;place-items:center;gap:8px;margin-bottom:12px}
+    .mic{width:80px;height:80px;border-radius:50%;border:none;background:linear-gradient(145deg,#4facfe,#00f2fe);box-shadow:0 10px 20px rgba(74,144,226,.3);display:grid;place-items:center;cursor:pointer;transition:.3s}
+    .mic:hover{transform:scale(1.05);box-shadow:0 15px 25px rgba(74,144,226,.4)}.mic.listening{animation:pulse 1.5s infinite}.mic svg{width:32px;height:32px;fill:#fff}
+    .status{min-height:20px;font-weight:700;color:var(--muted)}.status.listening{color:var(--a2)}.status.processing{color:#8a5a00}.status.error{color:#b43f34}
+    .settings{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:12px}
+    .set{background:#f8fbff;border:1px solid var(--line);border-radius:12px;padding:10px}.set label{display:block;font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+    .tog{display:grid;grid-template-columns:1fr 1fr;gap:8px}.tog button{min-height:40px;border-radius:10px;border:1px solid #c5d7e8;background:#fff;font-weight:700;cursor:pointer;padding:0 8px;white-space:nowrap}.tog button.on{border-color:var(--a);background:#e2f6f7;color:var(--a2)}
+    .manual{margin-bottom:12px}.manual label{display:block;font-weight:700;margin-bottom:8px}.row{display:grid;grid-template-columns:1fr;gap:8px}
+    input{width:100%;min-height:46px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:1rem}
+    .btn{width:100%;min-height:46px;border:none;border-radius:10px;background:var(--a);color:#fff;font-weight:700;padding:0 16px;cursor:pointer}
+    .out{display:grid;grid-template-columns:1fr;gap:10px}.blk{background:#f8fbff;border:1px solid var(--line);border-radius:12px;padding:12px}.blk h2{margin:0 0 8px;font-size:1rem}
+    .trans{min-height:28px;overflow-wrap:anywhere}.show{min-height:clamp(150px,30vw,220px);border:1px dashed #95aec7;border-radius:12px;background:linear-gradient(180deg,#edf6ff,#eefaf7);display:flex;align-items:center;justify-content:center;padding:12px;text-align:center}
+    .show img{width:min(340px,100%);max-height:220px;border-radius:10px;border:1px solid #bed1e3;background:#fff;box-shadow:0 10px 20px rgba(20,36,51,.16)}
+    .tok{margin-top:8px;min-height:21px;color:var(--muted);font-weight:700}.ph{color:var(--muted)}
+    .tcard{min-width:140px;min-height:110px;border:1px solid #bed1e3;border-radius:10px;background:#fff;display:grid;place-items:center;padding:10px}
+    .tcard b{font-size:.8rem;color:var(--muted);display:block}.tcard span{font-weight:700;color:var(--a2);text-transform:uppercase;word-break:break-word}
+    .act{margin-top:12px;display:flex;justify-content:center}.clear{width:100%;max-width:240px;min-height:44px;border-radius:12px;border:2px solid var(--a);background:#fff;color:var(--a2);font-weight:700;cursor:pointer}
+    .footer{padding:0 clamp(8px,2vw,14px) clamp(10px,2vw,14px)}.credit{margin:auto;max-width:1020px;padding:1rem;border-top:1px solid rgba(20,36,51,.12);text-align:center;background:linear-gradient(135deg,rgba(15,127,136,.15),rgba(255,225,170,.45));border-radius:14px}
+    .credit a{text-decoration:none;color:inherit;display:inline-block}.credit p{margin:0 0 6px;font-size:.72rem;letter-spacing:2.2px;text-transform:uppercase;opacity:.65}.credit strong{display:inline-block;padding:.38rem .9rem;border-radius:999px;border:1px solid rgba(20,36,51,.25)}
+    .fade{animation:fin .22s ease}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,242,254,.7)}70%{box-shadow:0 0 0 20px rgba(0,242,254,0)}100%{box-shadow:0 0 0 0 rgba(0,242,254,0)}}
+    @keyframes fin{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+    @media(min-width:720px){.settings{grid-template-columns:1fr 1fr}.row{grid-template-columns:1fr auto}.btn{width:auto;min-width:170px}.out{grid-template-columns:1fr 1fr}}
+    @media(max-width:420px){.page{padding:8px}.card{border-radius:14px}.head h1{font-size:1.25rem}.head p{font-size:.9rem}.show img{max-height:160px}.credit strong{font-size:.88rem;padding:.34rem .8rem}}
+    @media(min-width:1200px){.card{padding:24px}}
+  </style>
+</head>
+<body>
+  <div id="entrySplash" class="splash" aria-hidden="true"><img src="marketing seo image.png" alt="Speech to Sign marketing"></div>
+  <main class="page">
+    <section class="card">
+      <header class="head"><img class="logo" src="logo (2).png" alt="Speech to Sign logo"><h1>Speech to Sign</h1><p>Speak and see it in sign language</p></header>
+      <section class="controls">
+        <button id="micBtn" class="mic" aria-label="Start speech recognition">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+        </button>
+        <p id="status" class="status">Idle</p>
+      </section>
+      <section class="settings">
+        <div class="set"><label>Output</label><div class="tog"><button id="gifBtn" class="on">GIFs</button><button id="textBtn">Text</button></div></div>
+        <div class="set"><label>Fallback</label><div class="tog"><button id="smartBtn" class="on">Smart</button><button id="alphaBtn">Alphabet</button></div></div>
+      </section>
+      <section class="manual"><label for="input">Type text to translate</label><div class="row"><input id="input" placeholder="Example: hello, i love you"><button id="translate" class="btn">Translate Text</button></div></section>
+      <section class="out">
+        <div class="blk"><h2>Recognized Text</h2><p id="trans" class="trans">Click the microphone and start speaking.</p></div>
+        <div class="blk"><h2>Sign Playback</h2><div id="show" class="show"><p class="ph">Signs will appear here one by one.</p></div><p id="tok" class="tok"></p></div>
+      </section>
+      <section class="act"><button id="clear" class="clear">Clear</button></section>
+    </section>
+  </main>
+  <footer class="footer"><div class="credit"><a href="https://raazimtech.github.io/Raazim-tech/" target="_blank" rel="noopener"><p>Made By</p><strong>RT Solutions</strong></a></div></footer>
+
+  <script>
+  (() => {
+    const el = {
+      mic: document.getElementById("micBtn"), status: document.getElementById("status"), input: document.getElementById("input"),
+      translate: document.getElementById("translate"), trans: document.getElementById("trans"), show: document.getElementById("show"),
+      tok: document.getElementById("tok"), clear: document.getElementById("clear"), gifBtn: document.getElementById("gifBtn"),
+      textBtn: document.getElementById("textBtn"), smartBtn: document.getElementById("smartBtn"), alphaBtn: document.getElementById("alphaBtn")
+    };
+
+    const SIGN = {
+      "hello":"americansignlanguage hello GIF.gif","i love you":"Happy I Love You GIF by joeyahlbum.gif","yes":"Sign Language Yes GIF by @InvestInAccess.gif",
+      "time":"Sign Language Time GIF.gif","name":"sign language name GIF.gif","more":"more.gif","meet":"meet.gif","happy":"happy sign language GIF.gif","dont understand":"don't understand.gif"
+    };
+    const ALIAS = {
+      "hello":["hello","hi","hey","salam","hola","bonjour"],
+      "i love you":["i love you","waan ku jeclahay","te quiero","te amo","ich liebe dich","nakupenda","wo ai ni"],
+      "yes":["yes","haa","si","oui","ja","sim","evet"],"time":["time","waqti","tiempo","temps","zeit","wakati"],
+      "name":["name","magac","nombre","nom","isim","jina"],"more":["more","inbadan","ka badan","mas","plus","mehr"],
+      "meet":["meet","la kulan","encuentro","rencontrer","treffen"],"happy":["happy","faraxsan","feliz","heureux","mutlu"],
+      "dont understand":["dont understand","don't understand","do not understand","ma fahmin","no entiendo","je ne comprends pas"]
+    };
+
+    const phraseMap = {}, wordMap = {}, aliasMap = {};
+    Object.entries(SIGN).forEach(([k,v]) => { const src=`assets/signs/${encodeURIComponent(v)}`; phraseMap[k]={src,token:k}; k.split(" ").forEach(w=>wordMap[w]??=src); });
+    Object.entries(ALIAS).forEach(([k,arr]) => arr.forEach(a => aliasMap[a]=k));
+
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let rec = null, listening=false, hadResult=false, manualStop=false, run=0, output="gif", fallback="smart", last="";
+    const wait = ms => new Promise(r=>setTimeout(r,ms));
+    const splash = document.getElementById("entrySplash");
+
+    function setupSplash(){
+      if(!splash) return;
+      setTimeout(() => {
+        splash.classList.add("hide");
+        setTimeout(() => splash.remove(), 360);
+      }, 2000);
+    }
+
+    const setStatus = (kind,txt) => { el.status.className = `status ${kind}`.trim(); el.status.textContent = txt; };
+    const norm = t => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[.,!?;:"'()\-]/g," ").replace(/\s+/g," ").trim();
+    const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+    const aliasNorm = t => { let n=norm(t).replace(/\bgoing to\b/g,"go").replace(/\bi am\b/g,"i");
+      Object.keys(aliasMap).sort((a,b)=>b.length-a.length).forEach(a=>{ n=n.replace(new RegExp(`\\b${esc(a)}\\b`,"g"),aliasMap[a]); }); return n; };
+
+    const clearShow = (m="Signs will appear here one by one.") => { el.show.innerHTML=`<p class="ph">${m}</p>`; el.tok.textContent=""; };
+    const tokenCard = (token,title="Text") => { el.show.innerHTML=`<div class="tcard fade"><div><b>${title}</b><span>${token}</span></div></div>`; };
+
+    const queueFor = (words, forceAlpha) => {
+      const q=[]; const max=3;
+      for(let i=0;i<words.length;i++){
+        const w=words[i];
+        if(forceAlpha){ [...w].filter(c=>c>="a"&&c<="z").forEach(c=>q.push({src:`assets/alphabet/${c}.gif`,token:c})); continue; }
+        let found=null, size=0;
+        for(let s=max;s>=2;s--){ if(i+s>words.length) continue; const p=words.slice(i,i+s).join(" "); if(phraseMap[p]){found=p;size=s;break;} }
+        if(found){ q.push(phraseMap[found]); i+=size-1; continue; }
+        if(wordMap[w]) { q.push({src:wordMap[w],token:w}); continue; }
+        q.push({src:"",token:w,fallback:true,title:"Text"});
+      }
+      return q;
+    };
+
+    const render = item => new Promise(res=>{
+      if(output==="text"){ tokenCard(item.token,"Text"); res(); return; }
+      if(item.fallback || !item.src){ tokenCard(item.token,item.title||"Text"); res(); return; }
+      const img=new Image(); let done=false; const fin=()=>{if(done)return;done=true;res();};
+      img.className="fade"; img.alt=`Sign animation for ${item.token}`; img.src=item.src;
+      img.onload=()=>{el.show.innerHTML=""; el.show.appendChild(img); fin();};
+      img.onerror=()=>{tokenCard(item.token,"Text"); fin();};
+      setTimeout(()=>{ if(!done){tokenCard(item.token,"Text"); fin();}},450);
+    });
+
+    async function play(words, forceAlpha=false){
+      run++; const id=run; const q=queueFor(words, forceAlpha);
+      if(!q.length){ clearShow("No mappable signs found for the input."); setStatus("","Idle"); return; }
+      for(const item of q){ if(id!==run) return; el.tok.textContent=`Showing: ${item.token}`; await render(item); await wait(1200); }
+      if(id===run) setStatus("","Idle");
+    }
+
+    function translate(raw){
+      const normalized = aliasNorm(raw);
+      if(!normalized){ el.trans.textContent="Please speak or type a sentence first."; clearShow("Waiting for valid text input."); setStatus("","Idle"); return; }
+      const req=/\b(spell|alphabet|letter|letters)\b/g; const askAlpha=req.test(normalized);
+      const clean=normalized.replace(req," ").replace(/\s+/g," ").trim(); const final=clean || normalized;
+      const words=final.split(" ").filter(Boolean).filter(w=>!new Set(["am","is","are","the","a","an"]).has(w));
+      last=final; el.trans.textContent=final; setStatus("processing","Processing..."); play(words, fallback==="alphabet" || askAlpha);
+    }
+
+    function reset(){ run++; el.trans.textContent="Click the microphone and start speaking."; el.input.value=""; clearShow(); el.mic.classList.remove("listening"); el.mic.setAttribute("aria-label","Start speech recognition"); listening=false; hadResult=false; manualStop=false; last=""; setStatus("","Idle"); }
+    const replay=()=>{ if(last) translate(last); };
+    const tog=(on,off)=>{on.classList.add("on");off.classList.remove("on");on.setAttribute("aria-pressed","true");off.setAttribute("aria-pressed","false");};
+
+    function setupMic(){
+      if(!SR){ el.trans.textContent="Speech recognition not supported in this browser. Please use Google Chrome."; el.mic.disabled=true; setStatus("","Idle"); return; }
+      rec = new SR(); rec.lang="en-US"; rec.continuous=false; rec.interimResults=false; rec.maxAlternatives=1;
+      rec.onstart=()=>{listening=true;hadResult=false;manualStop=false;el.mic.classList.add("listening");el.mic.setAttribute("aria-label","Stop speech recognition");setStatus("listening","Listening...");};
+      rec.onresult=(e)=>{hadResult=true; const t=(e.results?.[0]?.[0]?.transcript||"").trim(); if(!t){el.trans.textContent="No speech detected. Please try again."; clearShow("No speech detected. Please try again."); setStatus("","Idle"); return;} translate(t);};
+      rec.onend=()=>{listening=false;el.mic.classList.remove("listening");el.mic.setAttribute("aria-label","Start speech recognition"); if(!hadResult && !manualStop){el.trans.textContent="No speech detected. Please try again."; clearShow("No speech detected. Please try again."); setStatus("","Idle");} manualStop=false;};
+      rec.onerror=(e)=>{const err=e.error||"unknown-error";
+        if(err==="not-allowed"||err==="service-not-allowed"){el.trans.textContent="Microphone permission denied. Please allow mic access in your browser."; clearShow("Microphone permission is required."); setStatus("error","Microphone blocked");}
+        else if(err==="audio-capture"){el.trans.textContent="No microphone was detected. Connect a mic and try again."; clearShow("No microphone available."); setStatus("error","No microphone");}
+        else if(err==="no-speech"){el.trans.textContent="No speech detected. Please try again."; clearShow("No speech detected. Please try again."); setStatus("","Idle");}
+        else{el.trans.textContent=`Speech recognition error: ${err}`; clearShow("Could not process speech input."); setStatus("error","Error");}
+        listening=false;hadResult=false;manualStop=false;el.mic.classList.remove("listening");el.mic.setAttribute("aria-label","Start speech recognition");
+      };
+    }
+
+    el.mic.addEventListener("click",()=>{ if(!rec) return; if(listening){manualStop=true;rec.stop();return;} try{rec.start();}catch{el.trans.textContent="Could not start microphone. Please allow mic access and try again.";clearShow("Microphone start failed.");setStatus("","Idle");}});
+    el.translate.addEventListener("click",()=>translate(el.input.value));
+    el.input.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();translate(el.input.value);}});
+    el.clear.addEventListener("click",()=>{ if(rec&&listening) rec.stop(); reset(); });
+    el.gifBtn.addEventListener("click",()=>{output="gif";tog(el.gifBtn,el.textBtn);replay();});
+    el.textBtn.addEventListener("click",()=>{output="text";tog(el.textBtn,el.gifBtn);replay();});
+    el.smartBtn.addEventListener("click",()=>{fallback="smart";tog(el.smartBtn,el.alphaBtn);replay();});
+    el.alphaBtn.addEventListener("click",()=>{fallback="alphabet";tog(el.alphaBtn,el.smartBtn);replay();});
+
+    clearShow(); setStatus("","Idle"); setupSplash(); setupMic();
+  })();
+  </script>
+</body>
+</html>
