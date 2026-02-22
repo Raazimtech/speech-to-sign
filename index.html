@@ -264,7 +264,7 @@
     const normalizeText = t => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[.,!?;:"'()\-]/g," ").replace(/\s+/g," ").trim();
     const phraseMap = {}, singleWordMap = {}, aliasMap = {}, soAliasMap = {}, variantIndex = {};
     Object.entries(SIGN).forEach(([k,files]) => {
-      const srcList = (Array.isArray(files) ? files : [files]).map((f) => `assets/signs/${encodeURIComponent(f)}`);
+      const srcList = (Array.isArray(files) ? files : [files]).map((f) => encodeURI(f));
       phraseMap[k]={srcList,token:k};
       if (!k.includes(" ")) singleWordMap[k] = srcList;
     });
@@ -321,7 +321,7 @@
       const q=[]; const max=3;
       for(let i=0;i<words.length;i++){
         const w=words[i];
-        if(forceAlpha){ [...w].filter(c=>c>="a"&&c<="z").forEach(c=>q.push({src:`assets/alphabet/${c}.gif`,token:c,display:c})); continue; }
+        if(forceAlpha){ [...w].filter(c=>c>="a"&&c<="z").forEach(c=>q.push({src:`${c}.gif`,token:c,display:c})); continue; }
         let found=null, size=0;
         for(let s=max;s>=2;s--){ if(i+s>words.length) continue; const p=words.slice(i,i+s).join(" "); if(phraseMap[p]){found=p;size=s;break;} }
         if(found){ q.push({...phraseMap[found], display:displayToken(found)}); i+=size-1; continue; }
