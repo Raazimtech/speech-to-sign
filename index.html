@@ -137,7 +137,7 @@
       "Sign Language Put GIF.gif","Sign Language Sgsl GIF.gif","Sign Language Stand GIF.gif","Sign Language Time GIF.gif","Sign Language Wait GIF.gif","Sign Language Walk GIF.gif",
       "Sign Language Week GIF.gif","Sign Language Year GIF.gif","Sign Language Yes GIF by @InvestInAccess.gif","sign no GIF by signtime.gif","sign please GIF by signtime.gif",
       "sign yes GIF by signtime.gif","sorry sign language GIF by signtime.gif","spelling or alphabet.gif","Stay Home Sign Language GIF.gif","sucess.gif","super.gif","thank u.gif",
-      "toilet.gif","water.gif","we.gif","welcome.gif","when.gif","where.gif","which.gif","wonderful.gif","your.gif","mine.gif","sign language what GIF.gif","sign language love GIF.gif"
+      "toilet.gif","water.gif","we.gif","welcome.gif","when.gif","where.gif","which.gif","wonderful.gif","your.gif","mine.gif","sign language what GIF.gif","sign language love GIF.gif","Sign Language School GIF.gif","me.gif","who.gif"
     ];
     const uniq = (arr) => [...new Set(arr.map(v => (v || "").trim()).filter(Boolean))];
     const fileToKey = (name) => {
@@ -182,7 +182,7 @@
       "numbers":"tirooyin","play":"ciyaar","please":"fadlan","put":"dhig","sad":"murugaysan","see watch":"arag daawo","see you":"ku arki doonaa","she is polite":"iyada waa edeb",
       "sick":"xanuunsan","sign":"calaamad","sorry":"waan ka xumahay","spelling or alphabet":"higgaad ama alifbeeto","stand":"istaag","stay home":"guriga joog","success":"guul",
       "super":"aad u fiican","thank you":"mahadsanid","time":"waqti","toilet":"musqul","wait":"sug","walk":"socod","water":"biyo","we":"annaga","week":"usbuuc",
-      "welcome":"soo dhawoow","when":"goorma","where":"xagee","which":"kee","wonderful":"cajiib","year":"sano","yes":"haa","your":"kaa","mine":"kayga","what":"maxay","love":"jacayl","change":"beddel","cry":"ooy"
+      "welcome":"soo dhawoow","when":"goorma","where":"xagee","which":"kee","wonderful":"cajiib","year":"sano","yes":"haa","your":"kaa","mine":"kayga","what":"maxay","love":"jacayl","school":"dugsi","me":"aniga","who":"yaa","change":"beddel","cry":"ooy"
     };
     const SO = {};
     Object.keys(SIGN).forEach((key) => { SO[key] = SO_BASE[key] || key; });
@@ -200,6 +200,9 @@
       ,"mine":["mine","this is mine","it is mine","belongs to me","my own","that is mine"]
       ,"what":["what","what is","what now","which thing","what do you mean","what happened"]
       ,"love":["love","i love","feel love","in love","deep love","much love"]
+      ,"school":["school","at school","go to school","my school","in school","school now"]
+      ,"me":["me","it's me","this is me","for me","about me","myself"]
+      ,"who":["who","who is","who are you","who is that","who now","who there"]
     };
     const SO_BASE_VARIANTS = {
       "hello":["salaan","salaam","asc","asalamu alaikum","asalaamu calaykum","iska warran"],
@@ -213,7 +216,10 @@
       "sorry":["waan ka xumahay","raali ahow","iiga raali noqo","cafis","aad baan uga xumahay","waan ka xumahay runtii"],
       "mine":["kayga","aniga leh","kan waa kayga","waxaan leeyahay","ii gaar ah","taas waa tayda"],
       "what":["maxay","waa maxay","maxaa","maxaa jira","maxaad tiri","maxaa dhacay"],
-      "love":["jacayl","waan ku jeclahay","jaceyl","jeceyl","jacayl badan","waan jecelahay"]
+      "love":["jacayl","waan ku jeclahay","jaceyl","jeceyl","jacayl badan","waan jecelahay"],
+      "school":["dugsi","iskuul","dugsiga","iskuulka","dugsi tag","dugsiga ayaan joogaa"],
+      "me":["aniga","aniga ah","iga","aniga i","anigaa","naftayda"],
+      "who":["yaa","waa kuma","kuma","yaa adiga","yaa taas","yaa halkaas"]
     };
     const buildAliases = (key) => {
       const soWord = SO[key] || key;
