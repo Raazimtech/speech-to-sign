@@ -114,29 +114,102 @@
       langSel: document.getElementById("langSel")
     };
 
-    const SIGN = {
-      "hello":"americansignlanguage hello GIF.gif","i love you":"Happy I Love You GIF by joeyahlbum.gif","yes":"Sign Language Yes GIF by @InvestInAccess.gif",
-      "time":"Sign Language Time GIF.gif","name":"sign language name GIF.gif","more":"more.gif","meet":"meet.gif","happy":"happy sign language GIF.gif","dont understand":"don't understand.gif"
+    const SIGN_FILES = [
+      "100.gif","1000.gif","always.gif","americansignlanguage hello GIF.gif","baby.gif","bad.gif","brother  sister.gif","busy.gif","cannot.gif","come.gif",
+      "continue.gif","cool.gif","don't understand.gif","dont understand.gif","excuse me.gif","family.gif","fast.gif","favourite.gif","fine.gif","free.gif",
+      "friend.gif","give.gif","good.gif","Happy I Love You GIF by joeyahlbum.gif","happy sign language GIF by signtime.gif","happy sign language GIF.gif","holiday.gif",
+      "home.gif","hope.gif","how many.gif","hungry.gif","in    out.gif","introduce sign language GIF.gif","later.gif","long.gif","Marry Sign Language GIF.gif",
+      "meet.gif","more.gif","nervous.gif","not.gif","now.gif","sad sign language GIF.gif","see watch.gif","see you.gif","shes polite.gif","sick sign language GIF.gif",
+      "Sign Language Change GIF.gif","sign language cry GIF.gif","Sign Language Month GIF.gif","sign language name GIF.gif","sign language numbers GIF.gif","Sign Language Play GIF.gif",
+      "Sign Language Put GIF.gif","Sign Language Sgsl GIF.gif","Sign Language Stand GIF.gif","Sign Language Time GIF.gif","Sign Language Wait GIF.gif","Sign Language Walk GIF.gif",
+      "Sign Language Week GIF.gif","Sign Language Year GIF.gif","Sign Language Yes GIF by @InvestInAccess.gif","sign no GIF by signtime.gif","sign please GIF by signtime.gif",
+      "sign yes GIF by signtime.gif","sorry sign language GIF by signtime.gif","spelling or alphabet.gif","Stay Home Sign Language GIF.gif","sucess.gif","super.gif","thank u.gif",
+      "toilet.gif","water.gif","we.gif","welcome.gif","when.gif","where.gif","which.gif","wonderful.gif","your.gif","mine.gif","sign language what GIF.gif","sign language love GIF.gif"
+    ];
+    const uniq = (arr) => [...new Set(arr.map(v => (v || "").trim()).filter(Boolean))];
+    const fileToKey = (name) => {
+      const raw = name.toLowerCase()
+        .replace(/\.gif$/i, "")
+        .replace(/@investinaccess/g, " ")
+        .replace(/\bgif by\b.*$/i, " ")
+        .replace(/\bgif\b/gi, " ")
+        .replace(/\bsign language\b/gi, " ")
+        .replace(/\bsgsl\b/gi, " sign ")
+        .replace(/'/g, "")
+        .replace(/[^a-z0-9 ]+/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+      const fixed = {
+        "americansignlanguage hello": "hello",
+        "happy i love you": "i love you",
+        "introduce": "introduce",
+        "marry": "marry",
+        "shes polite": "she is polite",
+        "sign no": "no",
+        "sign yes": "yes",
+        "sign please": "please",
+        "sucess": "success",
+        "thank u": "thank you"
+      };
+      return fixed[raw] || raw;
     };
-    const ALIAS = {
-      "hello":["hello","hi","hey","salam","hola","bonjour"],
-      "i love you":["i love you","waan ku jeclahay","te quiero","te amo","ich liebe dich","nakupenda","wo ai ni"],
-      "yes":["yes","haa","si","oui","ja","sim","evet"],"time":["time","waqti","tiempo","temps","zeit","wakati"],
-      "name":["name","magac","nombre","nom","isim","jina"],"more":["more","inbadan","ka badan","mas","plus","mehr"],
-      "meet":["meet","la kulan","encuentro","rencontrer","treffen"],"happy":["happy","faraxsan","feliz","heureux","mutlu"],
-      "dont understand":["dont understand","don't understand","do not understand","ma fahmin","no entiendo","je ne comprends pas"]
+    const SIGN = {};
+    SIGN_FILES.forEach((file) => {
+      const key = fileToKey(file);
+      if (!SIGN[key]) SIGN[key] = [];
+      SIGN[key].push(file);
+    });
+
+    const SO_BASE = {
+      "100":"boqol","1000":"kun","always":"mar walba","baby":"ilmo","bad":"xun","brother sister":"walaal","busy":"mashquul","cannot":"ma karo","come":"kaalay",
+      "continue":"sii wad","cool":"fiican","dont understand":"ma fahmin","excuse me":"i raali ahow","family":"qoys","fast":"dhakhso","favourite":"ugu jeclaan",
+      "fine":"wanaagsan","free":"xor","friend":"saaxiib","give":"sii","good":"wanaag","hello":"salaan","happy":"faraxsan","holiday":"fasax","home":"guri",
+      "hope":"rajo","how many":"imisa","hungry":"gaajaysan","in out":"gudaha bannaanka","introduce":"is baro","i love you":"waan ku jeclahay","later":"danbe",
+      "long":"dheer","marry":"guurso","meet":"la kulan","more":"inbadan","month":"bil","name":"magac","nervous":"walwal","no":"maya","not":"maya","now":"hadda",
+      "numbers":"tirooyin","play":"ciyaar","please":"fadlan","put":"dhig","sad":"murugaysan","see watch":"arag daawo","see you":"ku arki doonaa","she is polite":"iyada waa edeb",
+      "sick":"xanuunsan","sign":"calaamad","sorry":"waan ka xumahay","spelling or alphabet":"higgaad ama alifbeeto","stand":"istaag","stay home":"guriga joog","success":"guul",
+      "super":"aad u fiican","thank you":"mahadsanid","time":"waqti","toilet":"musqul","wait":"sug","walk":"socod","water":"biyo","we":"annaga","week":"usbuuc",
+      "welcome":"soo dhawoow","when":"goorma","where":"xagee","which":"kee","wonderful":"cajiib","year":"sano","yes":"haa","your":"kaa","mine":"kayga","what":"maxay","love":"jacayl","change":"beddel","cry":"ooy"
     };
-    const SO = {
-      "hello":"salaan",
-      "i love you":"waan ku jeclahay",
-      "yes":"haa",
-      "time":"waqti",
-      "name":"magac",
-      "more":"inbadan",
-      "meet":"la kulan",
-      "happy":"faraxsan",
-      "dont understand":"ma fahmin"
+    const SO = {};
+    Object.keys(SIGN).forEach((key) => { SO[key] = SO_BASE[key] || key; });
+
+    const EN_BASE_VARIANTS = {
+      "hello":["hello","hi","hey","heyy","hiya","yo","greetings","good morning","good evening"],
+      "i love you":["i love you","i luv you","love you","luv u","ily","i really love you"],
+      "dont understand":["dont understand","don't understand","do not understand","i dont understand","i am confused","not understand"],
+      "thank you":["thank you","thanks","thank u","thx","many thanks","thanks a lot"],
+      "yes":["yes","yep","yeah","yup","sure","affirmative"],
+      "no":["no","nope","nah","negative","not really","never"],
+      "please":["please","pls","plz","please help","please now","kindly"],
+      "good":["good","great","nice","well","all good","doing good"],
+      "sorry":["sorry","so sorry","my bad","apologies","forgive me","pardon me"]
+      ,"mine":["mine","this is mine","it is mine","belongs to me","my own","that is mine"]
+      ,"what":["what","what is","what now","which thing","what do you mean","what happened"]
+      ,"love":["love","i love","feel love","in love","deep love","much love"]
     };
+    const SO_BASE_VARIANTS = {
+      "hello":["salaan","salaam","asc","asalamu alaikum","asalaamu calaykum","iska warran"],
+      "i love you":["waan ku jeclahay","waan ku jclhy","waan kuclahay","waan ku jecelahay","waan ku jacelahay","waan ku jeclahay adiga"],
+      "dont understand":["ma fahmin","maan fahmin","ma fahmaayo","ma garanayo","waan wareersanahay","si fiican uma fahmin"],
+      "thank you":["mahadsanid","mahadsantahay","waad mahadsantahay","aad baad u mahadsantahay","mahadcelin","mahadsanidin"],
+      "yes":["haa","haye","waayahay","waa sax","waad saxantahay","ok"],
+      "no":["maya","maya maya","diidmo","ma aha","marnaba","ma doonayo"],
+      "please":["fadlan","fadlan i caawi","fadlan hadda","si naxariis leh","iiga raalli noqo","fadlann"],
+      "good":["wanaag","fiican","aad u fiican","wacan","ok","sax"],
+      "sorry":["waan ka xumahay","raali ahow","iiga raali noqo","cafis","aad baan uga xumahay","waan ka xumahay runtii"],
+      "mine":["kayga","aniga leh","kan waa kayga","waxaan leeyahay","ii gaar ah","taas waa tayda"],
+      "what":["maxay","waa maxay","maxaa","maxaa jira","maxaad tiri","maxaa dhacay"],
+      "love":["jacayl","waan ku jeclahay","jaceyl","jeceyl","jacayl badan","waan jecelahay"]
+    };
+    const buildAliases = (key) => {
+      const soWord = SO[key] || key;
+      const en = uniq((EN_BASE_VARIANTS[key] || []).concat([key, `my ${key}`, `the ${key}`, `need ${key}`, `want ${key}`, `${key} please`]));
+      const so = uniq((SO_BASE_VARIANTS[key] || []).concat([soWord, `fadlan ${soWord}`, `${soWord} ayaan rabaa`, `${soWord} hadda`, `${soWord} ma jiraa`, `${soWord} iga caawi`]));
+      return uniq(en.concat(so));
+    };
+    const ALIAS = {};
+    Object.keys(SIGN).forEach((key) => { ALIAS[key] = buildAliases(key); });
     const TEXT = {
       en: {
         idle: "Idle",
@@ -188,9 +261,15 @@
       }
     };
 
-    const phraseMap = {}, wordMap = {}, aliasMap = {};
-    Object.entries(SIGN).forEach(([k,v]) => { const src=`assets/signs/${encodeURIComponent(v)}`; phraseMap[k]={src,token:k}; k.split(" ").forEach(w=>wordMap[w]??=src); });
-    Object.entries(ALIAS).forEach(([k,arr]) => arr.forEach(a => aliasMap[a]=k));
+    const normalizeText = t => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[.,!?;:"'()\-]/g," ").replace(/\s+/g," ").trim();
+    const phraseMap = {}, singleWordMap = {}, aliasMap = {}, soAliasMap = {}, variantIndex = {};
+    Object.entries(SIGN).forEach(([k,files]) => {
+      const srcList = (Array.isArray(files) ? files : [files]).map((f) => `assets/signs/${encodeURIComponent(f)}`);
+      phraseMap[k]={srcList,token:k};
+      if (!k.includes(" ")) singleWordMap[k] = srcList;
+    });
+    Object.entries(ALIAS).forEach(([k,arr]) => arr.forEach(a => aliasMap[normalizeText(a)]=k));
+    Object.entries(SO).forEach(([k,v]) => { soAliasMap[normalizeText(v)] = k; });
 
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     let rec = null, listening=false, hadResult=false, manualStop=false, run=0, output="gif", fallback="smart", last="";
@@ -199,9 +278,8 @@
 
     function setupSplash(){
       if(!splash) return;
-      const totalMs = 2000;
+      const holdMs = 2000;
       const fadeMs = 300;
-      const holdMs = totalMs - fadeMs;
       setTimeout(() => {
         splash.classList.add("hide");
         setTimeout(() => splash.remove(), fadeMs + 10);
@@ -209,10 +287,21 @@
     }
 
     const setStatus = (kind,txt) => { el.status.className = `status ${kind}`.trim(); el.status.textContent = txt; };
-    const norm = t => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[.,!?;:"'()\-]/g," ").replace(/\s+/g," ").trim();
+    const norm = normalizeText;
     const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
-    const aliasNorm = t => { let n=norm(t).replace(/\bgoing to\b/g,"go").replace(/\bi am\b/g,"i");
-      Object.keys(aliasMap).sort((a,b)=>b.length-a.length).forEach(a=>{ n=n.replace(new RegExp(`\\b${esc(a)}\\b`,"g"),aliasMap[a]); }); return n; };
+    const applyAliasMap = (input, map) => {
+      let out = input;
+      Object.keys(map).sort((a,b)=>b.length-a.length).forEach((key)=>{
+        out = out.replace(new RegExp(`\\b${esc(key)}\\b`, "g"), map[key]);
+      });
+      return out;
+    };
+    const aliasNorm = t => {
+      let n=norm(t).replace(/\bgoing to\b/g,"go").replace(/\bi am\b/g,"i");
+      n = applyAliasMap(n, aliasMap);
+      if (isSomali()) n = applyAliasMap(n, soAliasMap);
+      return n;
+    };
     const isSomali = () => (el.langSel?.value || "").toLowerCase().startsWith("so");
     const t = (key) => (isSomali() ? TEXT.so[key] : TEXT.en[key]);
     const displayToken = (token) => (isSomali() && SO[token] ? SO[token] : token);
@@ -236,17 +325,25 @@
         let found=null, size=0;
         for(let s=max;s>=2;s--){ if(i+s>words.length) continue; const p=words.slice(i,i+s).join(" "); if(phraseMap[p]){found=p;size=s;break;} }
         if(found){ q.push({...phraseMap[found], display:displayToken(found)}); i+=size-1; continue; }
-        if(wordMap[w]) { q.push({src:wordMap[w],token:w,display:displayToken(w)}); continue; }
+        if(singleWordMap[w]) { q.push({srcList:singleWordMap[w],token:w,display:displayToken(w)}); continue; }
         q.push({src:"",token:w,display:w,fallback:true,title:isSomali()?"Qoraal":"Text"});
       }
       return q;
     };
 
+    const pickSrc = (token, srcList) => {
+      if(!srcList?.length) return "";
+      const i = variantIndex[token] || 0;
+      variantIndex[token] = (i + 1) % srcList.length;
+      return srcList[i];
+    };
+
     const render = item => new Promise(res=>{
       if(output==="text"){ tokenCard(item.display || item.token,isSomali()?"Qoraal":"Text"); res(); return; }
-      if(item.fallback || !item.src){ tokenCard(item.display || item.token,item.title || (isSomali()?"Qoraal":"Text")); res(); return; }
+      const src = pickSrc(item.token, item.srcList || (item.src ? [item.src] : []));
+      if(item.fallback || !src){ tokenCard(item.display || item.token,item.title || (isSomali()?"Qoraal":"Text")); res(); return; }
       const img=new Image(); let done=false; const fin=()=>{if(done)return;done=true;res();};
-      img.className="fade"; img.alt=`Sign animation for ${item.token}`; img.src=item.src;
+      img.className="fade"; img.alt=`Sign animation for ${item.token}`; img.src=src;
       img.onload=()=>{el.show.innerHTML=""; el.show.appendChild(img); fin();};
       img.onerror=()=>{tokenCard(item.display || item.token,isSomali()?"Qoraal":"Text"); fin();};
       setTimeout(()=>{ if(!done){tokenCard(item.display || item.token,isSomali()?"Qoraal":"Text"); fin();}},450);
@@ -264,7 +361,7 @@
       if(!normalized){ el.trans.textContent=t("emptyInput"); clearShow(t("waitingInput")); setStatus("",t("idle")); return; }
       const req=/\b(spell|alphabet|letter|letters)\b/g; const askAlpha=req.test(normalized);
       const clean=normalized.replace(req," ").replace(/\s+/g," ").trim(); const final=clean || normalized;
-      const words=final.split(" ").filter(Boolean).filter(w=>!new Set(["am","is","are","the","a","an"]).has(w));
+      const words=final.split(" ").filter(Boolean);
       last=final; el.trans.textContent=localizeText(final); setStatus("processing",t("processing")); play(words, fallback==="alphabet" || askAlpha);
     }
 
