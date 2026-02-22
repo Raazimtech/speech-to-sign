@@ -354,12 +354,12 @@
     const render = item => new Promise(res=>{
       if(output==="text"){ tokenCard(item.display || item.token,isSomali()?"Qoraal":"Text"); res(); return; }
       const src = pickSrc(item.token, item.srcList || (item.src ? [item.src] : []));
-      if(item.fallback || !src){ tokenCard(item.display || item.token,item.title || (isSomali()?"Qoraal":"Text")); res(); return; }
+      if(item.fallback || !src){ res(); return; }
       const img=new Image(); let done=false; const fin=()=>{if(done)return;done=true;res();};
       img.className="fade"; img.alt=`Sign animation for ${item.token}`; img.src=src;
       img.onload=()=>{el.show.innerHTML=""; el.show.appendChild(img); fin();};
-      img.onerror=()=>{tokenCard(item.display || item.token,isSomali()?"Qoraal":"Text"); fin();};
-      setTimeout(()=>{ if(!done){tokenCard(item.display || item.token,isSomali()?"Qoraal":"Text"); fin();}},450);
+      img.onerror=()=>{fin();};
+      setTimeout(()=>{ if(!done){fin();}},450);
     });
 
     async function play(words, forceAlpha=false){
