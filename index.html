@@ -22,19 +22,22 @@
   <link rel="apple-touch-icon" href="Gemini_Generated_Image_x0oe4fx0oe4fx0oe.png">
   <title>Speech to Sign</title>
   <style>
-    :root{--bg:#eef4fb;--card:#fff;--line:#d8e3ef;--ink:#122334;--muted:#506173;--a:#0f7f88;--a2:#0a656c}
+    :root{--bg:#eef4fb;--card:#fff;--line:#d8e3ef;--ink:#122334;--muted:#506173;--a:#0f7f88;--a2:#0a656c;--bg-grad:linear-gradient(160deg,#f5efe6,#d8e6f6)}
     *{box-sizing:border-box}html,body{margin:0}
     html{-webkit-text-size-adjust:100%}
-    body{font-family:Segoe UI,Tahoma,sans-serif;color:var(--ink);background:linear-gradient(160deg,#f5efe6,#d8e6f6);overflow-x:hidden}
+    body{font-family:Segoe UI,Tahoma,sans-serif;color:var(--ink);background:var(--bg-grad);overflow-x:hidden}
+    body.theme-dark{--bg:#0f1620;--card:#172230;--line:#2a3a4c;--ink:#e7eef8;--muted:#a6b5c5;--a:#2cb7c1;--a2:#95f1f8;--bg-grad:linear-gradient(160deg,#0d1420,#1a2735)}
     .splash{position:fixed;inset:0;z-index:3000;background:#fff;display:grid;place-items:center;padding:20px;opacity:1;visibility:visible;transition:opacity .3s ease,visibility .3s ease}
     .splash img{width:min(980px,92vw);max-height:88vh;object-fit:contain}
     .splash.hide{opacity:0;visibility:hidden}
     .page{min-height:100vh;padding:clamp(8px,2.5vw,20px);display:flex;align-items:center;justify-content:center}
     .card{width:min(1020px,100%);background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 40px rgba(18,35,52,.14);padding:clamp(12px,2.2vw,22px)}
     .head{text-align:center;margin-bottom:12px}.head h1{margin:0 0 4px;font-size:clamp(1.35rem,4.8vw,2rem)}.head p{margin:0;color:var(--muted)}
-    .langTop{display:flex;justify-content:center;margin:8px 0 12px}
+    .topToggles{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 0 12px;flex-wrap:wrap}
+    .langTop{display:flex;justify-content:center}
     .langTop .tog{width:min(360px,100%);background:#f3f9ff;border:1px solid var(--line);border-radius:12px;padding:6px}
     .langTop .tog button{min-height:38px}
+    .themeBtn{min-height:38px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-weight:700;padding:0 14px;cursor:pointer}
     .logo{width:clamp(64px,12vw,90px);height:auto;display:block;margin:0 auto 8px}
     .controls{display:grid;place-items:center;gap:8px;margin-bottom:12px}
     .mic{width:80px;height:80px;border-radius:50%;border:none;background:linear-gradient(145deg,#4facfe,#00f2fe);box-shadow:0 10px 20px rgba(74,144,226,.3);display:grid;place-items:center;cursor:pointer;transition:.3s}
@@ -89,11 +92,14 @@
         <img class="logo" src="logo (2).png" alt="Speech to Sign logo">
         <h1>Speech to Sign</h1>
         <p>Speak and see it in sign language</p>
-        <div class="langTop" role="group" aria-label="Language toggle">
-          <div class="tog">
-            <button id="enLangBtn" class="on" aria-pressed="true">English</button>
-            <button id="soLangBtn" aria-pressed="false">Somali</button>
+        <div class="topToggles">
+          <div class="langTop" role="group" aria-label="Language toggle">
+            <div class="tog">
+              <button id="enLangBtn" class="on" aria-pressed="true">English</button>
+              <button id="soLangBtn" aria-pressed="false">Somali</button>
+            </div>
           </div>
+          <button id="themeBtn" class="themeBtn" type="button" aria-pressed="false">Dark Mode</button>
         </div>
       </header>
       <section class="controls">
@@ -124,7 +130,8 @@
       translate: document.getElementById("translate"), trans: document.getElementById("trans"), show: document.getElementById("show"),
       tok: document.getElementById("tok"), clear: document.getElementById("clear"), gifBtn: document.getElementById("gifBtn"),
       textBtn: document.getElementById("textBtn"), smartBtn: document.getElementById("smartBtn"), alphaBtn: document.getElementById("alphaBtn"),
-      langSel: document.getElementById("langSel"), enLangBtn: document.getElementById("enLangBtn"), soLangBtn: document.getElementById("soLangBtn")
+      langSel: document.getElementById("langSel"), enLangBtn: document.getElementById("enLangBtn"), soLangBtn: document.getElementById("soLangBtn"),
+      themeBtn: document.getElementById("themeBtn")
     };
 
     const SIGN_FILES = [
@@ -387,6 +394,24 @@
     function reset(){ run++; el.trans.textContent=t("defaultTranscript"); el.input.value=""; clearShow(); el.mic.classList.remove("listening"); el.mic.setAttribute("aria-label","Start speech recognition"); listening=false; hadResult=false; manualStop=false; last=""; setStatus("",t("idle")); }
     const replay=()=>{ if(last) translate(last); };
     const tog=(on,off)=>{on.classList.add("on");off.classList.remove("on");on.setAttribute("aria-pressed","true");off.setAttribute("aria-pressed","false");};
+    const setTheme = (dark) => {
+      document.body.classList.toggle("theme-dark", !!dark);
+      if (el.themeBtn) {
+        el.themeBtn.textContent = dark ? "Light Mode" : "Dark Mode";
+        el.themeBtn.setAttribute("aria-pressed", dark ? "true" : "false");
+      }
+      try { localStorage.setItem("theme-mode", dark ? "dark" : "light"); } catch {}
+    };
+    const initTheme = () => {
+      let dark = false;
+      try {
+        const saved = localStorage.getItem("theme-mode");
+        if (saved === "dark") dark = true;
+        else if (saved === "light") dark = false;
+        else dark = !!window.matchMedia?.("(prefers-color-scheme: dark)")?.matches;
+      } catch {}
+      setTheme(dark);
+    };
     const setLangToggle = () => {
       if ((el.langSel?.value || "en-US").toLowerCase().startsWith("so")) tog(el.soLangBtn, el.enLangBtn);
       else tog(el.enLangBtn, el.soLangBtn);
@@ -425,6 +450,7 @@
       el.langSel.value = "so-SO";
       el.langSel.dispatchEvent(new Event("change"));
     });
+    el.themeBtn?.addEventListener("click",()=>{ setTheme(!document.body.classList.contains("theme-dark")); });
     el.langSel?.addEventListener("change",()=>{
       setLangToggle();
       if(!rec) return;
@@ -443,6 +469,7 @@
       }
     });
 
+    initTheme();
     setLangToggle();
     el.trans.textContent = t("defaultTranscript");
     clearShow(); setStatus("",t("idle")); setupSplash(); setupMic();
