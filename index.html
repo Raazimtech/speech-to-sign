@@ -32,6 +32,9 @@
     .page{min-height:100vh;padding:clamp(8px,2.5vw,20px);display:flex;align-items:center;justify-content:center}
     .card{width:min(1020px,100%);background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 40px rgba(18,35,52,.14);padding:clamp(12px,2.2vw,22px)}
     .head{text-align:center;margin-bottom:12px}.head h1{margin:0 0 4px;font-size:clamp(1.35rem,4.8vw,2rem)}.head p{margin:0;color:var(--muted)}
+    .langTop{display:flex;justify-content:center;margin:8px 0 12px}
+    .langTop .tog{width:min(360px,100%);background:#f3f9ff;border:1px solid var(--line);border-radius:12px;padding:6px}
+    .langTop .tog button{min-height:38px}
     .logo{width:clamp(64px,12vw,90px);height:auto;display:block;margin:0 auto 8px}
     .controls{display:grid;place-items:center;gap:8px;margin-bottom:12px}
     .mic{width:80px;height:80px;border-radius:50%;border:none;background:linear-gradient(145deg,#4facfe,#00f2fe);box-shadow:0 10px 20px rgba(74,144,226,.3);display:grid;place-items:center;cursor:pointer;transition:.3s}
@@ -82,7 +85,17 @@
   <div id="entrySplash" class="splash" aria-hidden="true"><img src="marketing seo image.png" alt="Speech to Sign marketing"></div>
   <main class="page">
     <section class="card">
-      <header class="head"><img class="logo" src="logo (2).png" alt="Speech to Sign logo"><h1>Speech to Sign</h1><p>Speak and see it in sign language</p></header>
+      <header class="head">
+        <img class="logo" src="logo (2).png" alt="Speech to Sign logo">
+        <h1>Speech to Sign</h1>
+        <p>Speak and see it in sign language</p>
+        <div class="langTop" role="group" aria-label="Language toggle">
+          <div class="tog">
+            <button id="enLangBtn" class="on" aria-pressed="true">English</button>
+            <button id="soLangBtn" aria-pressed="false">Somali</button>
+          </div>
+        </div>
+      </header>
       <section class="controls">
         <button id="micBtn" class="mic" aria-label="Start speech recognition">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
@@ -96,8 +109,8 @@
       <section class="settings">
         <div class="set"><label>Output</label><div class="tog"><button id="gifBtn" class="on">GIFs</button><button id="textBtn">Text</button></div></div>
         <div class="set"><label>Fallback</label><div class="tog"><button id="smartBtn" class="on">Smart</button><button id="alphaBtn">Alphabet</button></div></div>
-        <div class="set"><label for="langSel">Speech Language</label><div class="row"><select id="langSel"><option value="en-US">English</option><option value="so-SO">Somali</option></select></div></div>
       </section>
+      <select id="langSel" style="position:absolute;left:-9999px;opacity:0;pointer-events:none" aria-hidden="true" tabindex="-1"><option value="en-US">English</option><option value="so-SO">Somali</option></select>
       <section class="manual"><label for="input">Type text to translate</label><div class="row"><input id="input" placeholder="Example: hello, i love you"><button id="translate" class="btn">Translate Text</button></div></section>
       <section class="act"><button id="clear" class="clear">Clear</button></section>
     </section>
@@ -111,7 +124,7 @@
       translate: document.getElementById("translate"), trans: document.getElementById("trans"), show: document.getElementById("show"),
       tok: document.getElementById("tok"), clear: document.getElementById("clear"), gifBtn: document.getElementById("gifBtn"),
       textBtn: document.getElementById("textBtn"), smartBtn: document.getElementById("smartBtn"), alphaBtn: document.getElementById("alphaBtn"),
-      langSel: document.getElementById("langSel")
+      langSel: document.getElementById("langSel"), enLangBtn: document.getElementById("enLangBtn"), soLangBtn: document.getElementById("soLangBtn")
     };
 
     const SIGN_FILES = [
@@ -368,6 +381,10 @@
     function reset(){ run++; el.trans.textContent=t("defaultTranscript"); el.input.value=""; clearShow(); el.mic.classList.remove("listening"); el.mic.setAttribute("aria-label","Start speech recognition"); listening=false; hadResult=false; manualStop=false; last=""; setStatus("",t("idle")); }
     const replay=()=>{ if(last) translate(last); };
     const tog=(on,off)=>{on.classList.add("on");off.classList.remove("on");on.setAttribute("aria-pressed","true");off.setAttribute("aria-pressed","false");};
+    const setLangToggle = () => {
+      if ((el.langSel?.value || "en-US").toLowerCase().startsWith("so")) tog(el.soLangBtn, el.enLangBtn);
+      else tog(el.enLangBtn, el.soLangBtn);
+    };
 
     function setupMic(){
       if(!SR){ el.trans.textContent=t("unsupported"); el.mic.disabled=true; setStatus("",t("idle")); return; }
@@ -392,7 +409,18 @@
     el.textBtn.addEventListener("click",()=>{output="text";tog(el.textBtn,el.gifBtn);replay();});
     el.smartBtn.addEventListener("click",()=>{fallback="smart";tog(el.smartBtn,el.alphaBtn);replay();});
     el.alphaBtn.addEventListener("click",()=>{fallback="alphabet";tog(el.alphaBtn,el.smartBtn);replay();});
+    el.enLangBtn?.addEventListener("click",()=>{
+      if(el.langSel.value === "en-US") return;
+      el.langSel.value = "en-US";
+      el.langSel.dispatchEvent(new Event("change"));
+    });
+    el.soLangBtn?.addEventListener("click",()=>{
+      if(el.langSel.value === "so-SO") return;
+      el.langSel.value = "so-SO";
+      el.langSel.dispatchEvent(new Event("change"));
+    });
     el.langSel?.addEventListener("change",()=>{
+      setLangToggle();
       if(!rec) return;
       rec.lang = el.langSel.value;
       if(!last){
@@ -409,6 +437,7 @@
       }
     });
 
+    setLangToggle();
     el.trans.textContent = t("defaultTranscript");
     clearShow(); setStatus("",t("idle")); setupSplash(); setupMic();
 
