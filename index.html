@@ -425,25 +425,6 @@
       anybody: "somebody", anyone: "somebody", anything: "something", somebodys: "somebody",
       spouse: "wife", partner: "wife"
     };
-    const SOMALI_CLOSEST_WORD_MAP = {
-      waa: "", waan: "", waad: "", way: "", ay: "", ayuu: "", ayay: "", yihiin: "", ah: "", oo: "", ku: "", ka: "", la: "", iyo: "",
-      aan: "", in: "", u: "", ooan: "", marka: "", kadib: "", sidoo: "", kale: "", aad: "",
-      aniga: "me", anigu: "me", anigaa: "me", iga: "me", i: "me",
-      adiga: "you", adigaa: "you", kuu: "you", kugu: "you",
-      isaga: "he", iyada: "her", iyaga: "somebody",
-      kayga: "mine", tayda: "mine", aniga leh: "mine", kooda: "their", iyaga leh: "their",
-      na: "us", annaga: "us", innaga: "us",
-      hooyo: "mother", aabe: "father", xaas: "wife", waalidiin: "parents",
-      buug: "book", buuga: "book", buugga: "book",
-      cunug: "child", caruur: "child", ilmo: "child", carruur: "child",
-      jacayl: "love", jaceyl: "love", jeceyl: "love",
-      neceb: "hate", necbahay: "hate", nacayb: "hate", xanaaqsan: "mad", caraysan: "mad",
-      been: "lie", run: "", runta: "", beenabuur: "lie",
-      daalay: "sick of", caajisay: "sick of", dhibsaday: "sick of",
-      xanuun: "pain", xanuunsan: "sick", murugaysan: "sad", faraxsan: "happy",
-      maxaa: "what", maxay: "what", yaa: "who", xagee: "where", goorma: "when", kee: "which",
-      maya: "no", haa: "yes", fadlan: "please", mahadsanid: "thank you", raali: "sorry"
-    };
     const SINGLE_KEYS = Object.keys(singleWordMap);
     const singular = (w) => {
       if (w.endsWith("ies") && w.length > 4) return `${w.slice(0, -3)}y`;
@@ -474,12 +455,6 @@
       }
       return dp[a.length][b.length];
     };
-    const isSafeTypoMatch = (word, key, d) => {
-      if (d > 1) return false;
-      if (word.length < 5 || key.length < 5) return false;
-      if (word[0] !== key[0]) return false;
-      return true;
-    };
     const resolveClosestToken = (word) => {
       const n = norm(word);
       if (!n) return "";
@@ -491,11 +466,11 @@
       const forms = uniq([n, singular(n), stem(n), singular(stem(n))]);
       for (const f of forms) {
         if (singleWordMap[f] || phraseMap[f]) return f;
-        const mapped = isSomali() ? (SOMALI_CLOSEST_WORD_MAP[f] ?? CLOSEST_WORD_MAP[f]) : CLOSEST_WORD_MAP[f];
+        const mapped = CLOSEST_WORD_MAP[f];
         if (mapped && (singleWordMap[mapped] || phraseMap[mapped])) return mapped;
         if (mapped === "") return "";
       }
-      let best = "", bestScore = 99;
+      let best = "", bestScore = 3;
       for (const key of SINGLE_KEYS) {
         const d = distance(n, key);
         if (d < bestScore) {
@@ -504,7 +479,7 @@
           if (d === 1) break;
         }
       }
-      return isSafeTypoMatch(n, best, bestScore) ? best : "";
+      return bestScore <= 2 ? best : "";
     };
 
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
