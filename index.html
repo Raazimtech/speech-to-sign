@@ -144,6 +144,18 @@
     @keyframes fin{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
     @media(min-width:720px){.settings{grid-template-columns:1fr 1fr}.row{grid-template-columns:1fr auto}.btn{width:auto;min-width:170px}}
     @media(max-width:720px){
+      .head::before{
+        right:4px;
+        top:-10px;
+        width:42px;
+        height:42px;
+      }
+      .head::after{
+        right:10px;
+        top:-1px;
+        width:18px;
+        height:18px;
+      }
       #signBlock{
         position:sticky;
         top:8px;
@@ -161,7 +173,7 @@
         max-height:145px;
       }
     }
-    @media(max-width:420px){.page{padding:8px}.card{border-radius:14px}.head h1{font-size:1.25rem}.head p{font-size:.9rem}.show img{max-height:160px}.credit strong{font-size:.88rem;padding:.34rem .8rem}}
+    @media(max-width:420px){.page{padding:8px}.card{border-radius:14px}.head h1{font-size:1.25rem}.head p{font-size:.9rem}.show img{max-height:160px}.credit strong{font-size:.88rem;padding:.34rem .8rem}.head::before{right:2px;top:-8px;width:34px;height:34px}.head::after{right:7px;top:0;width:14px;height:14px}}
     @media(min-width:1200px){.card{padding:24px}}
   </style>
 </head>
