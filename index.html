@@ -51,6 +51,11 @@
     input,select{width:100%;min-height:46px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:1rem;background:var(--input-bg);color:var(--ink)}
     .btn{width:100%;min-height:46px;border:none;border-radius:10px;background:var(--a);color:#fff;font-weight:700;padding:0 16px;cursor:pointer}
     .out{display:grid;grid-template-columns:1fr;gap:10px}.blk{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:12px}.blk h2{margin:0 0 8px;font-size:1rem}
+    .blkHead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+    .blkHead h2{margin:0}
+    .iconBtn{width:36px;height:36px;border:1px solid var(--line);border-radius:10px;background:var(--chip-bg);color:var(--ink);display:grid;place-items:center;cursor:pointer}
+    .iconBtn svg{width:18px;height:18px;fill:currentColor}
+    .iconBtn:disabled{opacity:.5;cursor:not-allowed}
     .trans{min-height:28px;overflow-wrap:anywhere}.show{min-height:clamp(150px,30vw,220px);border:1px dashed var(--show-border);border-radius:12px;background:var(--show-bg);display:flex;align-items:center;justify-content:center;padding:12px;text-align:center}
     .show img{width:min(340px,100%);max-height:220px;border-radius:10px;border:1px solid var(--img-border);background:var(--chip-bg);box-shadow:0 10px 20px rgba(20,36,51,.16)}
     .tok{margin-top:8px;min-height:21px;color:var(--muted);font-weight:700}.ph{color:var(--muted)}
@@ -111,7 +116,16 @@
       </section>
       <section class="out">
         <div id="textBlock" class="blk"><h2>Recognized Text</h2><p id="trans" class="trans">Click the microphone and start speaking.</p></div>
-        <div id="signBlock" class="blk"><h2>Sign Playback</h2><div id="show" class="show"><p class="ph">Signs will appear here one by one.</p></div><p id="tok" class="tok"></p></div>
+        <div id="signBlock" class="blk">
+          <div class="blkHead">
+            <h2>Sign Playback</h2>
+            <button id="repeatBtn" class="iconBtn" type="button" aria-label="Repeat sign playback" title="Repeat sign playback" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 1l4 4-4 4V6H8a3 3 0 0 0-3 3v1H3V9a5 5 0 0 1 5-5h9V1zM7 23l-4-4 4-4v3h9a3 3 0 0 0 3-3v-1h2v1a5 5 0 0 1-5 5H7v3z"/></svg>
+            </button>
+          </div>
+          <div id="show" class="show"><p class="ph">Signs will appear here one by one.</p></div>
+          <p id="tok" class="tok"></p>
+        </div>
       </section>
       <section class="settings">
         <div class="set"><label>Output</label><div class="tog"><button id="gifBtn" class="on">GIFs</button><button id="textBtn">Text</button></div></div>
@@ -132,7 +146,7 @@
       tok: document.getElementById("tok"), clear: document.getElementById("clear"), gifBtn: document.getElementById("gifBtn"),
       textBtn: document.getElementById("textBtn"), smartBtn: document.getElementById("smartBtn"), alphaBtn: document.getElementById("alphaBtn"),
       langSel: document.getElementById("langSel"), enLangBtn: document.getElementById("enLangBtn"), soLangBtn: document.getElementById("soLangBtn"),
-      themeBtn: document.getElementById("themeBtn")
+      themeBtn: document.getElementById("themeBtn"), repeatBtn: document.getElementById("repeatBtn")
     };
 
     const SIGN_FILES = [
@@ -343,6 +357,7 @@
 
     const clearShow = (m=t("defaultPlaceholder")) => { el.show.innerHTML=`<p class="ph">${m}</p>`; el.tok.textContent=""; };
     const tokenCard = (token,title="Text") => { el.show.innerHTML=`<div class="tcard fade"><div><b>${title}</b><span>${token}</span></div></div>`; };
+    const updateRepeatState = () => { if (el.repeatBtn) el.repeatBtn.disabled = !last; };
 
     const queueFor = (words, forceAlpha) => {
       const q=[]; const max=3;
@@ -389,10 +404,10 @@
       const req=/\b(spell|alphabet|letter|letters)\b/g; const askAlpha=req.test(normalized);
       const clean=normalized.replace(req," ").replace(/\s+/g," ").trim(); const final=clean || normalized;
       const words=final.split(" ").filter(Boolean);
-      last=final; el.trans.textContent=localizeText(final); setStatus("processing",t("processing")); play(words, fallback==="alphabet" || askAlpha);
+      last=final; updateRepeatState(); el.trans.textContent=localizeText(final); setStatus("processing",t("processing")); play(words, fallback==="alphabet" || askAlpha);
     }
 
-    function reset(){ run++; el.trans.textContent=t("defaultTranscript"); el.input.value=""; clearShow(); el.mic.classList.remove("listening"); el.mic.setAttribute("aria-label","Start speech recognition"); listening=false; hadResult=false; manualStop=false; last=""; setStatus("",t("idle")); }
+    function reset(){ run++; el.trans.textContent=t("defaultTranscript"); el.input.value=""; clearShow(); el.mic.classList.remove("listening"); el.mic.setAttribute("aria-label","Start speech recognition"); listening=false; hadResult=false; manualStop=false; last=""; updateRepeatState(); setStatus("",t("idle")); }
     const replay=()=>{ if(last) translate(last); };
     const tog=(on,off)=>{on.classList.add("on");off.classList.remove("on");on.setAttribute("aria-pressed","true");off.setAttribute("aria-pressed","false");};
     const setTheme = (dark) => {
@@ -444,6 +459,7 @@
     el.textBtn.addEventListener("click",()=>{output="text";tog(el.textBtn,el.gifBtn);replay();});
     el.smartBtn.addEventListener("click",()=>{fallback="smart";tog(el.smartBtn,el.alphaBtn);replay();});
     el.alphaBtn.addEventListener("click",()=>{fallback="alphabet";tog(el.alphaBtn,el.smartBtn);replay();});
+    el.repeatBtn?.addEventListener("click",()=>{ replay(); });
     el.enLangBtn?.addEventListener("click",()=>{
       if(el.langSel.value === "en-US") return;
       el.langSel.value = "en-US";
@@ -476,7 +492,7 @@
     initTheme();
     setLangToggle();
     el.trans.textContent = t("defaultTranscript");
-    clearShow(); setStatus("",t("idle")); setupSplash(); setupMic();
+    clearShow(); updateRepeatState(); setStatus("",t("idle")); setupSplash(); setupMic();
 
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
