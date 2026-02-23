@@ -91,8 +91,10 @@
     .ramadanTag{display:inline-block;margin:8px auto 0;padding:6px 12px;border-radius:999px;border:1px solid var(--tag-border);background:var(--tag-bg);color:var(--tag-ink);font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
     .topToggles{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 0 12px;flex-wrap:wrap}
     .langTop{display:flex;justify-content:center}
-    .langTop .tog{width:min(360px,100%);background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:6px}
-    .langTop .tog button{min-height:38px}
+    .langToggleWrap{position:relative}
+    .langToggleBtn{min-height:38px;border:1px solid var(--line);background:var(--soft);color:var(--ink);border-radius:10px;padding:0 12px;font-weight:700;cursor:pointer}
+    .langPanel{position:absolute;left:0;bottom:calc(100% + 6px);z-index:40;width:min(320px,80vw);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px;box-shadow:0 12px 24px rgba(18,35,52,.16)}
+    .langPanel select{min-height:40px;max-height:42vh;overflow:auto}
     .themePick{display:flex;align-items:center;gap:8px;background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:6px 8px}
     .themePick label{font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
     .themePick select{min-height:34px;border-radius:9px;padding:6px 28px 6px 10px;font-size:.9rem}
@@ -183,14 +185,16 @@
     <section class="card">
       <header class="head">
         <img class="logo" src="logo (2).png" alt="Speech to Sign logo">
-        <h1>Speech to Sign</h1>
-        <p>Speak and see it in sign language</p>
-        <p class="ramadanTag">Ramadan Kareem</p>
+        <h1 id="appTitle">Speech to Sign</h1>
+        <p id="appSubtitle">Speak and see it in sign language</p>
+        <p id="ramadanTag" class="ramadanTag">Ramadan Kareem</p>
         <div class="topToggles">
           <div class="langTop" role="group" aria-label="Language toggle">
-            <div class="tog">
-              <button id="enLangBtn" class="on" aria-pressed="true">English</button>
-              <button id="soLangBtn" aria-pressed="false">Somali</button>
+            <div class="langToggleWrap">
+              <button id="langToggleBtn" class="langToggleBtn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="langMenu">Lang: English (US)</button>
+              <div id="langMenu" class="langPanel" hidden>
+                <select id="langSel" aria-label="Choose language"></select>
+              </div>
             </div>
           </div>
           <div class="themePick">
@@ -217,10 +221,10 @@
         <p id="status" class="status">Idle</p>
       </section>
       <section class="out">
-        <div id="textBlock" class="blk"><h2>Recognized Text</h2><p id="trans" class="trans">Click the microphone and start speaking.</p></div>
+        <div id="textBlock" class="blk"><h2 id="recognizedTitle">Recognized Text</h2><p id="trans" class="trans">Click the microphone and start speaking.</p></div>
         <div id="signBlock" class="blk">
           <div class="blkHead">
-            <h2>Sign Playback</h2>
+            <h2 id="signPlaybackTitle">Sign Playback</h2>
             <button id="repeatBtn" class="iconBtn" type="button" aria-label="Repeat sign playback" title="Repeat sign playback" disabled>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 1l4 4-4 4V6H8a3 3 0 0 0-3 3v1H3V9a5 5 0 0 1 5-5h9V1zM7 23l-4-4 4-4v3h9a3 3 0 0 0 3-3v-1h2v1a5 5 0 0 1-5 5H7v3z"/></svg>
             </button>
@@ -230,11 +234,10 @@
         </div>
       </section>
       <section class="settings">
-        <div class="set"><label>Output</label><div class="tog"><button id="gifBtn" class="on">GIFs</button><button id="textBtn">Text</button></div></div>
-        <div class="set"><label>Fallback</label><div class="tog"><button id="smartBtn" class="on">Smart</button><button id="alphaBtn">Alphabet</button></div></div>
+        <div class="set"><label id="outputLabel">Output</label><div class="tog"><button id="gifBtn" class="on">GIFs</button><button id="textBtn">Text</button></div></div>
+        <div class="set"><label id="fallbackLabel">Fallback</label><div class="tog"><button id="smartBtn" class="on">Smart</button><button id="alphaBtn">Alphabet</button></div></div>
       </section>
-      <select id="langSel" style="position:absolute;left:-9999px;opacity:0;pointer-events:none" aria-hidden="true" tabindex="-1"><option value="en-US">English</option><option value="so-SO">Somali</option></select>
-      <section class="manual"><label for="input">Type text to translate</label><div class="row"><input id="input" placeholder="Example: hello, i love you"><button id="translate" class="btn">Translate Text</button></div></section>
+      <section class="manual"><label id="manualLabel" for="input">Type text to translate</label><div class="row"><input id="input" placeholder="Example: hello, i love you"><button id="translate" class="btn">Translate Text</button></div></section>
       <section class="act"><button id="clear" class="clear">Clear</button></section>
     </section>
   </main>
@@ -247,9 +250,150 @@
       translate: document.getElementById("translate"), trans: document.getElementById("trans"), show: document.getElementById("show"),
       tok: document.getElementById("tok"), clear: document.getElementById("clear"), gifBtn: document.getElementById("gifBtn"),
       textBtn: document.getElementById("textBtn"), smartBtn: document.getElementById("smartBtn"), alphaBtn: document.getElementById("alphaBtn"),
-      langSel: document.getElementById("langSel"), enLangBtn: document.getElementById("enLangBtn"), soLangBtn: document.getElementById("soLangBtn"),
-      themeSel: document.getElementById("themeSel"), repeatBtn: document.getElementById("repeatBtn")
+      langSel: document.getElementById("langSel"), langToggleBtn: document.getElementById("langToggleBtn"), langMenu: document.getElementById("langMenu"),
+      themeSel: document.getElementById("themeSel"), repeatBtn: document.getElementById("repeatBtn"),
+      appTitle: document.getElementById("appTitle"), appSubtitle: document.getElementById("appSubtitle"), ramadanTag: document.getElementById("ramadanTag"),
+      recognizedTitle: document.getElementById("recognizedTitle"), signPlaybackTitle: document.getElementById("signPlaybackTitle"),
+      outputLabel: document.getElementById("outputLabel"), fallbackLabel: document.getElementById("fallbackLabel"), manualLabel: document.getElementById("manualLabel")
     };
+
+    const LANGUAGES = [
+      { code: "en-US", label: "English (US)" },
+      { code: "en-GB", label: "English (UK)" },
+      { code: "so-SO", label: "Somali" },
+      { code: "af-ZA", label: "Afrikaans" },
+      { code: "am-ET", label: "Amharic" },
+      { code: "ar-AE", label: "Arabic (UAE)" },
+      { code: "ar-BH", label: "Arabic (Bahrain)" },
+      { code: "ar-DZ", label: "Arabic (Algeria)" },
+      { code: "ar-EG", label: "Arabic (Egypt)" },
+      { code: "ar-IQ", label: "Arabic (Iraq)" },
+      { code: "ar-JO", label: "Arabic (Jordan)" },
+      { code: "ar-KW", label: "Arabic (Kuwait)" },
+      { code: "ar-LB", label: "Arabic (Lebanon)" },
+      { code: "ar-MA", label: "Arabic (Morocco)" },
+      { code: "ar-OM", label: "Arabic (Oman)" },
+      { code: "ar-QA", label: "Arabic (Qatar)" },
+      { code: "ar-SA", label: "Arabic (Saudi Arabia)" },
+      { code: "ar-TN", label: "Arabic (Tunisia)" },
+      { code: "ar-YE", label: "Arabic (Yemen)" },
+      { code: "az-AZ", label: "Azerbaijani" },
+      { code: "bg-BG", label: "Bulgarian" },
+      { code: "bn-BD", label: "Bengali (Bangladesh)" },
+      { code: "bn-IN", label: "Bengali (India)" },
+      { code: "bs-BA", label: "Bosnian" },
+      { code: "ca-ES", label: "Catalan" },
+      { code: "cs-CZ", label: "Czech" },
+      { code: "cy-GB", label: "Welsh" },
+      { code: "da-DK", label: "Danish" },
+      { code: "de-DE", label: "German (Germany)" },
+      { code: "de-AT", label: "German (Austria)" },
+      { code: "de-CH", label: "German (Switzerland)" },
+      { code: "el-GR", label: "Greek" },
+      { code: "en-AU", label: "English (Australia)" },
+      { code: "en-CA", label: "English (Canada)" },
+      { code: "en-GH", label: "English (Ghana)" },
+      { code: "en-IE", label: "English (Ireland)" },
+      { code: "en-IN", label: "English (India)" },
+      { code: "en-KE", label: "English (Kenya)" },
+      { code: "en-NG", label: "English (Nigeria)" },
+      { code: "en-NZ", label: "English (New Zealand)" },
+      { code: "en-PH", label: "English (Philippines)" },
+      { code: "en-TZ", label: "English (Tanzania)" },
+      { code: "en-ZA", label: "English (South Africa)" },
+      { code: "es-AR", label: "Spanish (Argentina)" },
+      { code: "es-BO", label: "Spanish (Bolivia)" },
+      { code: "es-CL", label: "Spanish (Chile)" },
+      { code: "es-CO", label: "Spanish (Colombia)" },
+      { code: "es-CR", label: "Spanish (Costa Rica)" },
+      { code: "es-DO", label: "Spanish (Dominican Rep.)" },
+      { code: "es-EC", label: "Spanish (Ecuador)" },
+      { code: "es-ES", label: "Spanish (Spain)" },
+      { code: "es-GT", label: "Spanish (Guatemala)" },
+      { code: "es-HN", label: "Spanish (Honduras)" },
+      { code: "es-MX", label: "Spanish (Mexico)" },
+      { code: "es-NI", label: "Spanish (Nicaragua)" },
+      { code: "es-PA", label: "Spanish (Panama)" },
+      { code: "es-PE", label: "Spanish (Peru)" },
+      { code: "es-PR", label: "Spanish (Puerto Rico)" },
+      { code: "es-PY", label: "Spanish (Paraguay)" },
+      { code: "es-SV", label: "Spanish (El Salvador)" },
+      { code: "es-US", label: "Spanish (US)" },
+      { code: "es-UY", label: "Spanish (Uruguay)" },
+      { code: "es-VE", label: "Spanish (Venezuela)" },
+      { code: "et-EE", label: "Estonian" },
+      { code: "eu-ES", label: "Basque" },
+      { code: "fa-IR", label: "Persian" },
+      { code: "fi-FI", label: "Finnish" },
+      { code: "fil-PH", label: "Filipino" },
+      { code: "fr-BE", label: "French (Belgium)" },
+      { code: "fr-CA", label: "French (Canada)" },
+      { code: "fr-CH", label: "French (Switzerland)" },
+      { code: "fr-FR", label: "French (France)" },
+      { code: "ga-IE", label: "Irish" },
+      { code: "gl-ES", label: "Galician" },
+      { code: "gu-IN", label: "Gujarati" },
+      { code: "he-IL", label: "Hebrew" },
+      { code: "hi-IN", label: "Hindi" },
+      { code: "hr-HR", label: "Croatian" },
+      { code: "hu-HU", label: "Hungarian" },
+      { code: "hy-AM", label: "Armenian" },
+      { code: "id-ID", label: "Indonesian" },
+      { code: "is-IS", label: "Icelandic" },
+      { code: "it-CH", label: "Italian (Switzerland)" },
+      { code: "it-IT", label: "Italian (Italy)" },
+      { code: "ja-JP", label: "Japanese" },
+      { code: "jv-ID", label: "Javanese" },
+      { code: "ka-GE", label: "Georgian" },
+      { code: "kk-KZ", label: "Kazakh" },
+      { code: "km-KH", label: "Khmer" },
+      { code: "kn-IN", label: "Kannada" },
+      { code: "ko-KR", label: "Korean" },
+      { code: "lo-LA", label: "Lao" },
+      { code: "lt-LT", label: "Lithuanian" },
+      { code: "lv-LV", label: "Latvian" },
+      { code: "mk-MK", label: "Macedonian" },
+      { code: "ml-IN", label: "Malayalam" },
+      { code: "mn-MN", label: "Mongolian" },
+      { code: "mr-IN", label: "Marathi" },
+      { code: "ms-MY", label: "Malay" },
+      { code: "my-MM", label: "Burmese" },
+      { code: "ne-NP", label: "Nepali" },
+      { code: "nl-BE", label: "Dutch (Belgium)" },
+      { code: "nl-NL", label: "Dutch (Netherlands)" },
+      { code: "no-NO", label: "Norwegian" },
+      { code: "pa-IN", label: "Punjabi" },
+      { code: "pl-PL", label: "Polish" },
+      { code: "pt-BR", label: "Portuguese (Brazil)" },
+      { code: "pt-PT", label: "Portuguese (Portugal)" },
+      { code: "ro-RO", label: "Romanian" },
+      { code: "ru-RU", label: "Russian" },
+      { code: "si-LK", label: "Sinhala" },
+      { code: "sk-SK", label: "Slovak" },
+      { code: "sl-SI", label: "Slovenian" },
+      { code: "sq-AL", label: "Albanian" },
+      { code: "sr-RS", label: "Serbian" },
+      { code: "su-ID", label: "Sundanese" },
+      { code: "sv-SE", label: "Swedish" },
+      { code: "sw-KE", label: "Swahili (Kenya)" },
+      { code: "sw-TZ", label: "Swahili (Tanzania)" },
+      { code: "ta-IN", label: "Tamil (India)" },
+      { code: "ta-LK", label: "Tamil (Sri Lanka)" },
+      { code: "ta-MY", label: "Tamil (Malaysia)" },
+      { code: "ta-SG", label: "Tamil (Singapore)" },
+      { code: "te-IN", label: "Telugu" },
+      { code: "th-TH", label: "Thai" },
+      { code: "tr-TR", label: "Turkish" },
+      { code: "uk-UA", label: "Ukrainian" },
+      { code: "ur-IN", label: "Urdu (India)" },
+      { code: "ur-PK", label: "Urdu (Pakistan)" },
+      { code: "uz-UZ", label: "Uzbek" },
+      { code: "vi-VN", label: "Vietnamese" },
+      { code: "zh-CN", label: "Chinese (Mainland)" },
+      { code: "zh-HK", label: "Chinese (Hong Kong)" },
+      { code: "zh-TW", label: "Chinese (Taiwan)" },
+      { code: "zu-ZA", label: "Zulu" }
+    ];
 
     const SIGN_FILES = [
       "100.gif","1000.gif","all.gif","allergic.gif","always.gif","americansignlanguage hello GIF.gif","baby.gif","bad.gif","book.gif","brother  sister.gif",
@@ -507,6 +651,58 @@
         micStartFailHelp: "Bilowga makarafoonka wuu fashilmay."
       }
     };
+    const UI = {
+      en: {
+        appTitle: "Speech to Sign",
+        appSubtitle: "Speak and see it in sign language",
+        ramadanTag: "Ramadan Kareem",
+        recognizedTitle: "Recognized Text",
+        signPlaybackTitle: "Sign Playback",
+        repeatTitle: "Repeat sign playback",
+        outputLabel: "Output",
+        fallbackLabel: "Fallback",
+        gifs: "GIFs",
+        text: "Text",
+        smart: "Smart",
+        alphabet: "Alphabet",
+        manualLabel: "Type text to translate",
+        inputPlaceholder: "Example: hello, i love you",
+        translate: "Translate Text",
+        clear: "Clear",
+        startMicAria: "Start speech recognition",
+        stopMicAria: "Stop speech recognition"
+      },
+      so: {
+        appTitle: "Hadal ilaa Calaamad",
+        appSubtitle: "Hadal oo ku arag luqadda calaamadaha",
+        ramadanTag: "Ramadan Kariim",
+        recognizedTitle: "Qoraalka La Aqoonsaday",
+        signPlaybackTitle: "Muujinta Calaamadaha",
+        repeatTitle: "Ku celi muujinta calaamadaha",
+        outputLabel: "Soo Saarid",
+        fallbackLabel: "Beddel",
+        gifs: "GIFs",
+        text: "Qoraal",
+        smart: "Caqli",
+        alphabet: "Alifbeeto",
+        manualLabel: "Qor qoraal aad turjunto",
+        inputPlaceholder: "Tusaale: hello, i love you",
+        translate: "Turjun Qoraalka",
+        clear: "Nadiifi",
+        startMicAria: "Bilow aqoonsiga codka",
+        stopMicAria: "Jooji aqoonsiga codka"
+      }
+    };
+    const AUTO_I18N_CACHE_KEY = "auto-i18n-cache-v1";
+    const autoI18n = { ui: {}, text: {} };
+    try {
+      const parsed = JSON.parse(localStorage.getItem(AUTO_I18N_CACHE_KEY) || "{}");
+      if (parsed && typeof parsed === "object") {
+        autoI18n.ui = parsed.ui && typeof parsed.ui === "object" ? parsed.ui : {};
+        autoI18n.text = parsed.text && typeof parsed.text === "object" ? parsed.text : {};
+      }
+    } catch {}
+    let langLoadRun = 0;
 
     const normalizeText = t => t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[.,!?;:"'()\-]/g," ").replace(/\s+/g," ").trim();
     const phraseMap = {}, singleWordMap = {}, aliasMap = {}, soAliasMap = {}, variantIndex = {};
@@ -653,7 +849,89 @@
       return n;
     };
     const isSomali = () => (el.langSel?.value || "").toLowerCase().startsWith("so");
-    const t = (key) => (isSomali() ? TEXT.so[key] : TEXT.en[key]);
+    const langBase = () => ((el.langSel?.value || "en-US").split("-")[0] || "en").toLowerCase();
+    const isEnglish = () => langBase() === "en";
+    const getTextMap = () => {
+      if (isSomali()) return TEXT.so;
+      const base = langBase();
+      return autoI18n.text[base] || TEXT.en;
+    };
+    const getUiMap = () => {
+      if (isSomali()) return UI.so;
+      const base = langBase();
+      return autoI18n.ui[base] || UI.en;
+    };
+    const t = (key) => getTextMap()[key] || TEXT.en[key] || key;
+    const uiText = (key) => getUiMap()[key] || UI.en[key] || key;
+    const saveAutoI18n = () => {
+      try { localStorage.setItem(AUTO_I18N_CACHE_KEY, JSON.stringify(autoI18n)); } catch {}
+    };
+    const translateValue = async (value, target) => {
+      if (!value || !target || target === "en") return value;
+      try {
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(target)}&dt=t&q=${encodeURIComponent(value)}`;
+        const res = await fetch(url);
+        if (!res.ok) return value;
+        const data = await res.json();
+        const out = (data?.[0] || []).map((part) => part?.[0] || "").join("").trim();
+        return out || value;
+      } catch {
+        return value;
+      }
+    };
+    const ensureAutoLang = async (target) => {
+      if (!target || target === "en" || target === "so") return;
+      if (autoI18n.ui[target] && autoI18n.text[target]) return;
+      const [uiEntries, textEntries] = await Promise.all([
+        Promise.all(Object.entries(UI.en).map(async ([k, v]) => [k, await translateValue(v, target)])),
+        Promise.all(Object.entries(TEXT.en).map(async ([k, v]) => [k, await translateValue(v, target)]))
+      ]);
+      autoI18n.ui[target] = Object.fromEntries(uiEntries);
+      autoI18n.text[target] = Object.fromEntries(textEntries);
+      saveAutoI18n();
+    };
+    const applyUiLanguage = () => {
+      document.documentElement.lang = (el.langSel?.value || "en-US").toLowerCase();
+      const base = (el.langSel?.value || "en-US").split("-")[0].toLowerCase();
+      document.documentElement.dir = ["ar","fa","he","ur"].includes(base) ? "rtl" : "ltr";
+      if (el.appTitle) el.appTitle.textContent = uiText("appTitle");
+      if (el.appSubtitle) el.appSubtitle.textContent = uiText("appSubtitle");
+      if (el.ramadanTag) el.ramadanTag.textContent = uiText("ramadanTag");
+      if (el.recognizedTitle) el.recognizedTitle.textContent = uiText("recognizedTitle");
+      if (el.signPlaybackTitle) el.signPlaybackTitle.textContent = uiText("signPlaybackTitle");
+      if (el.repeatBtn) {
+        const rpt = uiText("repeatTitle");
+        el.repeatBtn.title = rpt;
+        el.repeatBtn.setAttribute("aria-label", rpt);
+      }
+      if (el.outputLabel) el.outputLabel.textContent = uiText("outputLabel");
+      if (el.fallbackLabel) el.fallbackLabel.textContent = uiText("fallbackLabel");
+      if (el.gifBtn) el.gifBtn.textContent = uiText("gifs");
+      if (el.textBtn) el.textBtn.textContent = uiText("text");
+      if (el.smartBtn) el.smartBtn.textContent = uiText("smart");
+      if (el.alphaBtn) el.alphaBtn.textContent = uiText("alphabet");
+      if (el.manualLabel) el.manualLabel.textContent = uiText("manualLabel");
+      if (el.input) el.input.placeholder = uiText("inputPlaceholder");
+      if (el.translate) el.translate.textContent = uiText("translate");
+      if (el.clear) el.clear.textContent = uiText("clear");
+      if (el.mic) el.mic.setAttribute("aria-label", listening ? uiText("stopMicAria") : uiText("startMicAria"));
+    };
+    const refreshLanguage = async () => {
+      const runId = ++langLoadRun;
+      applyUiLanguage();
+      if (!isEnglish() && !isSomali()) {
+        await ensureAutoLang(langBase());
+        if (runId !== langLoadRun) return;
+        applyUiLanguage();
+      }
+      if (!last) {
+        el.trans.textContent = t("defaultTranscript");
+        clearShow();
+        setStatus("", t("idle"));
+      } else {
+        replay();
+      }
+    };
     const displayToken = (token) => (isSomali() && SO[token] ? SO[token] : token);
     const localizeText = (text) => {
       if (!isSomali() || !text) return text;
@@ -782,7 +1060,7 @@
       last=final; updateRepeatState(); el.trans.textContent=localizeText(final); setStatus("processing",t("processing")); play(words, fallback==="alphabet");
     }
 
-    function reset(){ run++; el.trans.textContent=t("defaultTranscript"); el.input.value=""; clearShow(); el.mic.classList.remove("listening"); el.mic.setAttribute("aria-label","Start speech recognition"); listening=false; hadResult=false; manualStop=false; last=""; updateRepeatState(); setStatus("",t("idle")); }
+    function reset(){ run++; el.trans.textContent=t("defaultTranscript"); el.input.value=""; clearShow(); el.mic.classList.remove("listening"); el.mic.setAttribute("aria-label",uiText("startMicAria")); listening=false; hadResult=false; manualStop=false; last=""; updateRepeatState(); setStatus("",t("idle")); }
     const replay=()=>{ if(last) translate(last); };
     const tog=(on,off)=>{on.classList.add("on");off.classList.remove("on");on.setAttribute("aria-pressed","true");off.setAttribute("aria-pressed","false");};
     const THEME_KEY = "theme-name";
@@ -805,23 +1083,41 @@
       }
       applyTheme(saved || "ramadan-dawn");
     };
+    const buildLanguageControls = () => {
+      if (!el.langSel) return;
+      el.langSel.innerHTML = "";
+      (LANGUAGES || []).forEach(({ code, label }) => {
+        const opt = document.createElement("option");
+        opt.value = code;
+        opt.textContent = label;
+        el.langSel.appendChild(opt);
+      });
+      if (![...el.langSel.options].some((o) => o.value === el.langSel.value)) el.langSel.value = "en-US";
+    };
     const setLangToggle = () => {
-      if ((el.langSel?.value || "en-US").toLowerCase().startsWith("so")) tog(el.soLangBtn, el.enLangBtn);
-      else tog(el.enLangBtn, el.soLangBtn);
+      if (!el.langToggleBtn || !el.langSel) return;
+      const label = el.langSel.options[el.langSel.selectedIndex]?.text || "English (US)";
+      el.langToggleBtn.textContent = `Lang: ${label}`;
+    };
+    const toggleLangMenu = (open) => {
+      if (!el.langMenu || !el.langToggleBtn) return;
+      const shouldOpen = typeof open === "boolean" ? open : el.langMenu.hidden;
+      el.langMenu.hidden = !shouldOpen;
+      el.langToggleBtn.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
     };
 
     function setupMic(){
       if(!SR){ el.trans.textContent=t("unsupported"); el.mic.disabled=true; setStatus("",t("idle")); return; }
       rec = new SR(); rec.lang=el.langSel?.value || "en-US"; rec.continuous=false; rec.interimResults=false; rec.maxAlternatives=1;
-      rec.onstart=()=>{listening=true;hadResult=false;manualStop=false;el.mic.classList.add("listening");el.mic.setAttribute("aria-label","Stop speech recognition");setStatus("listening",t("listening"));};
+      rec.onstart=()=>{listening=true;hadResult=false;manualStop=false;el.mic.classList.add("listening");el.mic.setAttribute("aria-label",uiText("stopMicAria"));setStatus("listening",t("listening"));};
       rec.onresult=(e)=>{hadResult=true; const heard=(e.results?.[0]?.[0]?.transcript||"").trim(); if(!heard){el.trans.textContent=t("noSpeech"); clearShow(t("noSpeech")); setStatus("",t("idle")); return;} translate(heard);};
-      rec.onend=()=>{listening=false;el.mic.classList.remove("listening");el.mic.setAttribute("aria-label","Start speech recognition"); if(!hadResult && !manualStop){el.trans.textContent=t("noSpeech"); clearShow(t("noSpeech")); setStatus("",t("idle"));} manualStop=false;};
+      rec.onend=()=>{listening=false;el.mic.classList.remove("listening");el.mic.setAttribute("aria-label",uiText("startMicAria")); if(!hadResult && !manualStop){el.trans.textContent=t("noSpeech"); clearShow(t("noSpeech")); setStatus("",t("idle"));} manualStop=false;};
       rec.onerror=(e)=>{const err=e.error||"unknown-error";
         if(err==="not-allowed"||err==="service-not-allowed"){el.trans.textContent=t("micDenied"); clearShow(t("micDeniedHelp")); setStatus("error",t("micBlocked"));}
         else if(err==="audio-capture"){el.trans.textContent=t("noMic"); clearShow(t("noMicHelp")); setStatus("error",t("micMissing"));}
         else if(err==="no-speech"){el.trans.textContent=t("noSpeech"); clearShow(t("noSpeech")); setStatus("",t("idle"));}
         else{el.trans.textContent=`${t("speechErr")}: ${err}`; clearShow(t("speechErrHelp")); setStatus("error",t("error"));}
-        listening=false;hadResult=false;manualStop=false;el.mic.classList.remove("listening");el.mic.setAttribute("aria-label","Start speech recognition");
+        listening=false;hadResult=false;manualStop=false;el.mic.classList.remove("listening");el.mic.setAttribute("aria-label",uiText("startMicAria"));
       };
     }
 
@@ -834,39 +1130,37 @@
     el.smartBtn.addEventListener("click",()=>{fallback="smart";tog(el.smartBtn,el.alphaBtn);replay();});
     el.alphaBtn.addEventListener("click",()=>{fallback="alphabet";tog(el.alphaBtn,el.smartBtn);replay();});
     el.repeatBtn?.addEventListener("click",()=>{ replay(); });
-    el.enLangBtn?.addEventListener("click",()=>{
-      if(el.langSel.value === "en-US") return;
-      el.langSel.value = "en-US";
-      el.langSel.dispatchEvent(new Event("change"));
-    });
-    el.soLangBtn?.addEventListener("click",()=>{
-      if(el.langSel.value === "so-SO") return;
-      el.langSel.value = "so-SO";
-      el.langSel.dispatchEvent(new Event("change"));
-    });
+    el.langToggleBtn?.addEventListener("click",()=>{ toggleLangMenu(); });
     el.themeSel?.addEventListener("change",()=>{ applyTheme(el.themeSel.value); });
     el.langSel?.addEventListener("change",()=>{
       setLangToggle();
+      refreshLanguage();
+      toggleLangMenu(false);
       if(!rec) return;
       rec.lang = el.langSel.value;
-      if(!last){
-        el.trans.textContent = t("defaultTranscript");
-        clearShow();
-        setStatus("", t("idle"));
-      } else {
-        replay();
-      }
       if(listening){
         manualStop = true;
         rec.stop();
         setTimeout(()=>{ try { rec.start(); } catch {} }, 120);
       }
     });
+    document.addEventListener("click",(e)=>{
+      if (!el.langMenu || !el.langToggleBtn) return;
+      if (el.langMenu.hidden) return;
+      const target = e.target;
+      if (target instanceof Node && (el.langMenu.contains(target) || el.langToggleBtn.contains(target))) return;
+      toggleLangMenu(false);
+    });
+    document.addEventListener("keydown",(e)=>{
+      if (e.key === "Escape") toggleLangMenu(false);
+    });
 
+    buildLanguageControls();
     initTheme();
     setLangToggle();
+    applyUiLanguage();
     el.trans.textContent = t("defaultTranscript");
-    clearShow(); updateRepeatState(); setStatus("",t("idle")); setupSplash(); setupMic();
+    clearShow(); updateRepeatState(); setStatus("",t("idle")); setupSplash(); setupMic(); refreshLanguage();
 
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
