@@ -4,23 +4,67 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Speech to Sign converts spoken or typed words into sign-language visuals with GIF playback and smart fallback modes.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="author" content="RT Solutions">
+  <meta name="format-detection" content="telephone=no">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Speech to Sign">
   <meta property="og:title" content="Speech to Sign">
   <meta property="og:description" content="Convert speech and text to sign visuals instantly.">
+  <meta property="og:url" content="./">
+  <meta property="og:locale" content="en_US">
   <meta property="og:image" content="marketing seo image.png">
+  <meta property="og:image:alt" content="Speech to Sign marketing banner">
+  <meta property="og:image" content="logo (2).png">
+  <meta property="og:image:alt" content="Speech to Sign logo">
+  <meta property="og:image" content="Gemini_Generated_Image_x0oe4fx0oe4fx0oe.png">
+  <meta property="og:image:alt" content="Speech to Sign app icon">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@RTSolutions">
   <meta name="twitter:title" content="Speech to Sign">
   <meta name="twitter:description" content="Convert speech and text to sign visuals instantly.">
   <meta name="twitter:image" content="marketing seo image.png">
+  <meta name="twitter:image:alt" content="Speech to Sign marketing banner">
   <meta name="theme-color" content="#0f7f88">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Speech to Sign">
+  <link rel="canonical" href="./">
   <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preload" as="image" href="marketing seo image.png">
+  <link rel="preload" as="image" href="logo (2).png">
+  <link rel="preload" as="image" href="Gemini_Generated_Image_x0oe4fx0oe4fx0oe.png">
   <link rel="icon" type="image/png" href="Gemini_Generated_Image_x0oe4fx0oe4fx0oe.png">
+  <link rel="shortcut icon" href="Gemini_Generated_Image_x0oe4fx0oe4fx0oe.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="Gemini_Generated_Image_x0oe4fx0oe4fx0oe.png">
   <link rel="apple-touch-icon" href="Gemini_Generated_Image_x0oe4fx0oe4fx0oe.png">
   <title>Speech to Sign</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Speech to Sign",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "description": "Speech to Sign converts spoken or typed words into sign-language visuals with GIF playback and smart fallback modes.",
+    "url": "./",
+    "image": [
+      "marketing seo image.png",
+      "logo (2).png",
+      "Gemini_Generated_Image_x0oe4fx0oe4fx0oe.png"
+    ],
+    "publisher": {
+      "@type": "Organization",
+      "name": "RT Solutions",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "logo (2).png"
+      }
+    }
+  }
+  </script>
   <style>
     :root{--bg:#eef4fb;--card:#fff;--line:#d8e3ef;--ink:#122334;--muted:#506173;--a:#0f7f88;--a2:#0a656c;--bg-grad:linear-gradient(160deg,#f5efe6,#d8e6f6);--soft:#f8fbff;--show-bg:linear-gradient(180deg,#edf6ff,#eefaf7);--show-border:#95aec7;--img-border:#bed1e3;--input-bg:#fff;--chip-bg:#fff}
     *{box-sizing:border-box}html,body{margin:0}
@@ -150,16 +194,19 @@
     };
 
     const SIGN_FILES = [
-      "100.gif","1000.gif","always.gif","americansignlanguage hello GIF.gif","baby.gif","bad.gif","brother  sister.gif","busy.gif","cannot.gif","come.gif",
-      "continue.gif","cool.gif","don't understand.gif","dont understand.gif","excuse me.gif","family.gif","fast.gif","favourite.gif","fine.gif","free.gif",
-      "friend.gif","give.gif","good.gif","Happy I Love You GIF by joeyahlbum.gif","happy sign language GIF by signtime.gif","happy sign language GIF.gif","holiday.gif",
-      "home.gif","hope.gif","how many.gif","hungry.gif","in    out.gif","introduce sign language GIF.gif","later.gif","long.gif","Marry Sign Language GIF.gif",
-      "meet.gif","more.gif","nervous.gif","not.gif","now.gif","sad sign language GIF.gif","see watch.gif","see you.gif","shes polite.gif","sick sign language GIF.gif",
-      "Sign Language Change GIF.gif","sign language cry GIF.gif","Sign Language Month GIF.gif","sign language name GIF.gif","sign language numbers GIF.gif","Sign Language Play GIF.gif",
-      "Sign Language Put GIF.gif","Sign Language Sgsl GIF.gif","Sign Language Stand GIF.gif","Sign Language Time GIF.gif","Sign Language Wait GIF.gif","Sign Language Walk GIF.gif",
-      "Sign Language Week GIF.gif","Sign Language Year GIF.gif","Sign Language Yes GIF by @InvestInAccess.gif","sign no GIF by signtime.gif","sign please GIF by signtime.gif",
-      "sign yes GIF by signtime.gif","sorry sign language GIF by signtime.gif","spelling or alphabet.gif","Stay Home Sign Language GIF.gif","sucess.gif","super.gif","thank u.gif",
-      "toilet.gif","water.gif","we.gif","welcome.gif","when.gif","where.gif","which.gif","wonderful.gif","your.gif","mine.gif","sign language what GIF.gif","sign language love GIF.gif","Sign Language School GIF.gif","me.gif","who.gif"
+      "100.gif","1000.gif","all.gif","allergic.gif","always.gif","americansignlanguage hello GIF.gif","baby.gif","bad.gif","book.gif","brother  sister.gif",
+      "brother.gif","busy.gif","cannot.gif","child.gif","come.gif","continue.gif","cool.gif","death.gif","dont understand.gif","don't understand.gif",
+      "each.gif","excuse me.gif","family.gif","fast.gif","father.gif","favourite.gif","fine.gif","free.gif","friend.gif","give.gif","good.gif","gorilla.gif",
+      "Happy I Love You GIF by joeyahlbum.gif","happy sign language GIF by signtime.gif","happy sign language GIF.gif","hate that.gif","hate.gif","he.gif","her.gif","holiday.gif","home.gif","hope.gif",
+      "how many.gif","hungry.gif","i want.gif","i.gif","in    out.gif","introduce sign language GIF.gif","it.gif","kids or kid both variation.gif","kind.gif","later.gif",
+      "lie.gif","like.gif","long.gif","mad.gif","Marry Sign Language GIF.gif","me.gif","mean.gif","meet.gif","mine.gif","monkey.gif","more.gif","mother.gif",
+      "my.gif","nervous.gif","none.gif","not.gif","now.gif","pain.gif","parents.gif","sad sign language GIF.gif","see watch.gif","see you.gif","seriously.gif","shes polite.gif",
+      "shy.gif","sick of.gif","sick sign language GIF.gif","Sign Language Change GIF.gif","sign language cry GIF.gif","sign language love GIF.gif","Sign Language Month GIF.gif","sign language name GIF.gif",
+      "sign language numbers GIF.gif","Sign Language Play GIF.gif","Sign Language Put GIF.gif","Sign Language School GIF.gif","Sign Language Sgsl GIF.gif","Sign Language Stand GIF.gif",
+      "Sign Language Time GIF.gif","Sign Language Wait GIF.gif","Sign Language Walk GIF.gif","Sign Language Week GIF.gif","sign language what GIF.gif","Sign Language Year GIF.gif",
+      "Sign Language Yes GIF by @InvestInAccess.gif","sign no GIF by signtime.gif","sign please GIF by signtime.gif","sign yes GIF by signtime.gif","sister.gif","somebody.gif","something.gif",
+      "sorry sign language GIF by signtime.gif","spelling or alphabet.gif","Stay Home Sign Language GIF.gif","sucess.gif","super.gif","thank u.gif","their.gif","toilet.gif","us.gif","water.gif",
+      "we.gif","welcome.gif","when.gif","where.gif","which.gif","who.gif","wife.gif","wonderful.gif","you.gif","your.gif"
     ];
     const uniq = (arr) => [...new Set(arr.map(v => (v || "").trim()).filter(Boolean))];
     const fileToKey = (name) => {
@@ -178,6 +225,7 @@
         "americansignlanguage hello": "hello",
         "happy i love you": "i love you",
         "introduce": "introduce",
+        "kids or kid both variation": "kid",
         "marry": "marry",
         "shes polite": "she is polite",
         "sign no": "no",
@@ -196,35 +244,68 @@
     });
 
     const SO_BASE = {
-      "100":"boqol","1000":"kun","always":"mar walba","baby":"ilmo","bad":"xun","brother sister":"walaal","busy":"mashquul","cannot":"ma karo","come":"kaalay",
-      "continue":"sii wad","cool":"fiican","dont understand":"ma fahmin","excuse me":"i raali ahow","family":"qoys","fast":"dhakhso","favourite":"ugu jeclaan",
-      "fine":"wanaagsan","free":"xor","friend":"saaxiib","give":"sii","good":"wanaag","hello":"salaan","happy":"faraxsan","holiday":"fasax","home":"guri",
-      "hope":"rajo","how many":"imisa","hungry":"gaajaysan","in out":"gudaha bannaanka","introduce":"is baro","i love you":"waan ku jeclahay","later":"danbe",
-      "long":"dheer","marry":"guurso","meet":"la kulan","more":"inbadan","month":"bil","name":"magac","nervous":"walwal","no":"maya","not":"maya","now":"hadda",
-      "numbers":"tirooyin","play":"ciyaar","please":"fadlan","put":"dhig","sad":"murugaysan","see watch":"arag daawo","see you":"ku arki doonaa","she is polite":"iyada waa edeb",
-      "sick":"xanuunsan","sign":"calaamad","sorry":"waan ka xumahay","spelling or alphabet":"higgaad ama alifbeeto","stand":"istaag","stay home":"guriga joog","success":"guul",
-      "super":"aad u fiican","thank you":"mahadsanid","time":"waqti","toilet":"musqul","wait":"sug","walk":"socod","water":"biyo","we":"annaga","week":"usbuuc",
-      "welcome":"soo dhawoow","when":"goorma","where":"xagee","which":"kee","wonderful":"cajiib","year":"sano","yes":"haa","your":"kaa","mine":"kayga","what":"maxay","love":"jacayl","school":"dugsi","me":"aniga","who":"yaa","change":"beddel","cry":"ooy"
+      "100":"boqol","1000":"kun","all":"dhammaan","allergic":"xasaasiyad","always":"mar walba","baby":"ilmo","bad":"xun","book":"buug","brother":"walaal lab",
+      "brother sister":"walaal","busy":"mashquul","cannot":"ma karo","child":"cunug","come":"kaalay","continue":"sii wad","cool":"fiican","death":"geeri",
+      "dont understand":"ma fahmin","each":"mid kasta","excuse me":"i raali ahow","family":"qoys","fast":"dhakhso","father":"aabe","favourite":"ugu jeclaan",
+      "fine":"wanaagsan","free":"xor","friend":"saaxiib","give":"sii","good":"wanaag","gorilla":"gorilla","hate":"neceb","hate that":"taas waan necbahay","he":"isaga","hello":"salaan","her":"iyada",
+      "happy":"faraxsan","holiday":"fasax","home":"guri","hope":"rajo","how many":"imisa","hungry":"gaajaysan","i":"aniga","i love you":"waan ku jeclahay",
+      "i want":"waan rabaa","in out":"gudaha bannaanka","introduce":"is baro","it":"wax","kid":"ilmo","kind":"naxariis","later":"danbe","lie":"been","like":"jecel",
+      "long":"dheer","mad":"caraysan","marry":"guurso","mean":"xun","meet":"la kulan","me":"aniga","mine":"kayga","monkey":"daanyeer","more":"inbadan","mother":"hooyo",
+      "my":"kayga","nervous":"walwal","none":"midna ma jiro","no":"maya","not":"maya","now":"hadda","numbers":"tirooyin","pain":"xanuun","parents":"waalidiin",
+      "play":"ciyaar","please":"fadlan","put":"dhig","sad":"murugaysan","see watch":"arag daawo","see you":"ku arki doonaa","seriously":"runtii","she is polite":"iyada waa edeb",
+      "shy":"xishood","sick":"xanuunsan","sick of":"ka daalay","sign":"calaamad","sorry":"waan ka xumahay","somebody":"qof","something":"wax","spelling or alphabet":"higgaad ama alifbeeto",
+      "stand":"istaag","stay home":"guriga joog","success":"guul","super":"aad u fiican","sister":"walaal dhedig","thank you":"mahadsanid","their":"kooda","time":"waqti",
+      "toilet":"musqul","us":"annaga","wait":"sug","walk":"socod","water":"biyo","we":"annaga","week":"usbuuc","welcome":"soo dhawoow","when":"goorma","where":"xagee",
+      "which":"kee","who":"yaa","wife":"xaas","wonderful":"cajiib","year":"sano","yes":"haa","you":"adiga","your":"kaa","what":"maxay","love":"jacayl","school":"dugsi",
+      "change":"beddel","cry":"ooy"
     };
     const SO = {};
     Object.keys(SIGN).forEach((key) => { SO[key] = SO_BASE[key] || key; });
 
     const EN_BASE_VARIANTS = {
+      "all":["all","everyone","everybody","everything","all of it"],
+      "allergic":["allergic","allergy","allergies","reacting","reaction"],
+      "book":["book","books","notebook","textbook","that book"],
+      "child":["child","children","kid","kids","little one"],
+      "death":["death","dead","died","passed away"],
+      "father":["father","dad","daddy","papa"],
+      "hate":["hate","hated","hates","dislike","can't stand"],
+      "hate that":["hate that","i hate that","dont like that","do not like that"],
+      "he":["he","him","that man","that guy"],
       "hello":["hello","hi","hey","heyy","hiya","yo","greetings","good morning","good evening"],
+      "her":["her","hers","that woman","that girl"],
+      "i":["i","me"],
       "i love you":["i love you","i luv you","love you","luv u","ily","i really love you"],
-      "dont understand":["dont understand","don't understand","do not understand","i dont understand","i am confused","not understand"],
-      "thank you":["thank you","thanks","thank u","thx","many thanks","thanks a lot"],
-      "yes":["yes","yep","yeah","yup","sure","affirmative"],
+      "i want":["i want","want this","want that","i need","i would like"],
+      "it":["it","this thing","that thing"],
+      "kid":["kid","kids","child","children"],
+      "kind":["kind","kindness","be kind","nice person"],
+      "lie":["lie","lying","lied","not true","false statement"],
+      "like":["like","liked","likes","enjoy","prefer"],
+      "mean":["mean","means","what do you mean","meaning"],
+      "mad":["mad","angry","upset","furious"],
+      "mine":["mine","this is mine","it is mine","belongs to me","my own","that is mine","my book","my stuff"],
+      "mother":["mother","mom","mum","mama"],
+      "my":["my","my own","for me"],
       "no":["no","nope","nah","negative","not really","never"],
+      "none":["none","nothing","no one","nobody"],
+      "pain":["pain","painful","it hurts","hurt","aching","ache"],
+      "parents":["parents","my parents","mother and father","mom and dad"],
       "please":["please","pls","plz","please help","please now","kindly"],
-      "good":["good","great","nice","well","all good","doing good"],
-      "sorry":["sorry","so sorry","my bad","apologies","forgive me","pardon me"]
-      ,"mine":["mine","this is mine","it is mine","belongs to me","my own","that is mine"]
-      ,"what":["what","what is","what now","which thing","what do you mean","what happened"]
-      ,"love":["love","i love","feel love","in love","deep love","much love"]
-      ,"school":["school","at school","go to school","my school","in school","school now"]
-      ,"me":["me","it's me","this is me","for me","about me","myself"]
-      ,"who":["who","who is","who are you","who is that","who now","who there"]
+      "seriously":["seriously","for real","really seriously"],
+      "shy":["shy","timid","bashful"],
+      "sick of":["sick of","tired of","fed up","done with this"],
+      "somebody":["somebody","someone","person"],
+      "something":["something","anything","a thing"],
+      "sorry":["sorry","so sorry","my bad","apologies","forgive me","pardon me"],
+      "thank you":["thank you","thanks","thank u","thx","many thanks","thanks a lot"],
+      "their":["their","theirs","belongs to them"],
+      "us":["us","we all","our group"],
+      "what":["what","what is","what now","which thing","what do you mean","what happened"],
+      "who":["who","who is","who are you","who is that","who now","who there"],
+      "wife":["wife","my wife","spouse"],
+      "yes":["yes","yep","yeah","yup","sure","affirmative"],
+      "you":["you","u","yourself"]
     };
     const SO_BASE_VARIANTS = {
       "hello":["salaan","salaam","asc","asalamu alaikum","asalaamu calaykum","iska warran"],
@@ -237,6 +318,20 @@
       "good":["wanaag","fiican","aad u fiican","wacan","ok","sax"],
       "sorry":["waan ka xumahay","raali ahow","iiga raali noqo","cafis","aad baan uga xumahay","waan ka xumahay runtii"],
       "mine":["kayga","aniga leh","kan waa kayga","waxaan leeyahay","ii gaar ah","taas waa tayda"],
+      "my":["kayga","tayda","aniga leh"],
+      "book":["buug","buuga","buugga"],
+      "child":["cunug","caruur","ilmo"],
+      "father":["aabe","abbaha"],
+      "mother":["hooyo","hooyada"],
+      "hate":["neceb","waan necbahay","aan jeclayn"],
+      "hate that":["taas waan necbahay","taas ma jecli"],
+      "lie":["been","been sheeg","run ma aha"],
+      "mad":["caraysan","xanaaqsan"],
+      "sick of":["ka daalay","waan ka daalay","waan ka caajisay"],
+      "wife":["xaas","xaaskeyga"],
+      "their":["kooda","iyaga leh"],
+      "us":["annaga","innaga"],
+      "you":["adiga","adigaa"],
       "what":["maxay","waa maxay","maxaa","maxaa jira","maxaad tiri","maxaa dhacay"],
       "love":["jacayl","waan ku jeclahay","jaceyl","jeceyl","jacayl badan","waan jecelahay"],
       "school":["dugsi","iskuul","dugsiga","iskuulka","dugsi tag","dugsiga ayaan joogaa"],
@@ -311,6 +406,106 @@
     });
     Object.entries(ALIAS).forEach(([k,arr]) => arr.forEach(a => aliasMap[normalizeText(a)]=k));
     Object.entries(SO).forEach(([k,v]) => { soAliasMap[normalizeText(v)] = k; });
+    const CLOSEST_WORD_MAP = {
+      a: "", an: "", the: "", is: "", am: "", are: "", was: "", were: "", be: "", being: "", been: "",
+      to: "", of: "", on: "", at: "", in: "", for: "", from: "", with: "", and: "", but: "", or: "",
+      this: "", that: "", these: "", those: "",
+      belongs: "mine", owned: "mine", ownership: "mine", myself: "me", gave: "give", given: "give", gives: "give",
+      angry: "mad", anger: "mad", furious: "mad", upset: "mad",
+      lied: "lie", lying: "lie", false: "lie", untrue: "lie",
+      dislike: "hate", hated: "hate", hates: "hate",
+      tired: "sick of", fed: "sick of",
+      mom: "mother", mum: "mother", mommy: "mother", mama: "mother",
+      dad: "father", daddy: "father", papa: "father",
+      children: "child", kids: "kid", kiddo: "kid",
+      hurts: "pain", hurting: "pain", painful: "pain", ache: "pain", aching: "pain",
+      wants: "i want", want: "i want", wanted: "i want", needing: "i want", needs: "i want", need: "i want",
+      likes: "like", liked: "like", loving: "love",
+      ours: "us", theirs: "their", hers: "her", his: "he",
+      anybody: "somebody", anyone: "somebody", anything: "something", somebodys: "somebody",
+      spouse: "wife", partner: "wife"
+    };
+    const SOMALI_CLOSEST_WORD_MAP = {
+      waa: "", waan: "", waad: "", way: "", ay: "", ayuu: "", ayay: "", yihiin: "", ah: "", oo: "", ku: "", ka: "", la: "", iyo: "",
+      aan: "", in: "", u: "", ooan: "", marka: "", kadib: "", sidoo: "", kale: "", aad: "",
+      aniga: "me", anigu: "me", anigaa: "me", iga: "me", i: "me",
+      adiga: "you", adigaa: "you", kuu: "you", kugu: "you",
+      isaga: "he", iyada: "her", iyaga: "somebody",
+      kayga: "mine", tayda: "mine", aniga leh: "mine", kooda: "their", iyaga leh: "their",
+      na: "us", annaga: "us", innaga: "us",
+      hooyo: "mother", aabe: "father", xaas: "wife", waalidiin: "parents",
+      buug: "book", buuga: "book", buugga: "book",
+      cunug: "child", caruur: "child", ilmo: "child", carruur: "child",
+      jacayl: "love", jaceyl: "love", jeceyl: "love",
+      neceb: "hate", necbahay: "hate", nacayb: "hate", xanaaqsan: "mad", caraysan: "mad",
+      been: "lie", run: "", runta: "", beenabuur: "lie",
+      daalay: "sick of", caajisay: "sick of", dhibsaday: "sick of",
+      xanuun: "pain", xanuunsan: "sick", murugaysan: "sad", faraxsan: "happy",
+      maxaa: "what", maxay: "what", yaa: "who", xagee: "where", goorma: "when", kee: "which",
+      maya: "no", haa: "yes", fadlan: "please", mahadsanid: "thank you", raali: "sorry"
+    };
+    const SINGLE_KEYS = Object.keys(singleWordMap);
+    const singular = (w) => {
+      if (w.endsWith("ies") && w.length > 4) return `${w.slice(0, -3)}y`;
+      if (w.endsWith("es") && w.length > 3) return w.slice(0, -2);
+      if (w.endsWith("s") && w.length > 3) return w.slice(0, -1);
+      return w;
+    };
+    const stem = (w) => {
+      if (w.endsWith("ing") && w.length > 5) return w.slice(0, -3);
+      if (w.endsWith("ed") && w.length > 4) return w.slice(0, -2);
+      if (w.endsWith("ly") && w.length > 4) return w.slice(0, -2);
+      return w;
+    };
+    const distance = (a, b) => {
+      if (Math.abs(a.length - b.length) > 2) return 99;
+      const dp = Array.from({length: a.length + 1}, () => Array(b.length + 1).fill(0));
+      for (let i = 0; i <= a.length; i++) dp[i][0] = i;
+      for (let j = 0; j <= b.length; j++) dp[0][j] = j;
+      for (let i = 1; i <= a.length; i++) {
+        for (let j = 1; j <= b.length; j++) {
+          const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+          dp[i][j] = Math.min(
+            dp[i - 1][j] + 1,
+            dp[i][j - 1] + 1,
+            dp[i - 1][j - 1] + cost
+          );
+        }
+      }
+      return dp[a.length][b.length];
+    };
+    const isSafeTypoMatch = (word, key, d) => {
+      if (d > 1) return false;
+      if (word.length < 5 || key.length < 5) return false;
+      if (word[0] !== key[0]) return false;
+      return true;
+    };
+    const resolveClosestToken = (word) => {
+      const n = norm(word);
+      if (!n) return "";
+      if (singleWordMap[n]) return n;
+      const alias = aliasMap[n];
+      if (alias && (singleWordMap[alias] || phraseMap[alias])) return alias;
+      const soAlias = soAliasMap[n];
+      if (soAlias && (singleWordMap[soAlias] || phraseMap[soAlias])) return soAlias;
+      const forms = uniq([n, singular(n), stem(n), singular(stem(n))]);
+      for (const f of forms) {
+        if (singleWordMap[f] || phraseMap[f]) return f;
+        const mapped = isSomali() ? (SOMALI_CLOSEST_WORD_MAP[f] ?? CLOSEST_WORD_MAP[f]) : CLOSEST_WORD_MAP[f];
+        if (mapped && (singleWordMap[mapped] || phraseMap[mapped])) return mapped;
+        if (mapped === "") return "";
+      }
+      let best = "", bestScore = 99;
+      for (const key of SINGLE_KEYS) {
+        const d = distance(n, key);
+        if (d < bestScore) {
+          best = key;
+          bestScore = d;
+          if (d === 1) break;
+        }
+      }
+      return isSafeTypoMatch(n, best, bestScore) ? best : "";
+    };
 
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     let rec = null, listening=false, hadResult=false, manualStop=false, run=0, output="gif", fallback="smart", last="";
@@ -364,11 +559,33 @@
       for(let i=0;i<words.length;i++){
         const w=words[i];
         if(forceAlpha){ [...w].filter(c=>c>="a"&&c<="z").forEach(c=>q.push({src:`${c}.gif`,token:c,display:c})); continue; }
+        // Force "i love you" to play as three separate signs instead of the single phrase GIF.
+        if (
+          i + 2 < words.length &&
+          words[i] === "i" &&
+          words[i + 1] === "love" &&
+          words[i + 2] === "you" &&
+          singleWordMap.i &&
+          singleWordMap.love &&
+          singleWordMap.you
+        ) {
+          q.push({srcList:singleWordMap.i,token:"i",display:displayToken("i")});
+          q.push({srcList:singleWordMap.love,token:"love",display:displayToken("love")});
+          q.push({srcList:singleWordMap.you,token:"you",display:displayToken("you")});
+          i += 2;
+          continue;
+        }
         let found=null, size=0;
         for(let s=max;s>=2;s--){ if(i+s>words.length) continue; const p=words.slice(i,i+s).join(" "); if(phraseMap[p]){found=p;size=s;break;} }
         if(found){ q.push({...phraseMap[found], display:displayToken(found)}); i+=size-1; continue; }
         if(singleWordMap[w]) { q.push({srcList:singleWordMap[w],token:w,display:displayToken(w)}); continue; }
-        q.push({src:"",token:w,display:w,fallback:true,title:isSomali()?"Qoraal":"Text"});
+        const closest = resolveClosestToken(w);
+        if (closest) {
+          if (singleWordMap[closest]) q.push({srcList:singleWordMap[closest],token:closest,display:displayToken(closest)});
+          else if (phraseMap[closest]) q.push({...phraseMap[closest], display:displayToken(closest)});
+          continue;
+        }
+        if (output === "text") q.push({src:"",token:w,display:w,fallback:true,title:isSomali()?"Qoraal":"Text"});
       }
       return q;
     };
@@ -382,13 +599,38 @@
 
     const render = item => new Promise(res=>{
       if(output==="text"){ tokenCard(item.display || item.token,isSomali()?"Qoraal":"Text"); res(); return; }
-      const src = pickSrc(item.token, item.srcList || (item.src ? [item.src] : []));
-      if(item.fallback || !src){ res(); return; }
-      const img=new Image(); let done=false; const fin=()=>{if(done)return;done=true;res();};
-      img.className="fade"; img.alt=`Sign animation for ${item.token}`; img.src=src;
-      img.onload=()=>{el.show.innerHTML=""; el.show.appendChild(img); fin();};
-      img.onerror=()=>{fin();};
-      setTimeout(()=>{ if(!done){fin();}},450);
+      const srcList = item.srcList || (item.src ? [item.src] : []);
+      if(item.fallback || !srcList.length){ res(); return; }
+      let done=false;
+      const fin=()=>{if(done)return;done=true;res();};
+      const start = variantIndex[item.token] || 0;
+      const tryLoad = (offset) => {
+        if (done) return;
+        if (offset >= srcList.length) { fin(); return; }
+        const idx = (start + offset) % srcList.length;
+        const src = srcList[idx];
+        const img = new Image();
+        let settled = false;
+        const settle = (ok) => {
+          if (settled || done) return;
+          settled = true;
+          if (ok) {
+            variantIndex[item.token] = (idx + 1) % srcList.length;
+            el.show.innerHTML = "";
+            el.show.appendChild(img);
+            fin();
+          } else {
+            tryLoad(offset + 1);
+          }
+        };
+        img.className = "fade";
+        img.alt = `Sign animation for ${item.token}`;
+        img.onload = () => settle(true);
+        img.onerror = () => settle(false);
+        img.src = src;
+        setTimeout(() => settle(false), 650);
+      };
+      tryLoad(0);
     });
 
     async function play(words, forceAlpha=false){
@@ -423,13 +665,8 @@
       try { localStorage.setItem("theme-mode", dark ? "dark" : "light"); } catch {}
     };
     const initTheme = () => {
-      let dark = false;
-      try {
-        const saved = localStorage.getItem("theme-mode");
-        if (saved === "dark") dark = true;
-        else dark = false;
-      } catch {}
-      setTheme(dark);
+      // Always start in light mode by default.
+      setTheme(false);
     };
     const setLangToggle = () => {
       if ((el.langSel?.value || "en-US").toLowerCase().startsWith("so")) tog(el.soLangBtn, el.enLangBtn);
