@@ -66,23 +66,36 @@
   }
   </script>
   <style>
-    :root{--bg:#eef4fb;--card:#fff;--line:#d8e3ef;--ink:#122334;--muted:#506173;--a:#0f7f88;--a2:#0a656c;--bg-grad:linear-gradient(160deg,#f5efe6,#d8e6f6);--soft:#f8fbff;--show-bg:linear-gradient(180deg,#edf6ff,#eefaf7);--show-border:#95aec7;--img-border:#bed1e3;--input-bg:#fff;--chip-bg:#fff}
+    :root{--bg:#eef4fb;--card:#fff;--line:#d8e3ef;--ink:#122334;--muted:#506173;--a:#0f7f88;--a2:#0a656c;--bg-grad:linear-gradient(165deg,#f4efe2,#dce9f7 50%,#edf8f1);--soft:#f8fbff;--show-bg:linear-gradient(180deg,#edf6ff,#eefaf7);--show-border:#95aec7;--img-border:#bed1e3;--input-bg:#fff;--chip-bg:#fff;--moon-glow:radial-gradient(circle at 30% 30%,rgba(255,225,150,.55),rgba(255,225,150,.12) 55%,transparent 70%);--moon-crescent:#f9e3a6;--tag-border:rgba(160,130,70,.35);--tag-bg:linear-gradient(135deg,rgba(255,244,208,.88),rgba(223,243,231,.9));--tag-ink:#6a5520}
     *{box-sizing:border-box}html,body{margin:0}
     html{-webkit-text-size-adjust:100%}
     body{font-family:Segoe UI,Tahoma,sans-serif;color:var(--ink);background:var(--bg-grad);overflow-x:hidden}
-    body.theme-dark{--bg:#0f1620;--card:#172230;--line:#2d4054;--ink:#e7eef8;--muted:#a9b8c8;--a:#2cb7c1;--a2:#95f1f8;--bg-grad:linear-gradient(160deg,#0d1420,#1a2735);--soft:#1c2a3a;--show-bg:linear-gradient(180deg,#1a2a3a,#1a312e);--show-border:#46607a;--img-border:#4f6b87;--input-bg:#1a2735;--chip-bg:#1a2735}
+    body.theme-ramadan-dawn{--bg:#eef4fb;--card:#fff;--line:#d8e3ef;--ink:#122334;--muted:#506173;--a:#0f7f88;--a2:#0a656c;--bg-grad:linear-gradient(165deg,#f4efe2,#dce9f7 50%,#edf8f1);--soft:#f8fbff;--show-bg:linear-gradient(180deg,#edf6ff,#eefaf7);--show-border:#95aec7;--img-border:#bed1e3;--input-bg:#fff;--chip-bg:#fff;--moon-glow:radial-gradient(circle at 30% 30%,rgba(255,225,150,.55),rgba(255,225,150,.12) 55%,transparent 70%);--moon-crescent:#f9e3a6;--tag-border:rgba(160,130,70,.35);--tag-bg:linear-gradient(135deg,rgba(255,244,208,.88),rgba(223,243,231,.9));--tag-ink:#6a5520}
+    body.theme-midnight{--bg:#0f1620;--card:#172230;--line:#2d4054;--ink:#e7eef8;--muted:#a9b8c8;--a:#2cb7c1;--a2:#95f1f8;--bg-grad:radial-gradient(1200px 620px at 85% -10%,rgba(255,210,120,.14),transparent 60%),linear-gradient(160deg,#0d1420,#1a2735);--soft:#1c2a3a;--show-bg:linear-gradient(180deg,#1a2a3a,#1a312e);--show-border:#46607a;--img-border:#4f6b87;--input-bg:#1a2735;--chip-bg:#1a2735;--moon-glow:radial-gradient(circle at 30% 30%,rgba(255,215,130,.72),rgba(255,215,130,.16) 55%,transparent 72%);--moon-crescent:#ffe7a8;--tag-border:rgba(240,200,120,.35);--tag-bg:linear-gradient(135deg,rgba(96,78,34,.45),rgba(22,62,57,.5));--tag-ink:#f6ddab}
+    body.theme-oasis{--bg:#e9f8f2;--card:#ffffff;--line:#cfe8dd;--ink:#12342d;--muted:#4b6c63;--a:#137a63;--a2:#0d5e4d;--bg-grad:linear-gradient(165deg,#ebfbf5,#d7efe7 50%,#f4fbf8);--soft:#f3fcf8;--show-bg:linear-gradient(180deg,#e9fbf4,#f5fcfa);--show-border:#8fbfad;--img-border:#b6dccc;--input-bg:#fff;--chip-bg:#fff;--moon-glow:radial-gradient(circle at 30% 30%,rgba(201,246,226,.8),rgba(105,198,160,.18) 55%,transparent 75%);--moon-crescent:#b3f0d5;--tag-border:rgba(53,140,112,.3);--tag-bg:linear-gradient(135deg,rgba(210,248,231,.9),rgba(236,252,245,.92));--tag-ink:#1a654f}
+    body.theme-sunset{--bg:#fff1e8;--card:#fff9f4;--line:#f2d7c8;--ink:#4a2a24;--muted:#7f5c52;--a:#c05d2d;--a2:#8e3f1f;--bg-grad:linear-gradient(165deg,#fff2e8,#ffe1cf 50%,#ffe9d9);--soft:#fff6ef;--show-bg:linear-gradient(180deg,#fff1e7,#fff7f0);--show-border:#e1b199;--img-border:#efc9b4;--input-bg:#fffaf5;--chip-bg:#fffaf5;--moon-glow:radial-gradient(circle at 30% 30%,rgba(255,196,145,.78),rgba(255,150,102,.2) 55%,transparent 74%);--moon-crescent:#ffd2a6;--tag-border:rgba(191,103,54,.34);--tag-bg:linear-gradient(135deg,rgba(255,229,207,.95),rgba(255,245,234,.96));--tag-ink:#8b4324}
+    body.theme-royal{--bg:#f2f1ff;--card:#ffffff;--line:#ddd8ff;--ink:#1f2250;--muted:#5d6293;--a:#4f56c8;--a2:#343ba8;--bg-grad:linear-gradient(165deg,#f2f1ff,#e4e7ff 50%,#edf3ff);--soft:#f7f8ff;--show-bg:linear-gradient(180deg,#eef1ff,#f3f7ff);--show-border:#a2a8e6;--img-border:#c3c8f0;--input-bg:#fff;--chip-bg:#fff;--moon-glow:radial-gradient(circle at 30% 30%,rgba(191,203,255,.78),rgba(123,138,236,.2) 55%,transparent 74%);--moon-crescent:#d7dcff;--tag-border:rgba(97,104,193,.33);--tag-bg:linear-gradient(135deg,rgba(229,232,255,.93),rgba(241,244,255,.95));--tag-ink:#3b429d}
+    body.theme-neon-grid{--bg:#080b16;--card:#0e1326;--line:#1e2c4b;--ink:#dff8ff;--muted:#8fb8c8;--a:#00e6b8;--a2:#71ffe2;--bg-grad:linear-gradient(160deg,#070b18,#0b1530 45%,#101d38);--soft:#121b32;--show-bg:linear-gradient(180deg,#10213a,#102d36);--show-border:#2a6d88;--img-border:#2d7390;--input-bg:#0f1a30;--chip-bg:#0f1a30;--moon-glow:radial-gradient(circle at 30% 30%,rgba(122,244,255,.7),rgba(0,255,214,.14) 56%,transparent 74%);--moon-crescent:#8ffff0;--tag-border:rgba(79,244,221,.35);--tag-bg:linear-gradient(135deg,rgba(15,54,64,.7),rgba(7,40,63,.72));--tag-ink:#9dffef}
+    body.theme-paper{--bg:#f8f1e4;--card:#fffdf7;--line:#d5c7aa;--ink:#3a2f21;--muted:#705f49;--a:#8a6a32;--a2:#6f5224;--bg-grad:linear-gradient(170deg,#f7efe1,#efe4cd 60%,#f8f1e3);--soft:#fefaf0;--show-bg:linear-gradient(180deg,#f7eddc,#fbf6ea);--show-border:#bea67a;--img-border:#cfba95;--input-bg:#fffdf8;--chip-bg:#fffef9;--moon-glow:radial-gradient(circle at 30% 30%,rgba(232,202,148,.68),rgba(173,132,60,.16) 54%,transparent 75%);--moon-crescent:#e9cf9e;--tag-border:rgba(134,104,56,.33);--tag-bg:linear-gradient(135deg,rgba(252,242,221,.93),rgba(247,235,208,.93));--tag-ink:#6f5424}
+    body.theme-mono{--bg:#ececec;--card:#ffffff;--line:#cfcfcf;--ink:#1f1f1f;--muted:#5e5e5e;--a:#2f2f2f;--a2:#111;--bg-grad:linear-gradient(160deg,#f4f4f4,#e3e3e3 55%,#f2f2f2);--soft:#fafafa;--show-bg:linear-gradient(180deg,#f2f2f2,#f7f7f7);--show-border:#a7a7a7;--img-border:#bfbfbf;--input-bg:#fff;--chip-bg:#fff;--moon-glow:radial-gradient(circle at 30% 30%,rgba(170,170,170,.5),rgba(102,102,102,.12) 56%,transparent 74%);--moon-crescent:#cfcfcf;--tag-border:rgba(104,104,104,.33);--tag-bg:linear-gradient(135deg,rgba(238,238,238,.95),rgba(246,246,246,.95));--tag-ink:#444}
+    body.theme-forest-noir{--bg:#0b1712;--card:#13221a;--line:#2b4337;--ink:#d8f0e1;--muted:#8db29d;--a:#4cb980;--a2:#9df5c5;--bg-grad:linear-gradient(165deg,#0a1711,#11251b 48%,#143329);--soft:#182b22;--show-bg:linear-gradient(180deg,#163225,#133127);--show-border:#3f7e66;--img-border:#4d8a74;--input-bg:#13261e;--chip-bg:#13261e;--moon-glow:radial-gradient(circle at 30% 30%,rgba(179,255,215,.66),rgba(74,190,132,.14) 56%,transparent 74%);--moon-crescent:#c7ffe1;--tag-border:rgba(117,216,169,.34);--tag-bg:linear-gradient(135deg,rgba(26,72,51,.65),rgba(18,53,40,.68));--tag-ink:#cbffe7}
+    body.theme-candy-pop{--bg:#fff0f8;--card:#ffffff;--line:#f5bfd8;--ink:#5d2450;--muted:#8f4d7d;--a:#ff4ea1;--a2:#d42f7f;--bg-grad:linear-gradient(165deg,#ffeefd,#ffd7ec 52%,#ffe8f5);--soft:#fff4fa;--show-bg:linear-gradient(180deg,#ffeef8,#fff6fb);--show-border:#ee9ec7;--img-border:#f5b9d9;--input-bg:#fff;--chip-bg:#fff;--moon-glow:radial-gradient(circle at 30% 30%,rgba(255,174,218,.74),rgba(255,97,187,.16) 55%,transparent 74%);--moon-crescent:#ffc4e6;--tag-border:rgba(226,81,158,.35);--tag-bg:linear-gradient(135deg,rgba(255,225,242,.95),rgba(255,241,249,.95));--tag-ink:#a32069}
     .splash{position:fixed;inset:0;z-index:3000;background:#fff;display:grid;place-items:center;padding:20px;opacity:1;visibility:visible;transition:opacity .3s ease,visibility .3s ease}
     .splash img{width:min(980px,92vw);max-height:88vh;object-fit:contain}
     .splash.hide{opacity:0;visibility:hidden}
     .page{min-height:100vh;padding:clamp(8px,2.5vw,20px);display:flex;align-items:center;justify-content:center}
     .card{width:min(1020px,100%);background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 40px rgba(18,35,52,.14);padding:clamp(12px,2.2vw,22px)}
-    .head{text-align:center;margin-bottom:12px}.head h1{margin:0 0 4px;font-size:clamp(1.35rem,4.8vw,2rem)}.head p{margin:0;color:var(--muted)}
+    .head{text-align:center;margin-bottom:12px;position:relative}.head h1{margin:0 0 4px;font-size:clamp(1.35rem,4.8vw,2rem)}.head p{margin:0;color:var(--muted)}
+    .head::before{content:"";position:absolute;right:8%;top:-16px;width:58px;height:58px;border-radius:50%;background:var(--moon-glow);pointer-events:none}
+    .head::after{content:"";position:absolute;right:10%;top:-2px;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 70% 50%,transparent 49%,var(--moon-crescent) 51% 66%,transparent 68%);pointer-events:none}
+    .ramadanTag{display:inline-block;margin:8px auto 0;padding:6px 12px;border-radius:999px;border:1px solid var(--tag-border);background:var(--tag-bg);color:var(--tag-ink);font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
     .topToggles{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 0 12px;flex-wrap:wrap}
     .langTop{display:flex;justify-content:center}
     .langTop .tog{width:min(360px,100%);background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:6px}
     .langTop .tog button{min-height:38px}
-    .themeBtn{width:44px;height:38px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);display:grid;place-items:center;cursor:pointer}
-    .themeBtn svg{width:20px;height:20px;fill:currentColor}
+    .themePick{display:flex;align-items:center;gap:8px;background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:6px 8px}
+    .themePick label{font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+    .themePick select{min-height:34px;border-radius:9px;padding:6px 28px 6px 10px;font-size:.9rem}
     .logo{width:clamp(64px,12vw,90px);height:auto;display:block;margin:0 auto 8px}
     .controls{display:grid;place-items:center;gap:8px;margin-bottom:12px}
     .mic{width:80px;height:80px;border-radius:50%;border:none;background:linear-gradient(145deg,#4facfe,#00f2fe);box-shadow:0 10px 20px rgba(74,144,226,.3);display:grid;place-items:center;cursor:pointer;transition:.3s}
@@ -108,6 +121,24 @@
     .act{margin-top:12px;display:flex;justify-content:center}.clear{width:100%;max-width:240px;min-height:44px;border-radius:12px;border:2px solid var(--a);background:#fff;color:var(--a2);font-weight:700;cursor:pointer}
     .footer{padding:0 clamp(8px,2vw,14px) clamp(10px,2vw,14px)}.credit{margin:auto;max-width:1020px;padding:1rem;border-top:1px solid rgba(20,36,51,.12);text-align:center;background:linear-gradient(135deg,rgba(15,127,136,.15),rgba(255,225,170,.45));border-radius:14px}
     .credit a{text-decoration:none;color:inherit;display:inline-block}.credit p{margin:0 0 6px;font-size:.72rem;letter-spacing:2.2px;text-transform:uppercase;opacity:.65}.credit strong{display:inline-block;padding:.38rem .9rem;border-radius:999px;border:1px solid rgba(20,36,51,.25)}
+    body.theme-neon-grid{font-family:"Trebuchet MS",Verdana,sans-serif}
+    body.theme-neon-grid .card{border-radius:8px;box-shadow:0 0 0 1px rgba(0,255,214,.15),0 0 34px rgba(0,255,214,.1)}
+    body.theme-neon-grid .mic{background:linear-gradient(145deg,#00d7ff,#00ff9f);box-shadow:0 0 0 1px rgba(0,255,214,.4),0 12px 26px rgba(0,255,214,.25)}
+    body.theme-neon-grid .blk{border-style:dashed}
+    body.theme-paper{font-family:Georgia,"Times New Roman",serif}
+    body.theme-paper .card{border-radius:24px;border-width:2px;box-shadow:0 6px 0 rgba(140,113,66,.18)}
+    body.theme-paper .blk{border-style:dotted}
+    body.theme-paper .btn{border-radius:2px}
+    body.theme-mono{font-family:"Segoe UI",Tahoma,sans-serif}
+    body.theme-mono .card{border-radius:6px;box-shadow:0 8px 22px rgba(30,30,30,.12)}
+    body.theme-mono .mic{background:linear-gradient(145deg,#5a5a5a,#2f2f2f)}
+    body.theme-forest-noir{font-family:"Palatino Linotype","Book Antiqua",serif}
+    body.theme-forest-noir .card{border-radius:20px;box-shadow:0 24px 44px rgba(0,0,0,.28)}
+    body.theme-forest-noir .btn{background:linear-gradient(135deg,#3ea76f,#2f7a53)}
+    body.theme-candy-pop{font-family:"Verdana","Trebuchet MS",sans-serif}
+    body.theme-candy-pop .card{border-radius:28px;box-shadow:0 20px 42px rgba(255,78,161,.18)}
+    body.theme-candy-pop .mic{background:linear-gradient(145deg,#ff7cc1,#ff4ea1)}
+    body.theme-candy-pop .btn{background:linear-gradient(135deg,#ff63af,#ff3f97)}
     .fade{animation:fin .22s ease}
     @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,242,254,.7)}70%{box-shadow:0 0 0 20px rgba(0,242,254,0)}100%{box-shadow:0 0 0 0 rgba(0,242,254,0)}}
     @keyframes fin{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
@@ -134,7 +165,7 @@
     @media(min-width:1200px){.card{padding:24px}}
   </style>
 </head>
-<body>
+<body class="theme-ramadan-dawn">
   <div id="entrySplash" class="splash" aria-hidden="true"><img src="marketing seo image.png" alt="Speech to Sign marketing"></div>
   <main class="page">
     <section class="card">
@@ -142,6 +173,7 @@
         <img class="logo" src="logo (2).png" alt="Speech to Sign logo">
         <h1>Speech to Sign</h1>
         <p>Speak and see it in sign language</p>
+        <p class="ramadanTag">Ramadan Kareem</p>
         <div class="topToggles">
           <div class="langTop" role="group" aria-label="Language toggle">
             <div class="tog">
@@ -149,7 +181,21 @@
               <button id="soLangBtn" aria-pressed="false">Somali</button>
             </div>
           </div>
-          <button id="themeBtn" class="themeBtn" type="button" aria-pressed="false" aria-label="Switch to dark mode" title="Switch to dark mode"></button>
+          <div class="themePick">
+            <label for="themeSel">Theme</label>
+            <select id="themeSel" aria-label="Choose visual theme">
+              <option value="ramadan-dawn">Ramadan Dawn</option>
+              <option value="midnight">Midnight</option>
+              <option value="oasis">Oasis</option>
+              <option value="sunset">Sunset</option>
+              <option value="royal">Royal</option>
+              <option value="neon-grid">Neon Grid</option>
+              <option value="paper">Paper</option>
+              <option value="mono">Mono</option>
+              <option value="forest-noir">Forest Noir</option>
+              <option value="candy-pop">Candy Pop</option>
+            </select>
+          </div>
         </div>
       </header>
       <section class="controls">
@@ -190,7 +236,7 @@
       tok: document.getElementById("tok"), clear: document.getElementById("clear"), gifBtn: document.getElementById("gifBtn"),
       textBtn: document.getElementById("textBtn"), smartBtn: document.getElementById("smartBtn"), alphaBtn: document.getElementById("alphaBtn"),
       langSel: document.getElementById("langSel"), enLangBtn: document.getElementById("enLangBtn"), soLangBtn: document.getElementById("soLangBtn"),
-      themeBtn: document.getElementById("themeBtn"), repeatBtn: document.getElementById("repeatBtn")
+      themeSel: document.getElementById("themeSel"), repeatBtn: document.getElementById("repeatBtn")
     };
 
     const SIGN_FILES = [
@@ -198,7 +244,7 @@
       "brother.gif","busy.gif","cannot.gif","child.gif","come.gif","continue.gif","cool.gif","death.gif","dont understand.gif","don't understand.gif",
       "each.gif","excuse me.gif","family.gif","fast.gif","father.gif","favourite.gif","fine.gif","free.gif","friend.gif","give.gif","good.gif","gorilla.gif",
       "Happy I Love You GIF by joeyahlbum.gif","happy sign language GIF by signtime.gif","happy sign language GIF.gif","hate that.gif","hate.gif","he.gif","her.gif","holiday.gif","home.gif","hope.gif",
-      "how many.gif","hungry.gif","i want.gif","i.gif","in    out.gif","introduce sign language GIF.gif","it.gif","kids or kid both variation.gif","kind.gif","later.gif",
+      "how.gif","how many.gif","hungry.gif","i want.gif","i gif.gif","in    out.gif","introduce sign language GIF.gif","it.gif","kids or kid both variation.gif","kind.gif","later.gif",
       "lie.gif","like.gif","long.gif","mad.gif","Marry Sign Language GIF.gif","me.gif","mean.gif","meet.gif","mine.gif","monkey.gif","more.gif","mother.gif",
       "my.gif","nervous.gif","none.gif","not.gif","now.gif","pain.gif","parents.gif","sad sign language GIF.gif","see watch.gif","see you.gif","seriously.gif","shes polite.gif",
       "shy.gif","sick of.gif","sick sign language GIF.gif","Sign Language Change GIF.gif","sign language cry GIF.gif","sign language love GIF.gif","Sign Language Month GIF.gif","sign language name GIF.gif",
@@ -248,7 +294,7 @@
       "brother sister":"walaal","busy":"mashquul","cannot":"ma karo","child":"cunug","come":"kaalay","continue":"sii wad","cool":"fiican","death":"geeri",
       "dont understand":"ma fahmin","each":"mid kasta","excuse me":"i raali ahow","family":"qoys","fast":"dhakhso","father":"aabe","favourite":"ugu jeclaan",
       "fine":"wanaagsan","free":"xor","friend":"saaxiib","give":"sii","good":"wanaag","gorilla":"gorilla","hate":"neceb","hate that":"taas waan necbahay","he":"isaga","hello":"salaan","her":"iyada",
-      "happy":"faraxsan","holiday":"fasax","home":"guri","hope":"rajo","how many":"imisa","hungry":"gaajaysan","i":"aniga","i love you":"waan ku jeclahay",
+      "happy":"faraxsan","holiday":"fasax","home":"guri","hope":"rajo","how":"sidee","how many":"imisa","hungry":"gaajaysan","i":"aniga","i love you":"waan ku jeclahay",
       "i want":"waan rabaa","in out":"gudaha bannaanka","introduce":"is baro","it":"wax","kid":"ilmo","kind":"naxariis","later":"danbe","lie":"been","like":"jecel",
       "long":"dheer","mad":"caraysan","marry":"guurso","mean":"xun","meet":"la kulan","me":"aniga","mine":"kayga","monkey":"daanyeer","more":"inbadan","mother":"hooyo",
       "my":"kayga","nervous":"walwal","none":"midna ma jiro","no":"maya","not":"maya","now":"hadda","numbers":"tirooyin","pain":"xanuun","parents":"waalidiin",
@@ -274,6 +320,7 @@
       "he":["he","him","that man","that guy"],
       "hello":["hello","hi","hey","heyy","hiya","yo","greetings","good morning","good evening"],
       "her":["her","hers","that woman","that girl"],
+      "how":["how","how do","how can","how is","in what way"],
       "i":["i","me"],
       "i love you":["i love you","i luv you","love you","luv u","ily","i really love you"],
       "i want":["i want","want this","want that","i need","i would like"],
@@ -307,6 +354,54 @@
       "yes":["yes","yep","yeah","yup","sure","affirmative"],
       "you":["you","u","yourself"]
     };
+    const EXTRA_CORRELATIONS = {
+      "death":["die","dies","dying","deceased"],
+      "allergic":["allergen","sensitive","sensitivity"],
+      "always":["forever","everytime","each time"],
+      "bad":["awful","terrible","poor"],
+      "book":["read","reading","novel"],
+      "busy":["occupied","swamped"],
+      "cannot":["cant","unable","impossible"],
+      "come":["arrive","arriving","came"],
+      "continue":["keep going","resume","carry on"],
+      "cool":["awesome","nice","great"],
+      "each":["every","each one"],
+      "fast":["quick","quickly","rapid"],
+      "fine":["okay","ok","alright"],
+      "free":["available","unlocked"],
+      "friend":["buddy","pal"],
+      "give":["hand","hand over","provide"],
+      "good":["great","excellent","nice"],
+      "happy":["glad","joyful"],
+      "hate":["detest","loathe"],
+      "home":["house"],
+      "hope":["wish"],
+      "hungry":["starving"],
+      "kind":["gentle","helpful"],
+      "later":["after","afterwards"],
+      "like":["enjoy","love this"],
+      "mad":["angry","annoyed","furious"],
+      "more":["extra","additional"],
+      "nervous":["anxious","worried"],
+      "none":["nothing","nobody","noone"],
+      "pain":["hurt","hurting","ache","aching"],
+      "sad":["unhappy","down"],
+      "seriously":["really","fr"],
+      "shy":["timid","bashful"],
+      "sick":["ill","unwell"],
+      "sick of":["fed up","done with"],
+      "somebody":["someone","person"],
+      "something":["anything","thing"],
+      "toilet":["bathroom","restroom","washroom"],
+      "water":["drink water","h2o"],
+      "welcome":["gladly welcome"],
+      "wonderful":["amazing","fantastic"],
+      "yes":["yeah","yep","yup"],
+      "no":["nah","nope"]
+    };
+    Object.entries(EXTRA_CORRELATIONS).forEach(([key, arr]) => {
+      EN_BASE_VARIANTS[key] = uniq((EN_BASE_VARIANTS[key] || []).concat(arr));
+    });
     const SO_BASE_VARIANTS = {
       "hello":["salaan","salaam","asc","asalamu alaikum","asalaamu calaykum","iska warran"],
       "i love you":["waan ku jeclahay","waan ku jclhy","waan kuclahay","waan ku jecelahay","waan ku jacelahay","waan ku jeclahay adiga"],
@@ -336,11 +431,15 @@
       "love":["jacayl","waan ku jeclahay","jaceyl","jeceyl","jacayl badan","waan jecelahay"],
       "school":["dugsi","iskuul","dugsiga","iskuulka","dugsi tag","dugsiga ayaan joogaa"],
       "me":["aniga","aniga ah","iga","aniga i","anigaa","naftayda"],
-      "who":["yaa","waa kuma","kuma","yaa adiga","yaa taas","yaa halkaas"]
+      "who":["yaa","waa kuma","kuma","yaa adiga","yaa taas","yaa halkaas"],
+      "how":["sidee","sidee bay","sidee tahay","sidee loo","qaabkee"]
     };
     const buildAliases = (key) => {
       const soWord = SO[key] || key;
-      const en = uniq((EN_BASE_VARIANTS[key] || []).concat([key, `my ${key}`, `the ${key}`, `need ${key}`, `want ${key}`, `${key} please`]));
+      const enTemplates = key.includes(" ")
+        ? [key]
+        : [key, `my ${key}`, `the ${key}`, `${key} please`];
+      const en = uniq((EN_BASE_VARIANTS[key] || []).concat(enTemplates));
       const so = uniq((SO_BASE_VARIANTS[key] || []).concat([soWord, `fadlan ${soWord}`, `${soWord} ayaan rabaa`, `${soWord} hadda`, `${soWord} ma jiraa`, `${soWord} iga caawi`]));
       return uniq(en.concat(so));
     };
@@ -420,12 +519,16 @@
       children: "child", kids: "kid", kiddo: "kid",
       hurts: "pain", hurting: "pain", painful: "pain", ache: "pain", aching: "pain",
       wants: "i want", want: "i want", wanted: "i want", needing: "i want", needs: "i want", need: "i want",
+      wnat: "i want", waant: "i want", watn: "i want", wnt: "i want", wan: "i want",
       likes: "like", liked: "like", loving: "love",
       ours: "us", theirs: "their", hers: "her", his: "he",
       anybody: "somebody", anyone: "somebody", anything: "something", somebodys: "somebody",
       spouse: "wife", partner: "wife"
     };
     const SINGLE_KEYS = Object.keys(singleWordMap);
+    const SINGLE_ALIAS_ENTRIES = Object.entries(aliasMap)
+      .filter(([alias]) => !alias.includes(" "))
+      .map(([alias, key]) => ({ alias, key }));
     const singular = (w) => {
       if (w.endsWith("ies") && w.length > 4) return `${w.slice(0, -3)}y`;
       if (w.endsWith("es") && w.length > 3) return w.slice(0, -2);
@@ -455,6 +558,37 @@
       }
       return dp[a.length][b.length];
     };
+    const sharePrefix = (a, b) => {
+      if (!a || !b) return false;
+      if (a[0] !== b[0]) return false;
+      if (Math.min(a.length, b.length) >= 4) return a.slice(0, 2) === b.slice(0, 2);
+      return true;
+    };
+    const bestFuzzyKey = (word) => {
+      const maxDist = word.length <= 5 ? 1 : 2;
+      let bestKey = "";
+      let bestDist = maxDist + 1;
+
+      for (const key of SINGLE_KEYS) {
+        if (!sharePrefix(word, key)) continue;
+        const d = distance(word, key);
+        if (d < bestDist) {
+          bestDist = d;
+          bestKey = key;
+          if (d === 0) return bestKey;
+        }
+      }
+      for (const { alias, key } of SINGLE_ALIAS_ENTRIES) {
+        if (!sharePrefix(word, alias)) continue;
+        const d = distance(word, alias);
+        if (d < bestDist) {
+          bestDist = d;
+          bestKey = key;
+          if (d === 0) return bestKey;
+        }
+      }
+      return bestDist <= maxDist ? bestKey : "";
+    };
     const resolveClosestToken = (word) => {
       const n = norm(word);
       if (!n) return "";
@@ -470,16 +604,9 @@
         if (mapped && (singleWordMap[mapped] || phraseMap[mapped])) return mapped;
         if (mapped === "") return "";
       }
-      let best = "", bestScore = 3;
-      for (const key of SINGLE_KEYS) {
-        const d = distance(n, key);
-        if (d < bestScore) {
-          best = key;
-          bestScore = d;
-          if (d === 1) break;
-        }
-      }
-      return bestScore <= 2 ? best : "";
+      // Avoid forcing very short words into unrelated signs (e.g. "how" -> "now").
+      if (n.length <= 3) return "";
+      return bestFuzzyKey(n);
     };
 
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -528,12 +655,13 @@
     const clearShow = (m=t("defaultPlaceholder")) => { el.show.innerHTML=`<p class="ph">${m}</p>`; el.tok.textContent=""; };
     const tokenCard = (token,title="Text") => { el.show.innerHTML=`<div class="tcard fade"><div><b>${title}</b><span>${token}</span></div></div>`; };
     const updateRepeatState = () => { if (el.repeatBtn) el.repeatBtn.disabled = !last; };
+    const alphaSources = (c) => [`assets/alphabet/${c}.gif`, encodeURI("spelling or alphabet.gif")];
 
     const queueFor = (words, forceAlpha) => {
       const q=[]; const max=3;
       for(let i=0;i<words.length;i++){
         const w=words[i];
-        if(forceAlpha){ [...w].filter(c=>c>="a"&&c<="z").forEach(c=>q.push({src:`${c}.gif`,token:c,display:c})); continue; }
+        if(forceAlpha){ [...w].filter(c=>c>="a"&&c<="z").forEach(c=>q.push({srcList:alphaSources(c),token:c,display:c})); continue; }
         // Force "i love you" to play as three separate signs instead of the single phrase GIF.
         if (
           i + 2 < words.length &&
@@ -550,6 +678,21 @@
           i += 2;
           continue;
         }
+        // Keep "i want" stable even when "want" is misspelled by typing or speech recognition.
+        if (
+          i + 1 < words.length &&
+          w === "i" &&
+          phraseMap["i want"] &&
+          (
+            words[i + 1] === "want" ||
+            resolveClosestToken(words[i + 1]) === "i want" ||
+            distance(words[i + 1], "want") <= 1
+          )
+        ) {
+          q.push({...phraseMap["i want"], display:displayToken("i want")});
+          i += 1;
+          continue;
+        }
         let found=null, size=0;
         for(let s=max;s>=2;s--){ if(i+s>words.length) continue; const p=words.slice(i,i+s).join(" "); if(phraseMap[p]){found=p;size=s;break;} }
         if(found){ q.push({...phraseMap[found], display:displayToken(found)}); i+=size-1; continue; }
@@ -560,6 +703,8 @@
           else if (phraseMap[closest]) q.push({...phraseMap[closest], display:displayToken(closest)});
           continue;
         }
+        // In smart mode, don't force alphabet GIF spelling for unknown words.
+        // Keep unmatched token as text when text output is enabled.
         if (output === "text") q.push({src:"",token:w,display:w,fallback:true,title:isSomali()?"Qoraal":"Text"});
       }
       return q;
@@ -603,7 +748,8 @@
         img.onload = () => settle(true);
         img.onerror = () => settle(false);
         img.src = src;
-        setTimeout(() => settle(false), 650);
+        // Large local GIFs can take longer to decode; short timeouts skip valid signs.
+        setTimeout(() => settle(false), 8000);
       };
       tryLoad(0);
     });
@@ -618,30 +764,34 @@
     function translate(raw){
       const normalized = aliasNorm(raw);
       if(!normalized){ el.trans.textContent=t("emptyInput"); clearShow(t("waitingInput")); setStatus("",t("idle")); return; }
-      const req=/\b(spell|alphabet|letter|letters)\b/g; const askAlpha=req.test(normalized);
+      const req=/\b(spell|alphabet|letter|letters)\b/g;
       const clean=normalized.replace(req," ").replace(/\s+/g," ").trim(); const final=clean || normalized;
       const words=final.split(" ").filter(Boolean);
-      last=final; updateRepeatState(); el.trans.textContent=localizeText(final); setStatus("processing",t("processing")); play(words, fallback==="alphabet" || askAlpha);
+      last=final; updateRepeatState(); el.trans.textContent=localizeText(final); setStatus("processing",t("processing")); play(words, fallback==="alphabet");
     }
 
     function reset(){ run++; el.trans.textContent=t("defaultTranscript"); el.input.value=""; clearShow(); el.mic.classList.remove("listening"); el.mic.setAttribute("aria-label","Start speech recognition"); listening=false; hadResult=false; manualStop=false; last=""; updateRepeatState(); setStatus("",t("idle")); }
     const replay=()=>{ if(last) translate(last); };
     const tog=(on,off)=>{on.classList.add("on");off.classList.remove("on");on.setAttribute("aria-pressed","true");off.setAttribute("aria-pressed","false");};
-    const setTheme = (dark) => {
-      document.body.classList.toggle("theme-dark", !!dark);
-      if (el.themeBtn) {
-        el.themeBtn.innerHTML = dark
-          ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V5a1 1 0 0 1 1-1zm0 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm8-5a1 1 0 1 1 0 2h-2a1 1 0 1 1 0-2h2zM7 12a1 1 0 0 1-1 1H4a1 1 0 1 1 0-2h2a1 1 0 0 1 1 1zm9.07 5.66a1 1 0 0 1 1.41 0l1.42 1.41a1 1 0 1 1-1.42 1.42l-1.41-1.42a1 1 0 0 1 0-1.41zM6.52 6.52a1 1 0 0 1 1.41 0l1.42 1.41a1 1 0 1 1-1.42 1.42L6.52 7.93a1 1 0 0 1 0-1.41zm0 11.14a1 1 0 0 1 0 1.41L5.1 20.49a1 1 0 0 1-1.42-1.42l1.42-1.41a1 1 0 0 1 1.42 0zm11.38-11.38a1 1 0 0 1 0 1.41l-1.41 1.42a1 1 0 1 1-1.42-1.42l1.42-1.41a1 1 0 0 1 1.41 0z"/></svg>'
-          : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 14.6A9 9 0 0 1 9.4 3a1 1 0 0 0-1.27-1.27A11 11 0 1 0 22.27 15.9 1 1 0 0 0 21 14.6z"/></svg>';
-        el.themeBtn.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
-        el.themeBtn.setAttribute("title", dark ? "Switch to light mode" : "Switch to dark mode");
-        el.themeBtn.setAttribute("aria-pressed", dark ? "true" : "false");
-      }
-      try { localStorage.setItem("theme-mode", dark ? "dark" : "light"); } catch {}
+    const THEME_KEY = "theme-name";
+    const THEME_NAMES = ["ramadan-dawn","midnight","oasis","sunset","royal","neon-grid","paper","mono","forest-noir","candy-pop"];
+    const applyTheme = (name) => {
+      const next = THEME_NAMES.includes(name) ? name : "ramadan-dawn";
+      document.body.classList.remove(...THEME_NAMES.map((t) => `theme-${t}`));
+      document.body.classList.add(`theme-${next}`);
+      if (el.themeSel) el.themeSel.value = next;
+      try { localStorage.setItem(THEME_KEY, next); } catch {}
     };
     const initTheme = () => {
-      // Always start in light mode by default.
-      setTheme(false);
+      let saved = "";
+      try { saved = localStorage.getItem(THEME_KEY) || ""; } catch {}
+      // Migrate old light/dark setting if present.
+      if (!saved) {
+        let legacy = "";
+        try { legacy = localStorage.getItem("theme-mode") || ""; } catch {}
+        if (legacy === "dark") saved = "midnight";
+      }
+      applyTheme(saved || "ramadan-dawn");
     };
     const setLangToggle = () => {
       if ((el.langSel?.value || "en-US").toLowerCase().startsWith("so")) tog(el.soLangBtn, el.enLangBtn);
@@ -682,7 +832,7 @@
       el.langSel.value = "so-SO";
       el.langSel.dispatchEvent(new Event("change"));
     });
-    el.themeBtn?.addEventListener("click",()=>{ setTheme(!document.body.classList.contains("theme-dark")); });
+    el.themeSel?.addEventListener("change",()=>{ applyTheme(el.themeSel.value); });
     el.langSel?.addEventListener("change",()=>{
       setLangToggle();
       if(!rec) return;
