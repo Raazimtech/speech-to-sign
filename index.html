@@ -89,6 +89,19 @@
     .head::before{content:"";position:absolute;right:8%;top:-16px;width:58px;height:58px;border-radius:50%;background:var(--moon-glow);pointer-events:none}
     .head::after{content:"";position:absolute;right:10%;top:-2px;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 70% 50%,transparent 49%,var(--moon-crescent) 51% 66%,transparent 68%);pointer-events:none}
     .ramadanTag{display:inline-block;margin:8px auto 0;padding:6px 12px;border-radius:999px;border:1px solid var(--tag-border);background:var(--tag-bg);color:var(--tag-ink);font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+    .siteNav{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:10px 0 4px}
+    .siteNav button{display:inline-block;min-height:36px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--soft);color:var(--ink);text-decoration:none;font-weight:700;line-height:20px;cursor:pointer}
+    .siteNav button.active{border-color:var(--a);background:rgba(44,183,193,.16);color:var(--a2)}
+    .reloadTop{position:absolute;left:0;top:0;min-height:36px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--soft);color:var(--ink);font-weight:700;cursor:pointer}
+    .modePane[hidden]{display:none!important}
+    .camBox{display:grid;grid-template-columns:1fr;gap:10px}
+    .camWrap{position:relative;border:1px dashed var(--show-border);border-radius:12px;background:var(--show-bg);overflow:hidden;min-height:220px}
+    #cameraFeed,#cameraOverlay{width:100%;height:auto;display:block;transform:scaleX(-1)}
+    #cameraFeed{background:#0f1620;min-height:220px;object-fit:cover}
+    #cameraOverlay{position:absolute;left:0;top:0;pointer-events:none}
+    .gestureRow{display:grid;grid-template-columns:1fr;gap:8px}
+    .gestureWord{min-height:58px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--input-bg);font-size:1.05rem;font-weight:700;word-break:break-word}
+    .gestureHint{margin:0;color:var(--muted);font-size:.92rem}
     .topToggles{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 0 12px;flex-wrap:wrap}
     .langTop{display:flex;justify-content:center}
     .langToggleWrap{position:relative}
@@ -146,6 +159,10 @@
     @keyframes fin{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
     @media(min-width:720px){.settings{grid-template-columns:1fr 1fr}.row{grid-template-columns:1fr auto}.btn{width:auto;min-width:170px}}
     @media(max-width:720px){
+      .langPanel{
+        top:calc(100% + 6px);
+        bottom:auto;
+      }
       .head::before{
         right:4px;
         top:-10px;
@@ -191,10 +208,15 @@
   <main class="page">
     <section class="card">
       <header class="head">
+        <button id="reload" class="reloadTop" type="button">Reload</button>
         <img class="logo" src="logo (2).png" alt="Speech to Sign logo">
         <h1 id="appTitle">Speech to Sign</h1>
         <p id="appSubtitle">Speak and see it in sign language</p>
         <p id="ramadanTag" class="ramadanTag">Ramadan Kareem</p>
+        <nav class="siteNav" aria-label="Main navigation">
+          <button id="navSpeechToSign" class="active" type="button">Speech to Sign</button>
+          <button id="navSignToSpeech" type="button">Sign to Speech</button>
+        </nav>
         <div class="topToggles">
           <div class="langTop" role="group" aria-label="Language toggle">
             <div class="langToggleWrap">
@@ -221,6 +243,7 @@
           </div>
         </div>
       </header>
+      <div id="speechToSignPane" class="modePane">
       <section class="controls">
         <button id="micBtn" class="mic" aria-label="Start speech recognition">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
@@ -245,11 +268,40 @@
         <div class="set"><label id="fallbackLabel">Fallback</label><div class="tog"><button id="smartBtn" class="on">Smart</button><button id="alphaBtn">Alphabet</button></div></div>
       </section>
       <section class="manual"><label id="manualLabel" for="input">Type text to translate</label><div class="row"><input id="input" placeholder="Example: hello, i love you"><button id="translate" class="btn">Translate Text</button></div></section>
-      <section class="act"><button id="clear" class="clear">Clear</button><button id="reload" class="clear">Reload</button></section>
+      <section class="act"><button id="clear" class="clear">Clear</button></section>
+      </div>
+      <div id="signToSpeechPane" class="modePane" hidden>
+        <section class="out">
+          <div class="blk">
+            <h2>Live Hand Tracking</h2>
+            <div class="camBox">
+              <div class="camWrap">
+                <video id="cameraFeed" playsinline muted></video>
+                <canvas id="cameraOverlay"></canvas>
+              </div>
+              <p id="gestureStatus" class="status">Camera is off.</p>
+            </div>
+          </div>
+          <div class="blk">
+            <h2>Word Builder</h2>
+            <div class="gestureRow">
+              <div id="gestureWord" class="gestureWord"></div>
+              <p class="gestureHint">ASL detector: A-Z, 0-10, plus combined signs (WELCOME, PEACE, BOOK, EXCELLENT). Hold each sign steady.</p>
+            </div>
+          </div>
+        </section>
+        <section class="act">
+          <button id="startCamBtn" class="clear" type="button">Start Camera</button>
+          <button id="speakGestureBtn" class="clear" type="button">Speak</button>
+          <button id="clearGestureBtn" class="clear" type="button">Clear</button>
+        </section>
+      </div>
     </section>
   </main>
   <footer class="footer"><div class="credit"><a href="https://raazimtech.github.io/Raazim-tech/" target="_blank" rel="noopener"><p id="madeByLabel">Made By</p><strong>RT Solutions</strong></a></div></footer>
-
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
   <script>
   (() => {
     const el = {
@@ -259,6 +311,11 @@
       textBtn: document.getElementById("textBtn"), smartBtn: document.getElementById("smartBtn"), alphaBtn: document.getElementById("alphaBtn"),
       langSel: document.getElementById("langSel"), langToggleBtn: document.getElementById("langToggleBtn"), langMenu: document.getElementById("langMenu"),
       themeSel: document.getElementById("themeSel"), repeatBtn: document.getElementById("repeatBtn"),
+      navSpeechToSign: document.getElementById("navSpeechToSign"), navSignToSpeech: document.getElementById("navSignToSpeech"),
+      speechToSignPane: document.getElementById("speechToSignPane"), signToSpeechPane: document.getElementById("signToSpeechPane"),
+      cameraFeed: document.getElementById("cameraFeed"), cameraOverlay: document.getElementById("cameraOverlay"),
+      gestureStatus: document.getElementById("gestureStatus"), gestureWord: document.getElementById("gestureWord"),
+      startCamBtn: document.getElementById("startCamBtn"), speakGestureBtn: document.getElementById("speakGestureBtn"), clearGestureBtn: document.getElementById("clearGestureBtn"),
       appTitle: document.getElementById("appTitle"), appSubtitle: document.getElementById("appSubtitle"), ramadanTag: document.getElementById("ramadanTag"),
       recognizedTitle: document.getElementById("recognizedTitle"), signPlaybackTitle: document.getElementById("signPlaybackTitle"),
       outputLabel: document.getElementById("outputLabel"), fallbackLabel: document.getElementById("fallbackLabel"), manualLabel: document.getElementById("manualLabel"),
@@ -903,6 +960,386 @@
     };
     const t = (key) => getTextMap()[key] || TEXT.en[key] || key;
     const uiText = (key) => getUiMap()[key] || UI.en[key] || key;
+    let activeMode = "speech-to-sign";
+    let handsTracker = null;
+    let cam = null;
+    let camRunning = false;
+    let builtWord = "";
+    const STABLE_GESTURE_FRAMES = 10;
+    const GESTURE_RELEASE_FRAMES = 5;
+    const GESTURE_COOLDOWN_MS = 1400;
+    const makeHandState = () => ({
+      candidate: "",
+      stableFrames: 0,
+      releaseFrames: 0,
+      lastEmitTs: 0,
+      lastToken: "",
+      tipHistory: { thumb: [], index: [], pinky: [] }
+    });
+    const handStates = { Left: makeHandState(), Right: makeHandState(), Both: makeHandState() };
+    const resetHandState = (key) => {
+      handStates[key] = makeHandState();
+    };
+    const pointDistance = (a, b) => Math.hypot((a.x || 0) - (b.x || 0), (a.y || 0) - (b.y || 0));
+    const clampHistory = (arr, max = 14) => {
+      while (arr.length > max) arr.shift();
+    };
+    const palmScale = (landmarks) => Math.max(pointDistance(landmarks[0], landmarks[9]), 0.045);
+    const fingerSpread = (landmarks, aTip, bTip) => pointDistance(landmarks[aTip], landmarks[bTip]) / palmScale(landmarks);
+    const isFingerUp = (landmarks, tip, pip, mcp) => {
+      const t = landmarks[tip], p = landmarks[pip], m = landmarks[mcp];
+      return !!(t && p && m) && t.y < p.y && p.y < m.y;
+    };
+    const isFingerCurled = (landmarks, tip, pip) => {
+      const t = landmarks[tip], p = landmarks[pip];
+      return !!(t && p) && t.y > p.y;
+    };
+    const isThumbOpen = (landmarks, handedness) => {
+      const tip = landmarks[4], mcp = landmarks[2], idxMcp = landmarks[5];
+      if (!tip || !mcp || !idxMcp) return false;
+      const dir = handedness === "Left" ? 1 : -1;
+      return (tip.x - mcp.x) * dir > 0.02 && pointDistance(tip, idxMcp) > palmScale(landmarks) * 0.58;
+    };
+    const isThumbClosed = (landmarks) => {
+      const tip = landmarks[4], idxMcp = landmarks[5], pinkyMcp = landmarks[17];
+      if (!tip || !idxMcp || !pinkyMcp) return false;
+      return tip.x > Math.min(idxMcp.x, pinkyMcp.x) && tip.x < Math.max(idxMcp.x, pinkyMcp.x);
+    };
+    const isTouching = (landmarks, a, b, scaleFactor = 0.33) => pointDistance(landmarks[a], landmarks[b]) < palmScale(landmarks) * scaleFactor;
+    const isFingerTogether = (landmarks, aTip, bTip, maxSpread = 0.24) => fingerSpread(landmarks, aTip, bTip) <= maxSpread;
+    const isFingerWide = (landmarks, aTip, bTip, minSpread = 0.4) => fingerSpread(landmarks, aTip, bTip) >= minSpread;
+    const featureState = (landmarks, handedness) => {
+      const thumbOpen = isThumbOpen(landmarks, handedness);
+      const thumbClosed = isThumbClosed(landmarks);
+      const indexUp = isFingerUp(landmarks, 8, 6, 5);
+      const middleUp = isFingerUp(landmarks, 12, 10, 9);
+      const ringUp = isFingerUp(landmarks, 16, 14, 13);
+      const pinkyUp = isFingerUp(landmarks, 20, 18, 17);
+      const indexCurled = isFingerCurled(landmarks, 8, 6);
+      const middleCurled = isFingerCurled(landmarks, 12, 10);
+      const ringCurled = isFingerCurled(landmarks, 16, 14);
+      const pinkyCurled = isFingerCurled(landmarks, 20, 18);
+      const idxThumbTouch = isTouching(landmarks, 4, 8);
+      const midThumbTouch = isTouching(landmarks, 4, 12);
+      const ringThumbTouch = isTouching(landmarks, 4, 16);
+      const pinkyThumbTouch = isTouching(landmarks, 4, 20);
+      const spreadIM = pointDistance(landmarks[8], landmarks[12]) / palmScale(landmarks);
+      const spreadMR = pointDistance(landmarks[12], landmarks[16]) / palmScale(landmarks);
+      const spreadRP = pointDistance(landmarks[16], landmarks[20]) / palmScale(landmarks);
+      const indexHook = indexCurled && landmarks[8].y < landmarks[6].y && landmarks[8].x > landmarks[6].x;
+      const indexMiddleTogether = isFingerTogether(landmarks, 8, 12, 0.22);
+      const indexMiddleWide = isFingerWide(landmarks, 8, 12, 0.45);
+      const ringPinkyTogether = isFingerTogether(landmarks, 16, 20, 0.24);
+      const allFourUp = indexUp && middleUp && ringUp && pinkyUp;
+      const fistLike = !indexUp && !middleUp && !ringUp && !pinkyUp;
+      const indexSideways = Math.abs(landmarks[8].x - landmarks[6].x) > Math.abs(landmarks[8].y - landmarks[6].y);
+      const middleSideways = Math.abs(landmarks[12].x - landmarks[10].x) > Math.abs(landmarks[12].y - landmarks[10].y);
+      const indexMiddleCrossed = indexUp && middleUp && pointDistance(landmarks[8], landmarks[12]) < pointDistance(landmarks[6], landmarks[10]) * 0.68;
+      const thumbBetweenIndexMiddle = landmarks[4].x > Math.min(landmarks[8].x, landmarks[12].x) && landmarks[4].x < Math.max(landmarks[8].x, landmarks[12].x);
+      return {
+        thumbOpen, thumbClosed, indexUp, middleUp, ringUp, pinkyUp,
+        indexCurled, middleCurled, ringCurled, pinkyCurled, idxThumbTouch, midThumbTouch, ringThumbTouch, pinkyThumbTouch,
+        spreadIM, spreadMR, spreadRP, indexHook, indexMiddleTogether, indexMiddleWide, ringPinkyTogether, allFourUp, fistLike,
+        indexSideways, middleSideways, indexMiddleCrossed, thumbBetweenIndexMiddle
+      };
+    };
+    const classifyStaticASL = (f) => {
+      if (f.allFourUp && (f.thumbOpen || !f.thumbClosed)) return "HELLO ";
+      if (f.thumbOpen && !f.indexUp && !f.middleUp && !f.ringUp && !f.pinkyUp) return "YES ";
+
+      if (f.fistLike && f.thumbClosed) return "A";
+      if (f.allFourUp && !f.thumbOpen && f.ringPinkyTogether) return "B";
+      if (!f.thumbOpen && f.indexUp && !f.middleUp && !f.ringUp && !f.pinkyUp && f.thumbBetweenIndexMiddle) return "D";
+      if (f.fistLike && f.idxThumbTouch && f.midThumbTouch) return "E";
+      if (f.idxThumbTouch && f.middleUp && f.ringUp && f.pinkyUp) return "F";
+      if (f.indexSideways && !f.middleUp && !f.ringUp && !f.pinkyUp && f.thumbOpen) return "G";
+      if (f.indexUp && f.middleUp && f.indexSideways && f.middleSideways && !f.ringUp && !f.pinkyUp) return "H";
+      if (!f.thumbOpen && !f.indexUp && !f.middleUp && !f.ringUp && f.pinkyUp) return "I";
+      if (f.indexUp && f.thumbOpen && !f.middleUp && !f.ringUp && !f.pinkyUp) return "L";
+      if (f.fistLike && f.thumbBetweenIndexMiddle && !f.thumbOpen) return "T";
+      if (!f.thumbOpen && f.indexUp && f.middleUp && !f.ringUp && !f.pinkyUp && f.indexMiddleTogether) return "U";
+      if (!f.thumbOpen && f.indexUp && f.middleUp && !f.ringUp && !f.pinkyUp && f.indexMiddleWide) return "V";
+      if (!f.thumbOpen && f.indexUp && f.middleUp && f.ringUp && !f.pinkyUp) return "W";
+      if (f.indexHook && !f.middleUp && !f.ringUp && !f.pinkyUp) return "X";
+      if (f.thumbOpen && !f.indexUp && !f.middleUp && !f.ringUp && f.pinkyUp) return "Y";
+      if (f.indexMiddleCrossed) return "R";
+      if (f.fistLike && !f.thumbClosed && !f.thumbOpen) return "S";
+      if (f.idxThumbTouch && f.midThumbTouch && !f.indexUp && !f.middleUp && !f.ringUp && !f.pinkyUp) return "O";
+      if (f.thumbClosed && f.indexCurled && f.middleCurled && f.ringCurled && f.pinkyCurled) return "M";
+      if (f.thumbClosed && f.indexCurled && f.middleCurled && !f.ringCurled && f.pinkyCurled) return "N";
+      if (f.thumbOpen && f.indexUp && f.middleUp && !f.ringUp && !f.pinkyUp && !f.indexSideways) return "K";
+      if (f.thumbOpen && f.indexUp && f.middleUp && !f.ringUp && !f.pinkyUp && f.indexSideways) return "P";
+      if (f.thumbOpen && !f.middleUp && !f.ringUp && !f.pinkyUp && f.indexSideways && !f.indexUp) return "Q";
+      if (f.idxThumbTouch && !f.middleUp && !f.ringUp && !f.pinkyUp) return "9";
+      if (f.pinkyThumbTouch && f.indexUp && f.middleUp && f.ringUp) return "6";
+      if (f.ringThumbTouch && f.indexUp && f.middleUp && f.pinkyUp) return "7";
+      if (f.midThumbTouch && f.indexUp && f.ringUp && f.pinkyUp) return "8";
+      if (f.idxThumbTouch && f.midThumbTouch && f.ringThumbTouch && f.pinkyThumbTouch) return "0";
+      if (f.allFourUp && !f.thumbOpen) return "4";
+      if (f.allFourUp && f.thumbOpen) return "5";
+      if (!f.thumbOpen && f.indexUp && !f.middleUp && !f.ringUp && !f.pinkyUp) return "1";
+      if (!f.thumbOpen && f.indexUp && f.middleUp && !f.ringUp && !f.pinkyUp) return "2";
+      if (f.thumbOpen && f.indexUp && f.middleUp && !f.ringUp && !f.pinkyUp) return "3";
+      return "";
+    };
+    const detectMotionASL = (f, handKey) => {
+      const history = handStates[handKey]?.tipHistory || { thumb: [], index: [], pinky: [] };
+      if (history.pinky.length >= 8 && !f.thumbOpen && !f.indexUp && !f.middleUp && !f.ringUp && f.pinkyUp) {
+        const first = history.pinky[0];
+        const last = history.pinky[history.pinky.length - 1];
+        if (first && last && (last.x - first.x > 0.06) && (last.y - first.y > 0.05)) return "J";
+      }
+      if (history.index.length >= 10 && f.indexUp && !f.middleUp && !f.ringUp && !f.pinkyUp) {
+        let dirChanges = 0;
+        let prevDir = 0;
+        for (let i = 1; i < history.index.length; i++) {
+          const dx = history.index[i].x - history.index[i - 1].x;
+          const dir = dx > 0.008 ? 1 : dx < -0.008 ? -1 : 0;
+          if (dir && prevDir && dir !== prevDir) dirChanges += 1;
+          if (dir) prevDir = dir;
+        }
+        if (dirChanges >= 2) return "Z";
+      }
+      if (history.thumb && history.thumb.length >= 10 && f.thumbOpen && !f.indexUp && !f.middleUp && !f.ringUp && !f.pinkyUp) {
+        const span = Math.max(...history.thumb.map((p) => p.x)) - Math.min(...history.thumb.map((p) => p.x));
+        if (span > 0.08) return "10";
+      }
+      return "";
+    };
+    const classifyGesture = (landmarks, handedness, handKey) => {
+      const f = featureState(landmarks, handedness);
+      const motion = detectMotionASL(f, handKey);
+      if (motion) return motion;
+      return classifyStaticASL(f);
+    };
+    const classifyTwoHandGesture = (leftLandmarks, rightLandmarks) => {
+      const leftF = featureState(leftLandmarks, "Left");
+      const rightF = featureState(rightLandmarks, "Right");
+      const leftPalm = leftF.indexUp && leftF.middleUp && leftF.ringUp && leftF.pinkyUp;
+      const rightPalm = rightF.indexUp && rightF.middleUp && rightF.ringUp && rightF.pinkyUp;
+      const leftThumbOnly = leftF.thumbOpen && !leftF.indexUp && !leftF.middleUp && !leftF.ringUp && !leftF.pinkyUp;
+      const rightThumbOnly = rightF.thumbOpen && !rightF.indexUp && !rightF.middleUp && !rightF.ringUp && !rightF.pinkyUp;
+      const leftV = !leftF.thumbOpen && leftF.indexUp && leftF.middleUp && !leftF.ringUp && !leftF.pinkyUp;
+      const rightV = !rightF.thumbOpen && rightF.indexUp && rightF.middleUp && !rightF.ringUp && !rightF.pinkyUp;
+      const leftFist = !leftF.indexUp && !leftF.middleUp && !leftF.ringUp && !leftF.pinkyUp;
+      const rightFist = !rightF.indexUp && !rightF.middleUp && !rightF.ringUp && !rightF.pinkyUp;
+      if (leftPalm && rightPalm) return "WELCOME ";
+      if (leftThumbOnly && rightThumbOnly) return "EXCELLENT ";
+      if (leftV && rightV) return "PEACE ";
+      if (leftFist && rightFist) return "BOOK ";
+      return "";
+    };
+    const setGestureStatus = (kind, txt) => {
+      if (!el.gestureStatus) return;
+      el.gestureStatus.className = `status ${kind}`.trim();
+      el.gestureStatus.textContent = txt;
+    };
+    const updateGestureWordUi = () => {
+      if (el.gestureWord) el.gestureWord.textContent = builtWord || "No gestures detected yet.";
+    };
+    const appendGestureToken = (token) => {
+      if (!token) return;
+      builtWord += token;
+      builtWord = builtWord.replace(/\s+/g, " ").trimStart();
+      updateGestureWordUi();
+    };
+    const clearGestureBuilder = () => {
+      builtWord = "";
+      resetHandState("Left");
+      resetHandState("Right");
+      resetHandState("Both");
+      updateGestureWordUi();
+    };
+    const speakGestureBuilder = () => {
+      const text = builtWord.trim();
+      if (!text || !("speechSynthesis" in window)) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = el.langSel?.value || "en-US";
+      window.speechSynthesis.speak(utter);
+    };
+    const processGestureCandidate = (token, handKey) => {
+      const state = handStates[handKey] || (handStates[handKey] = makeHandState());
+      if (!token) {
+        state.candidate = "";
+        state.stableFrames = 0;
+        state.releaseFrames += 1;
+        if (state.releaseFrames >= GESTURE_RELEASE_FRAMES) state.lastToken = "";
+        return "";
+      }
+      state.releaseFrames = 0;
+      if (token === state.candidate) state.stableFrames += 1;
+      else {
+        state.candidate = token;
+        state.stableFrames = 1;
+      }
+      const now = Date.now();
+      if (
+        state.stableFrames >= STABLE_GESTURE_FRAMES &&
+        now - state.lastEmitTs > GESTURE_COOLDOWN_MS &&
+        token !== state.lastToken
+      ) {
+        appendGestureToken(token);
+        state.lastToken = token;
+        state.lastEmitTs = now;
+        return token.trim();
+      }
+      return "";
+    };
+    const stopHandCamera = () => {
+      if (cam) {
+        try { cam.stop(); } catch {}
+        cam = null;
+      }
+      const stream = el.cameraFeed?.srcObject;
+      if (stream && typeof stream.getTracks === "function") stream.getTracks().forEach((track) => track.stop());
+      if (el.cameraFeed) el.cameraFeed.srcObject = null;
+      if (el.cameraOverlay) {
+        const ctx = el.cameraOverlay.getContext("2d");
+        if (ctx) ctx.clearRect(0, 0, el.cameraOverlay.width || 0, el.cameraOverlay.height || 0);
+      }
+      camRunning = false;
+      resetHandState("Left");
+      resetHandState("Right");
+      resetHandState("Both");
+      if (el.startCamBtn) el.startCamBtn.textContent = "Start Camera";
+      setGestureStatus("", "Camera is off.");
+    };
+    const handleHandResults = (results) => {
+      if (!el.cameraOverlay || !el.cameraFeed) return;
+      const canvas = el.cameraOverlay;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      const w = el.cameraFeed.videoWidth || 960;
+      const h = el.cameraFeed.videoHeight || 540;
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+      }
+      ctx.save();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (results.image) ctx.drawImage(results.image, 0, 0, canvas.width, canvas.height);
+      const handLandmarks = results.multiHandLandmarks || [];
+      const handLabelsSeen = new Set();
+      const detectedTokens = [];
+      const hands = [];
+      if (handLandmarks.length) {
+        for (let i = 0; i < handLandmarks.length; i++) {
+          const landmarks = handLandmarks[i];
+          const handedness = results.multiHandedness?.[i]?.label === "Left" ? "Left" : "Right";
+          handLabelsSeen.add(handedness);
+          hands.push({ landmarks, handedness });
+          drawConnectors(ctx, landmarks, HAND_CONNECTIONS, { color: "#55f0d3", lineWidth: 3 });
+          drawLandmarks(ctx, landmarks, { color: "#0f7f88", fillColor: "#b8fff0", lineWidth: 1, radius: 3 });
+        }
+
+        let combinedActive = false;
+        if (hands.length >= 2) {
+          const leftHand = hands.find((h) => h.handedness === "Left") || hands[0];
+          const rightHand = hands.find((h) => h.handedness === "Right") || hands[1];
+          if (leftHand && rightHand && leftHand !== rightHand) {
+            const combinedToken = classifyTwoHandGesture(leftHand.landmarks, rightHand.landmarks);
+            if (combinedToken) {
+              combinedActive = true;
+              const bothEmitted = processGestureCandidate(combinedToken, "Both");
+              if (bothEmitted) detectedTokens.push(`Both: ${bothEmitted}`);
+            } else {
+              processGestureCandidate("", "Both");
+            }
+          } else {
+            processGestureCandidate("", "Both");
+          }
+        } else {
+          processGestureCandidate("", "Both");
+        }
+
+        if (combinedActive) {
+          processGestureCandidate("", "Left");
+          processGestureCandidate("", "Right");
+        } else {
+          for (const { landmarks, handedness } of hands) {
+            const state = handStates[handedness] || (handStates[handedness] = makeHandState());
+            state.tipHistory.thumb.push({ x: landmarks[4].x, y: landmarks[4].y });
+            state.tipHistory.index.push({ x: landmarks[8].x, y: landmarks[8].y });
+            state.tipHistory.pinky.push({ x: landmarks[20].x, y: landmarks[20].y });
+            clampHistory(state.tipHistory.thumb);
+            clampHistory(state.tipHistory.index);
+            clampHistory(state.tipHistory.pinky);
+            const gesture = classifyGesture(landmarks, handedness, handedness);
+            const emitted = processGestureCandidate(gesture, handedness);
+            if (emitted) detectedTokens.push(`${handedness}: ${emitted}`);
+          }
+        }
+
+        if (!handLabelsSeen.has("Left")) {
+          resetHandState("Left");
+          processGestureCandidate("", "Left");
+        }
+        if (!handLabelsSeen.has("Right")) {
+          resetHandState("Right");
+          processGestureCandidate("", "Right");
+        }
+        if (detectedTokens.length) setGestureStatus("processing", `Detected: ${detectedTokens.join(" | ")}`);
+        else setGestureStatus("listening", "Tracking both hands. Hold sign steady.");
+      } else {
+        processGestureCandidate("", "Left");
+        processGestureCandidate("", "Right");
+        processGestureCandidate("", "Both");
+        setGestureStatus("listening", "No hands detected. Show left or right hand.");
+      }
+      ctx.restore();
+    };
+    const startHandCamera = async () => {
+      if (camRunning) {
+        stopHandCamera();
+        return;
+      }
+      if (!window.Hands || !window.Camera || !window.drawConnectors || !window.drawLandmarks) {
+        setGestureStatus("error", "Camera tracking libraries are not loaded.");
+        return;
+      }
+      try {
+        if (!handsTracker) {
+          handsTracker = new Hands({
+            locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+          });
+          handsTracker.setOptions({
+            maxNumHands: 2,
+            modelComplexity: 1,
+            minDetectionConfidence: 0.7,
+            minTrackingConfidence: 0.6
+          });
+          handsTracker.onResults(handleHandResults);
+        }
+        cam = new Camera(el.cameraFeed, {
+          onFrame: async () => {
+            await handsTracker.send({ image: el.cameraFeed });
+          },
+          width: 960,
+          height: 540
+        });
+        await cam.start();
+        camRunning = true;
+        if (el.startCamBtn) el.startCamBtn.textContent = "Stop Camera";
+        setGestureStatus("listening", "Camera started. Show a gesture.");
+      } catch {
+        stopHandCamera();
+        setGestureStatus("error", "Unable to start camera. Check permission.");
+      }
+    };
+    const setMode = (mode) => {
+      const next = mode === "sign-to-speech" ? "sign-to-speech" : "speech-to-sign";
+      activeMode = next;
+      if (el.speechToSignPane) el.speechToSignPane.hidden = next !== "speech-to-sign";
+      if (el.signToSpeechPane) el.signToSpeechPane.hidden = next !== "sign-to-speech";
+      if (el.navSpeechToSign) el.navSpeechToSign.classList.toggle("active", next === "speech-to-sign");
+      if (el.navSignToSpeech) el.navSignToSpeech.classList.toggle("active", next === "sign-to-speech");
+      if (next === "sign-to-speech" && rec && listening) {
+        manualStop = true;
+        rec.stop();
+      }
+      if (next === "speech-to-sign") stopHandCamera();
+    };
     const THEME_UI_KEY = {
       "ramadan-dawn": "themeRamadanDawn",
       "midnight": "themeMidnight",
@@ -1216,6 +1653,11 @@
     el.smartBtn.addEventListener("click",()=>{fallback="smart";tog(el.smartBtn,el.alphaBtn);replay();});
     el.alphaBtn.addEventListener("click",()=>{fallback="alphabet";tog(el.alphaBtn,el.smartBtn);replay();});
     el.repeatBtn?.addEventListener("click",()=>{ replay(); });
+    el.navSpeechToSign?.addEventListener("click",()=>{ setMode("speech-to-sign"); });
+    el.navSignToSpeech?.addEventListener("click",()=>{ setMode("sign-to-speech"); });
+    el.startCamBtn?.addEventListener("click",()=>{ startHandCamera(); });
+    el.speakGestureBtn?.addEventListener("click",()=>{ speakGestureBuilder(); });
+    el.clearGestureBtn?.addEventListener("click",()=>{ clearGestureBuilder(); });
     el.langToggleBtn?.addEventListener("click",()=>{ toggleLangMenu(); });
     el.themeSel?.addEventListener("change",()=>{ applyTheme(el.themeSel.value); });
     el.langSel?.addEventListener("change",()=>{
@@ -1247,10 +1689,14 @@
     applyUiLanguage();
     el.trans.textContent = t("defaultTranscript");
     clearShow(); updateRepeatState(); setStatus("",t("idle")); setupSplash(); setupMic(); refreshLanguage();
+    updateGestureWordUi();
+    setMode("speech-to-sign");
 
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js").catch(() => {});
+        navigator.serviceWorker.register(`./sw.js?v=${Date.now()}`).then((reg) => {
+          reg.update().catch(() => {});
+        }).catch(() => {});
       });
     }
   })();
