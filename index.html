@@ -120,7 +120,7 @@
     .tok{margin-top:8px;min-height:21px;color:var(--muted);font-weight:700}.ph{color:var(--muted)}
     .tcard{min-width:140px;min-height:110px;border:1px solid var(--img-border);border-radius:10px;background:var(--chip-bg);display:grid;place-items:center;padding:10px}
     .tcard b{font-size:.8rem;color:var(--muted);display:block}.tcard span{font-weight:700;color:var(--a2);text-transform:uppercase;word-break:break-word}
-    .act{margin-top:12px;display:flex;justify-content:center}.clear{width:100%;max-width:240px;min-height:44px;border-radius:12px;border:2px solid var(--a);background:#fff;color:var(--a2);font-weight:700;cursor:pointer}
+    .act{margin-top:12px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap}.clear{width:100%;max-width:240px;min-height:44px;border-radius:12px;border:2px solid var(--a);background:#fff;color:var(--a2);font-weight:700;cursor:pointer}
     .footer{padding:0 clamp(8px,2vw,14px) clamp(10px,2vw,14px)}.credit{margin:auto;max-width:1020px;padding:1rem;border-top:1px solid rgba(20,36,51,.12);text-align:center;background:linear-gradient(135deg,rgba(15,127,136,.15),rgba(255,225,170,.45));border-radius:14px}
     .credit a{text-decoration:none;color:inherit;display:inline-block}.credit p{margin:0 0 6px;font-size:.72rem;letter-spacing:2.2px;text-transform:uppercase;opacity:.65}.credit strong{display:inline-block;padding:.38rem .9rem;border-radius:999px;border:1px solid rgba(20,36,51,.25)}
     body.theme-neon-grid{font-family:"Trebuchet MS",Verdana,sans-serif}
@@ -174,6 +174,13 @@
       #signBlock .show img{
         max-height:145px;
       }
+      .act{
+        gap:8px;
+      }
+      .act .clear{
+        width:calc(50% - 4px);
+        max-width:none;
+      }
     }
     @media(max-width:420px){.page{padding:8px}.card{border-radius:14px}.head h1{font-size:1.25rem}.head p{font-size:.9rem}.show img{max-height:160px}.credit strong{font-size:.88rem;padding:.34rem .8rem}.head::before{right:2px;top:-8px;width:34px;height:34px}.head::after{right:7px;top:0;width:14px;height:14px}}
     @media(min-width:1200px){.card{padding:24px}}
@@ -198,7 +205,7 @@
             </div>
           </div>
           <div class="themePick">
-            <label for="themeSel">Theme</label>
+            <label id="themeLabel" for="themeSel">Theme</label>
             <select id="themeSel" aria-label="Choose visual theme">
               <option value="ramadan-dawn">Ramadan Dawn</option>
               <option value="midnight">Midnight</option>
@@ -238,23 +245,24 @@
         <div class="set"><label id="fallbackLabel">Fallback</label><div class="tog"><button id="smartBtn" class="on">Smart</button><button id="alphaBtn">Alphabet</button></div></div>
       </section>
       <section class="manual"><label id="manualLabel" for="input">Type text to translate</label><div class="row"><input id="input" placeholder="Example: hello, i love you"><button id="translate" class="btn">Translate Text</button></div></section>
-      <section class="act"><button id="clear" class="clear">Clear</button></section>
+      <section class="act"><button id="clear" class="clear">Clear</button><button id="reload" class="clear">Reload</button></section>
     </section>
   </main>
-  <footer class="footer"><div class="credit"><a href="https://raazimtech.github.io/Raazim-tech/" target="_blank" rel="noopener"><p>Made By</p><strong>RT Solutions</strong></a></div></footer>
+  <footer class="footer"><div class="credit"><a href="https://raazimtech.github.io/Raazim-tech/" target="_blank" rel="noopener"><p id="madeByLabel">Made By</p><strong>RT Solutions</strong></a></div></footer>
 
   <script>
   (() => {
     const el = {
       mic: document.getElementById("micBtn"), status: document.getElementById("status"), input: document.getElementById("input"),
       translate: document.getElementById("translate"), trans: document.getElementById("trans"), show: document.getElementById("show"),
-      tok: document.getElementById("tok"), clear: document.getElementById("clear"), gifBtn: document.getElementById("gifBtn"),
+      tok: document.getElementById("tok"), clear: document.getElementById("clear"), reload: document.getElementById("reload"), gifBtn: document.getElementById("gifBtn"),
       textBtn: document.getElementById("textBtn"), smartBtn: document.getElementById("smartBtn"), alphaBtn: document.getElementById("alphaBtn"),
       langSel: document.getElementById("langSel"), langToggleBtn: document.getElementById("langToggleBtn"), langMenu: document.getElementById("langMenu"),
       themeSel: document.getElementById("themeSel"), repeatBtn: document.getElementById("repeatBtn"),
       appTitle: document.getElementById("appTitle"), appSubtitle: document.getElementById("appSubtitle"), ramadanTag: document.getElementById("ramadanTag"),
       recognizedTitle: document.getElementById("recognizedTitle"), signPlaybackTitle: document.getElementById("signPlaybackTitle"),
-      outputLabel: document.getElementById("outputLabel"), fallbackLabel: document.getElementById("fallbackLabel"), manualLabel: document.getElementById("manualLabel")
+      outputLabel: document.getElementById("outputLabel"), fallbackLabel: document.getElementById("fallbackLabel"), manualLabel: document.getElementById("manualLabel"),
+      themeLabel: document.getElementById("themeLabel"), madeByLabel: document.getElementById("madeByLabel")
     };
 
     const LANGUAGES = [
@@ -658,6 +666,7 @@
         ramadanTag: "Ramadan Kareem",
         recognizedTitle: "Recognized Text",
         signPlaybackTitle: "Sign Playback",
+        themeLabel: "Theme",
         repeatTitle: "Repeat sign playback",
         outputLabel: "Output",
         fallbackLabel: "Fallback",
@@ -669,6 +678,21 @@
         inputPlaceholder: "Example: hello, i love you",
         translate: "Translate Text",
         clear: "Clear",
+        reload: "Reload",
+        madeBy: "Made By",
+        langPrefix: "Lang",
+        chooseLanguage: "Choose language",
+        chooseTheme: "Choose visual theme",
+        themeRamadanDawn: "Ramadan Dawn",
+        themeMidnight: "Midnight",
+        themeOasis: "Oasis",
+        themeSunset: "Sunset",
+        themeRoyal: "Royal",
+        themeNeonGrid: "Neon Grid",
+        themePaper: "Paper",
+        themeMono: "Mono",
+        themeForestNoir: "Forest Noir",
+        themeCandyPop: "Candy Pop",
         startMicAria: "Start speech recognition",
         stopMicAria: "Stop speech recognition"
       },
@@ -678,6 +702,7 @@
         ramadanTag: "Ramadan Kariim",
         recognizedTitle: "Qoraalka La Aqoonsaday",
         signPlaybackTitle: "Muujinta Calaamadaha",
+        themeLabel: "Muuqaal",
         repeatTitle: "Ku celi muujinta calaamadaha",
         outputLabel: "Soo Saarid",
         fallbackLabel: "Beddel",
@@ -689,6 +714,21 @@
         inputPlaceholder: "Tusaale: hello, i love you",
         translate: "Turjun Qoraalka",
         clear: "Nadiifi",
+        reload: "Dib u Cusbooneysii",
+        madeBy: "Waxaa Sameeyay",
+        langPrefix: "Luqad",
+        chooseLanguage: "Dooro luqad",
+        chooseTheme: "Dooro muuqaalka",
+        themeRamadanDawn: "Waaberiga Ramadan",
+        themeMidnight: "Saqda Dhexe",
+        themeOasis: "Oasis",
+        themeSunset: "Qorrax Dhac",
+        themeRoyal: "Boqortooyo",
+        themeNeonGrid: "Shabakadda Neon",
+        themePaper: "Warqad",
+        themeMono: "Hal Midab",
+        themeForestNoir: "Madowga Kaynta",
+        themeCandyPop: "Nacnac Pop",
         startMicAria: "Bilow aqoonsiga codka",
         stopMicAria: "Jooji aqoonsiga codka"
       }
@@ -863,6 +903,38 @@
     };
     const t = (key) => getTextMap()[key] || TEXT.en[key] || key;
     const uiText = (key) => getUiMap()[key] || UI.en[key] || key;
+    const THEME_UI_KEY = {
+      "ramadan-dawn": "themeRamadanDawn",
+      "midnight": "themeMidnight",
+      "oasis": "themeOasis",
+      "sunset": "themeSunset",
+      "royal": "themeRoyal",
+      "neon-grid": "themeNeonGrid",
+      "paper": "themePaper",
+      "mono": "themeMono",
+      "forest-noir": "themeForestNoir",
+      "candy-pop": "themeCandyPop"
+    };
+    const langMetaByCode = Object.fromEntries(LANGUAGES.map((l) => [l.code, l]));
+    const localizeLanguageLabel = (code, uiLocale) => {
+      const fallback = langMetaByCode[code]?.label || code;
+      const [lang, region] = (code || "").split("-");
+      if (!lang) return fallback;
+      try {
+        const langName = new Intl.DisplayNames([uiLocale || "en"], { type: "language" }).of(lang) || "";
+        const regionName = region ? (new Intl.DisplayNames([uiLocale || "en"], { type: "region" }).of(region) || region) : "";
+        if (langName && regionName) return `${langName} (${regionName})`;
+        if (langName) return langName;
+      } catch {}
+      return fallback;
+    };
+    const refreshLanguageOptionLabels = () => {
+      if (!el.langSel) return;
+      const uiLocale = el.langSel.value || "en-US";
+      [...el.langSel.options].forEach((opt) => {
+        opt.textContent = localizeLanguageLabel(opt.value, uiLocale);
+      });
+    };
     const saveAutoI18n = () => {
       try { localStorage.setItem(AUTO_I18N_CACHE_KEY, JSON.stringify(autoI18n)); } catch {}
     };
@@ -899,6 +971,7 @@
       if (el.ramadanTag) el.ramadanTag.textContent = uiText("ramadanTag");
       if (el.recognizedTitle) el.recognizedTitle.textContent = uiText("recognizedTitle");
       if (el.signPlaybackTitle) el.signPlaybackTitle.textContent = uiText("signPlaybackTitle");
+      if (el.themeLabel) el.themeLabel.textContent = uiText("themeLabel");
       if (el.repeatBtn) {
         const rpt = uiText("repeatTitle");
         el.repeatBtn.title = rpt;
@@ -914,7 +987,19 @@
       if (el.input) el.input.placeholder = uiText("inputPlaceholder");
       if (el.translate) el.translate.textContent = uiText("translate");
       if (el.clear) el.clear.textContent = uiText("clear");
+      if (el.reload) el.reload.textContent = uiText("reload");
+      if (el.madeByLabel) el.madeByLabel.textContent = uiText("madeBy");
+      if (el.langSel) el.langSel.setAttribute("aria-label", uiText("chooseLanguage"));
+      if (el.themeSel) el.themeSel.setAttribute("aria-label", uiText("chooseTheme"));
+      if (el.themeSel) {
+        [...el.themeSel.options].forEach((opt) => {
+          const key = THEME_UI_KEY[opt.value];
+          if (key) opt.textContent = uiText(key);
+        });
+      }
+      refreshLanguageOptionLabels();
       if (el.mic) el.mic.setAttribute("aria-label", listening ? uiText("stopMicAria") : uiText("startMicAria"));
+      setLangToggle();
     };
     const refreshLanguage = async () => {
       const runId = ++langLoadRun;
@@ -1097,7 +1182,7 @@
     const setLangToggle = () => {
       if (!el.langToggleBtn || !el.langSel) return;
       const label = el.langSel.options[el.langSel.selectedIndex]?.text || "English (US)";
-      el.langToggleBtn.textContent = `Lang: ${label}`;
+      el.langToggleBtn.textContent = `${uiText("langPrefix")}: ${label}`;
     };
     const toggleLangMenu = (open) => {
       if (!el.langMenu || !el.langToggleBtn) return;
@@ -1125,6 +1210,7 @@
     el.translate.addEventListener("click",()=>translate(el.input.value));
     el.input.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();translate(el.input.value);}});
     el.clear.addEventListener("click",()=>{ if(rec&&listening) rec.stop(); reset(); });
+    el.reload?.addEventListener("click",()=>{ window.location.reload(); });
     el.gifBtn.addEventListener("click",()=>{output="gif";tog(el.gifBtn,el.textBtn);replay();});
     el.textBtn.addEventListener("click",()=>{output="text";tog(el.textBtn,el.gifBtn);replay();});
     el.smartBtn.addEventListener("click",()=>{fallback="smart";tog(el.smartBtn,el.alphaBtn);replay();});
