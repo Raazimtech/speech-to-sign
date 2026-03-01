@@ -41,30 +41,6 @@
   <link rel="icon" type="image/png" sizes="192x192" href="Gemini_Generated_Image_x0oe4fx0oe4fx0oe.png">
   <link rel="apple-touch-icon" href="Gemini_Generated_Image_x0oe4fx0oe4fx0oe.png">
   <title>Speech to Sign</title>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Speech to Sign",
-    "applicationCategory": "EducationalApplication",
-    "operatingSystem": "Web",
-    "description": "Speech to Sign converts spoken or typed words into sign-language visuals with GIF playback and smart fallback modes.",
-    "url": "./",
-    "image": [
-      "marketing seo image.png",
-      "logo (2).png",
-      "Gemini_Generated_Image_x0oe4fx0oe4fx0oe.png"
-    ],
-    "publisher": {
-      "@type": "Organization",
-      "name": "RT Solutions",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "logo (2).png"
-      }
-    }
-  }
-  </script>
   <style>
     :root{--bg:#eef4fb;--card:#fff;--line:#d8e3ef;--ink:#122334;--muted:#506173;--a:#0f7f88;--a2:#0a656c;--bg-grad:linear-gradient(165deg,#f4efe2,#dce9f7 50%,#edf8f1);--soft:#f8fbff;--show-bg:linear-gradient(180deg,#edf6ff,#eefaf7);--show-border:#95aec7;--img-border:#bed1e3;--input-bg:#fff;--chip-bg:#fff;--moon-glow:radial-gradient(circle at 30% 30%,rgba(255,225,150,.55),rgba(255,225,150,.12) 55%,transparent 70%);--moon-crescent:#f9e3a6;--tag-border:rgba(160,130,70,.35);--tag-bg:linear-gradient(135deg,rgba(255,244,208,.88),rgba(223,243,231,.9));--tag-ink:#6a5520}
     *{box-sizing:border-box}html,body{margin:0}
@@ -80,6 +56,13 @@
     body.theme-mono{--bg:#ececec;--card:#ffffff;--line:#cfcfcf;--ink:#1f1f1f;--muted:#5e5e5e;--a:#2f2f2f;--a2:#111;--bg-grad:linear-gradient(160deg,#f4f4f4,#e3e3e3 55%,#f2f2f2);--soft:#fafafa;--show-bg:linear-gradient(180deg,#f2f2f2,#f7f7f7);--show-border:#a7a7a7;--img-border:#bfbfbf;--input-bg:#fff;--chip-bg:#fff;--moon-glow:radial-gradient(circle at 30% 30%,rgba(170,170,170,.5),rgba(102,102,102,.12) 56%,transparent 74%);--moon-crescent:#cfcfcf;--tag-border:rgba(104,104,104,.33);--tag-bg:linear-gradient(135deg,rgba(238,238,238,.95),rgba(246,246,246,.95));--tag-ink:#444}
     body.theme-forest-noir{--bg:#0b1712;--card:#13221a;--line:#2b4337;--ink:#d8f0e1;--muted:#8db29d;--a:#4cb980;--a2:#9df5c5;--bg-grad:linear-gradient(165deg,#0a1711,#11251b 48%,#143329);--soft:#182b22;--show-bg:linear-gradient(180deg,#163225,#133127);--show-border:#3f7e66;--img-border:#4d8a74;--input-bg:#13261e;--chip-bg:#13261e;--moon-glow:radial-gradient(circle at 30% 30%,rgba(179,255,215,.66),rgba(74,190,132,.14) 56%,transparent 74%);--moon-crescent:#c7ffe1;--tag-border:rgba(117,216,169,.34);--tag-bg:linear-gradient(135deg,rgba(26,72,51,.65),rgba(18,53,40,.68));--tag-ink:#cbffe7}
     body.theme-candy-pop{--bg:#fff0f8;--card:#ffffff;--line:#f5bfd8;--ink:#5d2450;--muted:#8f4d7d;--a:#ff4ea1;--a2:#d42f7f;--bg-grad:linear-gradient(165deg,#ffeefd,#ffd7ec 52%,#ffe8f5);--soft:#fff4fa;--show-bg:linear-gradient(180deg,#ffeef8,#fff6fb);--show-border:#ee9ec7;--img-border:#f5b9d9;--input-bg:#fff;--chip-bg:#fff;--moon-glow:radial-gradient(circle at 30% 30%,rgba(255,174,218,.74),rgba(255,97,187,.16) 55%,transparent 74%);--moon-crescent:#ffc4e6;--tag-border:rgba(226,81,158,.35);--tag-bg:linear-gradient(135deg,rgba(255,225,242,.95),rgba(255,241,249,.95));--tag-ink:#a32069}
+
+    body.theme-sakura{--bg:#fff5f8;--card:#ffffff;--line:#f1c7d4;--ink:#3f1f2e;--muted:#7a4a5f;--a:#d94b7f;--a2:#b33264;--bg-grad:radial-gradient(900px 520px at 92% -8%,rgba(255,183,209,.38),transparent 60%),linear-gradient(165deg,#fff7fb,#ffe3ee 55%,#fff0f6);--soft:#fff8fb;--show-bg:linear-gradient(180deg,#fff2f7,#fff9fb);--show-border:#e0a3b6;--img-border:#f0bfd0;--input-bg:#fff;--chip-bg:#fff;--moon-glow:radial-gradient(circle at 30% 30%,rgba(255,203,221,.78),rgba(255,142,186,.16) 55%,transparent 74%);--moon-crescent:#ffd3e3;--tag-border:rgba(217,75,127,.32);--tag-bg:linear-gradient(135deg,rgba(255,226,239,.95),rgba(255,244,250,.95));--tag-ink:#8f2f53}
+    body.theme-desert-sand{--bg:#fff4e6;--card:#fffaf3;--line:#ead2b3;--ink:#3b2a17;--muted:#7a5a3a;--a:#b56a2a;--a2:#8c4f1d;--bg-grad:radial-gradient(900px 520px at 10% -10%,rgba(255,214,153,.35),transparent 60%),linear-gradient(165deg,#fff7ee,#ffe7cf 54%,#fff1df);--soft:#fff8f0;--show-bg:linear-gradient(180deg,#fff1e2,#fff8f0);--show-border:#d7b186;--img-border:#e6c7a3;--input-bg:#fffdf7;--chip-bg:#fffdf7;--moon-glow:radial-gradient(circle at 30% 30%,rgba(255,214,153,.72),rgba(255,167,90,.16) 55%,transparent 74%);--moon-crescent:#ffe1b8;--tag-border:rgba(181,106,42,.32);--tag-bg:linear-gradient(135deg,rgba(255,236,210,.95),rgba(255,249,240,.95));--tag-ink:#7a3f14}
+    body.theme-arctic-ice{--bg:#edf7ff;--card:#ffffff;--line:#c7dff3;--ink:#132a3f;--muted:#4d6a85;--a:#1373c7;--a2:#0f5a9b;--bg-grad:radial-gradient(980px 560px at 85% -15%,rgba(164,220,255,.45),transparent 60%),linear-gradient(165deg,#f4fbff,#dceeff 55%,#f0f8ff);--soft:#f6fbff;--show-bg:linear-gradient(180deg,#eaf6ff,#f4fbff);--show-border:#8fb5d9;--img-border:#b9d6f0;--input-bg:#fff;--chip-bg:#fff;--moon-glow:radial-gradient(circle at 30% 30%,rgba(199,236,255,.75),rgba(90,178,230,.16) 55%,transparent 74%);--moon-crescent:#d6f0ff;--tag-border:rgba(19,115,199,.28);--tag-bg:linear-gradient(135deg,rgba(219,242,255,.95),rgba(244,252,255,.95));--tag-ink:#0f4c86}
+    body.theme-volcanic{--bg:#130c0c;--card:#1b1212;--line:#3b2323;--ink:#fff1ee;--muted:#d4b2ab;--a:#ff5a3d;--a2:#ffb199;--bg-grad:radial-gradient(900px 520px at 86% -10%,rgba(255,90,61,.18),transparent 60%),linear-gradient(165deg,#0d0707,#1a0f0f 55%,#241212);--soft:#221616;--show-bg:linear-gradient(180deg,#221515,#1e1716);--show-border:#6b3b3b;--img-border:#704040;--input-bg:#160d0d;--chip-bg:#160d0d;--moon-glow:radial-gradient(circle at 30% 30%,rgba(255,168,138,.72),rgba(255,90,61,.14) 55%,transparent 74%);--moon-crescent:#ffd5c9;--tag-border:rgba(255,90,61,.28);--tag-bg:linear-gradient(135deg,rgba(88,34,26,.65),rgba(23,12,12,.7));--tag-ink:#ffd1c3}
+    body.theme-cyber-purple{--bg:#0d071a;--card:#140c28;--line:#2a1d4a;--ink:#efe6ff;--muted:#c4b1f3;--a:#a855f7;--a2:#e879f9;--bg-grad:radial-gradient(980px 560px at 12% -10%,rgba(232,121,249,.16),transparent 60%),linear-gradient(165deg,#0a0616,#120a26 55%,#1a0d33);--soft:#191134;--show-bg:linear-gradient(180deg,#161134,#14122f);--show-border:#5a3ea2;--img-border:#6245b0;--input-bg:#120a26;--chip-bg:#120a26;--moon-glow:radial-gradient(circle at 30% 30%,rgba(232,121,249,.72),rgba(168,85,247,.16) 55%,transparent 74%);--moon-crescent:#f3c7ff;--tag-border:rgba(232,121,249,.28);--tag-bg:linear-gradient(135deg,rgba(91,41,140,.65),rgba(22,12,42,.72));--tag-ink:#f6d9ff}
+
     .splash{position:fixed;inset:0;z-index:3000;background:#fff;display:grid;place-items:center;padding:20px;opacity:1;visibility:visible;transition:opacity .3s ease,visibility .3s ease}
     .splash img{width:min(980px,92vw);max-height:88vh;object-fit:contain}
     .splash.hide{opacity:0;visibility:hidden}
@@ -201,6 +184,20 @@
     }
     @media(max-width:420px){.page{padding:8px}.card{border-radius:14px}.head h1{font-size:1.25rem}.head p{font-size:.9rem}.show img{max-height:160px}.credit strong{font-size:.88rem;padding:.34rem .8rem}.head::before{right:2px;top:-8px;width:34px;height:34px}.head::after{right:7px;top:0;width:14px;height:14px}}
     @media(min-width:1200px){.card{padding:24px}}
+
+    /* New Theme UI */
+    .themeBtn{min-height:38px;border:1px solid var(--line);background:var(--soft);color:var(--ink);border-radius:10px;padding:0 12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px}
+    .themeOverlay{position:fixed;inset:0;z-index:5000;background:var(--bg);display:flex;flex-direction:column;padding:20px;overflow-y:auto;animation:sheet-in .4s ease-out}
+    .themeOverlay[hidden]{display:none}
+    .themeHeader{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-shrink:0}
+    .themeHeader h2{margin:0;font-size:1.5rem}
+    .themeClose{background:none;border:none;font-size:1rem;font-weight:700;color:var(--a);cursor:pointer;padding:8px;text-transform:uppercase;letter-spacing:1px}
+    .themeGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;padding-bottom:40px}
+    .themeOption{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;transition:transform .2s,border-color .2s}
+    .themeOption:hover{transform:translateY(-2px);border-color:var(--a)}
+    .themeOption.active{border:2px solid var(--a);background:var(--soft)}
+    .themePreview{width:50px;height:50px;border-radius:50%;border:2px solid var(--line);box-shadow:0 4px 10px rgba(0,0,0,.1)}
+    @keyframes sheet-in{from{transform:translateY(100%)}to{transform:translateY(0)}}
   </style>
 </head>
 <body class="theme-ramadan-dawn">
@@ -226,21 +223,7 @@
               </div>
             </div>
           </div>
-          <div class="themePick">
-            <label id="themeLabel" for="themeSel">Theme</label>
-            <select id="themeSel" aria-label="Choose visual theme">
-              <option value="ramadan-dawn">Ramadan Dawn</option>
-              <option value="midnight">Midnight</option>
-              <option value="oasis">Oasis</option>
-              <option value="sunset">Sunset</option>
-              <option value="royal">Royal</option>
-              <option value="neon-grid">Neon Grid</option>
-              <option value="paper">Paper</option>
-              <option value="mono">Mono</option>
-              <option value="forest-noir">Forest Noir</option>
-              <option value="candy-pop">Candy Pop</option>
-            </select>
-          </div>
+          <button id="themeOpenBtn" class="themeBtn" type="button">Theme</button>
         </div>
       </header>
       <div id="speechToSignPane" class="modePane">
@@ -298,6 +281,13 @@
       </div>
     </section>
   </main>
+  <div id="themeOverlay" class="themeOverlay" hidden>
+    <header class="themeHeader">
+      <h2 id="themePageTitle">Select Theme</h2>
+      <button id="themeCloseBtn" class="themeClose" type="button">Close</button>
+    </header>
+    <div id="themeGrid" class="themeGrid"></div>
+  </div>
   <footer class="footer"><div class="credit"><a href="https://raazimtech.github.io/Raazim-tech/" target="_blank" rel="noopener"><p id="madeByLabel">Made By</p><strong>RT Solutions</strong></a></div></footer>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
@@ -305,12 +295,12 @@
   <script>
   (() => {
     const el = {
-      mic: document.getElementById("micBtn"), status: document.getElementById("status"), input: document.getElementById("input"),
-      translate: document.getElementById("translate"), trans: document.getElementById("trans"), show: document.getElementById("show"),
-      tok: document.getElementById("tok"), clear: document.getElementById("clear"), reload: document.getElementById("reload"), gifBtn: document.getElementById("gifBtn"),
-      textBtn: document.getElementById("textBtn"), smartBtn: document.getElementById("smartBtn"), alphaBtn: document.getElementById("alphaBtn"),
+      mic: document.getElementById("micBtn"), status: document.getElementById("status"), input: document.getElementById("input"), translate: document.getElementById("translate"),
+      trans: document.getElementById("trans"), show: document.getElementById("show"), tok: document.getElementById("tok"), clear: document.getElementById("clear"),
+      reload: document.getElementById("reload"), gifBtn: document.getElementById("gifBtn"), textBtn: document.getElementById("textBtn"),
+      smartBtn: document.getElementById("smartBtn"), alphaBtn: document.getElementById("alphaBtn"),
       langSel: document.getElementById("langSel"), langToggleBtn: document.getElementById("langToggleBtn"), langMenu: document.getElementById("langMenu"),
-      themeSel: document.getElementById("themeSel"), repeatBtn: document.getElementById("repeatBtn"),
+      themeOpenBtn: document.getElementById("themeOpenBtn"), themeOverlay: document.getElementById("themeOverlay"), themeCloseBtn: document.getElementById("themeCloseBtn"), themeGrid: document.getElementById("themeGrid"), themePageTitle: document.getElementById("themePageTitle"), repeatBtn: document.getElementById("repeatBtn"),
       navSpeechToSign: document.getElementById("navSpeechToSign"), navSignToSpeech: document.getElementById("navSignToSpeech"),
       speechToSignPane: document.getElementById("speechToSignPane"), signToSpeechPane: document.getElementById("signToSpeechPane"),
       cameraFeed: document.getElementById("cameraFeed"), cameraOverlay: document.getElementById("cameraOverlay"),
@@ -319,7 +309,7 @@
       appTitle: document.getElementById("appTitle"), appSubtitle: document.getElementById("appSubtitle"), ramadanTag: document.getElementById("ramadanTag"),
       recognizedTitle: document.getElementById("recognizedTitle"), signPlaybackTitle: document.getElementById("signPlaybackTitle"),
       outputLabel: document.getElementById("outputLabel"), fallbackLabel: document.getElementById("fallbackLabel"), manualLabel: document.getElementById("manualLabel"),
-      themeLabel: document.getElementById("themeLabel"), madeByLabel: document.getElementById("madeByLabel")
+      madeByLabel: document.getElementById("madeByLabel")
     };
 
     const LANGUAGES = [
@@ -741,6 +731,8 @@
         chooseLanguage: "Choose language",
         chooseTheme: "Choose visual theme",
         themeRamadanDawn: "Ramadan Dawn",
+        selectTheme: "Select Theme",
+        close: "Close",
         themeMidnight: "Midnight",
         themeOasis: "Oasis",
         themeSunset: "Sunset",
@@ -750,6 +742,11 @@
         themeMono: "Mono",
         themeForestNoir: "Forest Noir",
         themeCandyPop: "Candy Pop",
+        themeSakura: "Sakura",
+        themeDesertSand: "Desert Sand",
+        themeArcticIce: "Arctic Ice",
+        themeVolcanic: "Volcanic",
+        themeCyberPurple: "Cyber Purple",
         startMicAria: "Start speech recognition",
         stopMicAria: "Stop speech recognition"
       },
@@ -777,6 +774,8 @@
         chooseLanguage: "Dooro luqad",
         chooseTheme: "Dooro muuqaalka",
         themeRamadanDawn: "Waaberiga Ramadan",
+        selectTheme: "Dooro Muuqaalka",
+        close: "Xir",
         themeMidnight: "Saqda Dhexe",
         themeOasis: "Oasis",
         themeSunset: "Qorrax Dhac",
@@ -786,6 +785,11 @@
         themeMono: "Hal Midab",
         themeForestNoir: "Madowga Kaynta",
         themeCandyPop: "Nacnac Pop",
+        themeSakura: "Sakura",
+        themeDesertSand: "Ciid Lamadagaaneed",
+        themeArcticIce: "Barafka Arctic",
+        themeVolcanic: "Holac Buureed",
+        themeCyberPurple: "Buluug Casaan (Cyber)",
         startMicAria: "Bilow aqoonsiga codka",
         stopMicAria: "Jooji aqoonsiga codka"
       }
@@ -974,7 +978,7 @@
       releaseFrames: 0,
       lastEmitTs: 0,
       lastToken: "",
-      tipHistory: { thumb: [], index: [], pinky: [] }
+      tipHistory: { thumb: [], index: [], pinky: [], wrist: [] }
     });
     const handStates = { Left: makeHandState(), Right: makeHandState(), Both: makeHandState() };
     const resetHandState = (key) => {
@@ -983,6 +987,11 @@
     const pointDistance = (a, b) => Math.hypot((a.x || 0) - (b.x || 0), (a.y || 0) - (b.y || 0));
     const clampHistory = (arr, max = 14) => {
       while (arr.length > max) arr.shift();
+    };
+    const calculateVariance = (arr) => {
+      if (arr.length < 2) return 0;
+      const mean = arr.reduce((a, b) => a + b, 0) / arr.length;
+      return arr.reduce((a, b) => a + (b - mean) ** 2, 0) / arr.length;
     };
     const palmScale = (landmarks) => Math.max(pointDistance(landmarks[0], landmarks[9]), 0.045);
     const fingerSpread = (landmarks, aTip, bTip) => pointDistance(landmarks[aTip], landmarks[bTip]) / palmScale(landmarks);
@@ -1045,6 +1054,7 @@
     };
     const classifyStaticASL = (f) => {
       if (f.allFourUp && (f.thumbOpen || !f.thumbClosed)) return "HELLO ";
+      if (f.thumbOpen && f.indexUp && !f.middleUp && !f.ringUp && f.pinkyUp) return "I LOVE YOU";
       if (f.thumbOpen && !f.indexUp && !f.middleUp && !f.ringUp && !f.pinkyUp) return "YES ";
 
       if (f.fistLike && f.thumbClosed) return "A";
@@ -1068,6 +1078,7 @@
       if (f.thumbClosed && f.indexCurled && f.middleCurled && f.ringCurled && f.pinkyCurled) return "M";
       if (f.thumbClosed && f.indexCurled && f.middleCurled && !f.ringCurled && f.pinkyCurled) return "N";
       if (f.thumbOpen && f.indexUp && f.middleUp && !f.ringUp && !f.pinkyUp && !f.indexSideways) return "K";
+      if (f.idxThumbTouch && f.midThumbTouch && !f.ringUp && !f.pinkyUp) return "NO";
       if (f.thumbOpen && f.indexUp && f.middleUp && !f.ringUp && !f.pinkyUp && f.indexSideways) return "P";
       if (f.thumbOpen && !f.middleUp && !f.ringUp && !f.pinkyUp && f.indexSideways && !f.indexUp) return "Q";
       if (f.idxThumbTouch && !f.middleUp && !f.ringUp && !f.pinkyUp) return "9";
@@ -1083,7 +1094,7 @@
       return "";
     };
     const detectMotionASL = (f, handKey) => {
-      const history = handStates[handKey]?.tipHistory || { thumb: [], index: [], pinky: [] };
+      const history = handStates[handKey]?.tipHistory || { thumb: [], index: [], pinky: [], wrist: [] };
       if (history.pinky.length >= 8 && !f.thumbOpen && !f.indexUp && !f.middleUp && !f.ringUp && f.pinkyUp) {
         const first = history.pinky[0];
         const last = history.pinky[history.pinky.length - 1];
@@ -1104,6 +1115,18 @@
         const span = Math.max(...history.thumb.map((p) => p.x)) - Math.min(...history.thumb.map((p) => p.x));
         if (span > 0.08) return "10";
       }
+
+      if (history.wrist.length >= 5) {
+        const wrist = history.wrist;
+        const xVar = calculateVariance(wrist.map(p => p.x));
+        const yVar = calculateVariance(wrist.map(p => p.y));
+        const dy = wrist[wrist.length - 1].y - wrist[0].y;
+
+        if (f.allFourUp && xVar > 0.002) return "HELLO";
+        if (f.fistLike && yVar > 0.002 && xVar < 0.001) return "YES";
+        if (f.allFourUp && !f.thumbOpen && dy > 0.08 && xVar < 0.001) return "THANK YOU";
+      }
+
       return "";
     };
     const classifyGesture = (landmarks, handedness, handKey) => {
@@ -1124,6 +1147,9 @@
       const leftFist = !leftF.indexUp && !leftF.middleUp && !leftF.ringUp && !leftF.pinkyUp;
       const rightFist = !rightF.indexUp && !rightF.middleUp && !rightF.ringUp && !rightF.pinkyUp;
       if (leftPalm && rightPalm) return "WELCOME ";
+      const wristsClose = pointDistance(leftLandmarks[0], rightLandmarks[0]) < 0.2;
+      if (leftFist && rightFist && wristsClose) return "LOVE ";
+      if (leftPalm && rightPalm && wristsClose) return "CLAP ";
       if (leftThumbOnly && rightThumbOnly) return "EXCELLENT ";
       if (leftV && rightV) return "PEACE ";
       if (leftFist && rightFist) return "BOOK ";
@@ -1262,9 +1288,11 @@
             state.tipHistory.thumb.push({ x: landmarks[4].x, y: landmarks[4].y });
             state.tipHistory.index.push({ x: landmarks[8].x, y: landmarks[8].y });
             state.tipHistory.pinky.push({ x: landmarks[20].x, y: landmarks[20].y });
+            state.tipHistory.wrist.push({ x: landmarks[0].x, y: landmarks[0].y });
             clampHistory(state.tipHistory.thumb);
             clampHistory(state.tipHistory.index);
             clampHistory(state.tipHistory.pinky);
+            clampHistory(state.tipHistory.wrist);
             const gesture = classifyGesture(landmarks, handedness, handedness);
             const emitted = processGestureCandidate(gesture, handedness);
             if (emitted) detectedTokens.push(`${handedness}: ${emitted}`);
@@ -1350,7 +1378,29 @@
       "paper": "themePaper",
       "mono": "themeMono",
       "forest-noir": "themeForestNoir",
-      "candy-pop": "themeCandyPop"
+      "candy-pop": "themeCandyPop",
+      "sakura": "themeSakura",
+      "desert-sand": "themeDesertSand",
+      "arctic-ice": "themeArcticIce",
+      "volcanic": "themeVolcanic",
+      "cyber-purple": "themeCyberPurple"
+    };
+    const THEME_COLORS = {
+      "ramadan-dawn": "linear-gradient(135deg, #eef4fb, #0f7f88)",
+      "midnight": "linear-gradient(135deg, #0f1620, #2cb7c1)",
+      "oasis": "linear-gradient(135deg, #e9f8f2, #137a63)",
+      "sunset": "linear-gradient(135deg, #fff1e8, #c05d2d)",
+      "royal": "linear-gradient(135deg, #f2f1ff, #4f56c8)",
+      "neon-grid": "linear-gradient(135deg, #080b16, #00e6b8)",
+      "paper": "linear-gradient(135deg, #f8f1e4, #8a6a32)",
+      "mono": "linear-gradient(135deg, #ececec, #2f2f2f)",
+      "forest-noir": "linear-gradient(135deg, #0b1712, #4cb980)",
+      "candy-pop": "linear-gradient(135deg, #fff0f8, #ff4ea1)",
+      "sakura": "linear-gradient(135deg, #fff5f8, #d94b7f)",
+      "desert-sand": "linear-gradient(135deg, #fff4e6, #b56a2a)",
+      "arctic-ice": "linear-gradient(135deg, #edf7ff, #1373c7)",
+      "volcanic": "linear-gradient(135deg, #130c0c, #ff5a3d)",
+      "cyber-purple": "linear-gradient(135deg, #0d071a, #a855f7)"
     };
     const langMetaByCode = Object.fromEntries(LANGUAGES.map((l) => [l.code, l]));
     const localizeLanguageLabel = (code, uiLocale) => {
@@ -1408,7 +1458,7 @@
       if (el.ramadanTag) el.ramadanTag.textContent = uiText("ramadanTag");
       if (el.recognizedTitle) el.recognizedTitle.textContent = uiText("recognizedTitle");
       if (el.signPlaybackTitle) el.signPlaybackTitle.textContent = uiText("signPlaybackTitle");
-      if (el.themeLabel) el.themeLabel.textContent = uiText("themeLabel");
+      if (el.themeOpenBtn) el.themeOpenBtn.textContent = uiText("themeLabel");
       if (el.repeatBtn) {
         const rpt = uiText("repeatTitle");
         el.repeatBtn.title = rpt;
@@ -1427,13 +1477,9 @@
       if (el.reload) el.reload.textContent = uiText("reload");
       if (el.madeByLabel) el.madeByLabel.textContent = uiText("madeBy");
       if (el.langSel) el.langSel.setAttribute("aria-label", uiText("chooseLanguage"));
-      if (el.themeSel) el.themeSel.setAttribute("aria-label", uiText("chooseTheme"));
-      if (el.themeSel) {
-        [...el.themeSel.options].forEach((opt) => {
-          const key = THEME_UI_KEY[opt.value];
-          if (key) opt.textContent = uiText(key);
-        });
-      }
+      if (el.themePageTitle) el.themePageTitle.textContent = uiText("selectTheme");
+      if (el.themeCloseBtn) el.themeCloseBtn.textContent = uiText("close");
+      renderThemes();
       refreshLanguageOptionLabels();
       if (el.mic) el.mic.setAttribute("aria-label", listening ? uiText("stopMicAria") : uiText("startMicAria"));
       setLangToggle();
@@ -1464,7 +1510,10 @@
       return out;
     };
 
-    const clearShow = (m=t("defaultPlaceholder")) => { el.show.innerHTML=`<p class="ph">${m}</p>`; el.tok.textContent=""; };
+    const clearShow = (m=t("defaultPlaceholder")) => {
+      el.show.innerHTML=`<p class="ph">${m}</p>`;
+      el.tok.textContent="";
+    };
     const tokenCard = (token,title="Text") => { el.show.innerHTML=`<div class="tcard fade"><div><b>${title}</b><span>${token}</span></div></div>`; };
     const updateRepeatState = () => { if (el.repeatBtn) el.repeatBtn.disabled = !last; };
     const alphaSources = (c) => [`assets/alphabet/${c}.gif`, encodeURI("spelling or alphabet.gif")];
@@ -1517,7 +1566,9 @@
         }
         // In smart mode, don't force alphabet GIF spelling for unknown words.
         // Keep unmatched token as text when text output is enabled.
-        if (output === "text") q.push({src:"",token:w,display:w,fallback:true,title:isSomali()?"Qoraal":"Text"});
+        if (output === "text") {
+          q.push({src:"",token:w,display:w,fallback:true,title:isSomali()?"Qoraal":"Text"});
+        }
       }
       return q;
     };
@@ -1529,7 +1580,7 @@
       return srcList[i];
     };
 
-    const render = item => new Promise(res=>{
+    const render = item => new Promise(async res=>{
       if(output==="text"){ tokenCard(item.display || item.token,isSomali()?"Qoraal":"Text"); res(); return; }
       const srcList = item.srcList || (item.src ? [item.src] : []);
       if(item.fallback || !srcList.length){ res(); return; }
@@ -1560,7 +1611,6 @@
         img.onload = () => settle(true);
         img.onerror = () => settle(false);
         img.src = src;
-        // Large local GIFs can take longer to decode; short timeouts skip valid signs.
         setTimeout(() => settle(false), 8000);
       };
       tryLoad(0);
@@ -1569,7 +1619,12 @@
     async function play(words, forceAlpha=false){
       run++; const id=run; const q=queueFor(words, forceAlpha);
       if(!q.length){ clearShow(t("noMap")); setStatus("",t("idle")); return; }
-      for(const item of q){ if(id!==run) return; el.tok.textContent=`${t("showing")}: ${item.display || item.token}`; await render(item); await wait(1800); }
+      for(const item of q){
+        if(id!==run) return;
+        el.tok.textContent=`${t("showing")}: ${item.display || item.token}`;
+        await render(item);
+        await wait(1800);
+      }
       if(id===run) setStatus("",t("idle"));
     }
 
@@ -1584,15 +1639,38 @@
 
     function reset(){ run++; el.trans.textContent=t("defaultTranscript"); el.input.value=""; clearShow(); el.mic.classList.remove("listening"); el.mic.setAttribute("aria-label",uiText("startMicAria")); listening=false; hadResult=false; manualStop=false; last=""; updateRepeatState(); setStatus("",t("idle")); }
     const replay=()=>{ if(last) translate(last); };
-    const tog=(on,off)=>{on.classList.add("on");off.classList.remove("on");on.setAttribute("aria-pressed","true");off.setAttribute("aria-pressed","false");};
+    const updateOutputToggle = (activeBtn) => {
+      [el.gifBtn, el.textBtn].forEach(btn => {
+        const isOn = btn === activeBtn;
+        btn.classList.toggle("on", isOn);
+        btn.setAttribute("aria-pressed", isOn ? "true" : "false");
+      });
+    };
     const THEME_KEY = "theme-name";
-    const THEME_NAMES = ["ramadan-dawn","midnight","oasis","sunset","royal","neon-grid","paper","mono","forest-noir","candy-pop"];
+    const THEME_NAMES = ["ramadan-dawn","midnight","oasis","sunset","royal","neon-grid","paper","mono","forest-noir","candy-pop","sakura","desert-sand","arctic-ice","volcanic","cyber-purple"];
     const applyTheme = (name) => {
       const next = THEME_NAMES.includes(name) ? name : "ramadan-dawn";
       document.body.classList.remove(...THEME_NAMES.map((t) => `theme-${t}`));
       document.body.classList.add(`theme-${next}`);
-      if (el.themeSel) el.themeSel.value = next;
+      renderThemes(next);
       try { localStorage.setItem(THEME_KEY, next); } catch {}
+    };
+    const renderThemes = (activeName) => {
+      if (!el.themeGrid) return;
+      const current = activeName || document.body.className.replace("theme-", "") || "ramadan-dawn";
+      el.themeGrid.innerHTML = "";
+      THEME_NAMES.forEach(name => {
+        const btn = document.createElement("button");
+        btn.className = `themeOption ${name === current ? "active" : ""}`;
+        btn.onclick = () => { applyTheme(name); el.themeOverlay.hidden = true; };
+        const circle = document.createElement("div");
+        circle.className = "themePreview";
+        circle.style.background = THEME_COLORS[name] || "#eee";
+        const label = document.createElement("span");
+        label.textContent = uiText(THEME_UI_KEY[name] || name);
+        btn.append(circle, label);
+        el.themeGrid.appendChild(btn);
+      });
     };
     const initTheme = () => {
       let saved = "";
@@ -1648,8 +1726,9 @@
     el.input.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();translate(el.input.value);}});
     el.clear.addEventListener("click",()=>{ if(rec&&listening) rec.stop(); reset(); });
     el.reload?.addEventListener("click",()=>{ window.location.reload(); });
-    el.gifBtn.addEventListener("click",()=>{output="gif";tog(el.gifBtn,el.textBtn);replay();});
-    el.textBtn.addEventListener("click",()=>{output="text";tog(el.textBtn,el.gifBtn);replay();});
+    el.gifBtn.addEventListener("click",()=>{output="gif";updateOutputToggle(el.gifBtn);replay();});
+    el.textBtn.addEventListener("click",()=>{output="text";updateOutputToggle(el.textBtn);replay();});
+    const tog=(on,off)=>{on.classList.add("on");off.classList.remove("on");on.setAttribute("aria-pressed","true");off.setAttribute("aria-pressed","false");};
     el.smartBtn.addEventListener("click",()=>{fallback="smart";tog(el.smartBtn,el.alphaBtn);replay();});
     el.alphaBtn.addEventListener("click",()=>{fallback="alphabet";tog(el.alphaBtn,el.smartBtn);replay();});
     el.repeatBtn?.addEventListener("click",()=>{ replay(); });
@@ -1659,7 +1738,8 @@
     el.speakGestureBtn?.addEventListener("click",()=>{ speakGestureBuilder(); });
     el.clearGestureBtn?.addEventListener("click",()=>{ clearGestureBuilder(); });
     el.langToggleBtn?.addEventListener("click",()=>{ toggleLangMenu(); });
-    el.themeSel?.addEventListener("change",()=>{ applyTheme(el.themeSel.value); });
+    el.themeOpenBtn?.addEventListener("click",()=>{ if(el.themeOverlay) el.themeOverlay.hidden = false; });
+    el.themeCloseBtn?.addEventListener("click",()=>{ if(el.themeOverlay) el.themeOverlay.hidden = true; });
     el.langSel?.addEventListener("change",()=>{
       setLangToggle();
       refreshLanguage();
